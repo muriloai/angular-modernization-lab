@@ -1,0 +1,23 @@
+<div class="alerts-container">
+  @for (a of alertas(); track a.id) {
+    <div class="alert-card" [class.alert-high]="a.severidade === 'Alta'">
+      <div class="alert-top">
+        <div class="alert-meta">
+          <span class="alert-id">{{ a.id }}</span>
+          <span class="crop-badge">{{ a.cultura }}</span>
+          <span class="location">{{ a.talhao }}</span>
+        </div>
+        <span
+          class="severity-badge"
+          [class.sev-alta]="a.severidade === 'Alta'"
+          [class.sev-media]="a.severidade === 'Média'"
+          [class.sev-baixa]="a.severidade === 'Baixa'"
+        >
+          Severidade {{ a.severidade }}
+        </span>
+      </div>
+      <h4 class="alert-title">{{ a.tipo }}</h4>
+      <p class="alert-action"><strong>Recomendação:</strong> {{ a.recomendacao }}</p>
+    </div>
+  }
+</div>

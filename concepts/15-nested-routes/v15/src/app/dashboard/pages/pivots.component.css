@@ -1,0 +1,88 @@
+.pivots-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.pivot-card {
+  background-color: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 1.25rem;
+}
+
+.pivot-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 0.75rem;
+}
+
+.pivot-title {
+  margin: 0 0 0.25rem 0;
+  color: var(--text-main);
+  font-size: 1.05rem;
+}
+
+.pivot-id {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.badge {
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.25rem 0.6rem;
+  border-radius: 4px;
+}
+
+.badge-active {
+  background-color: var(--primary-light);
+  color: var(--primary);
+}
+
+.badge-inactive {
+  background-color: #f1f5f9;
+  color: #64748b;
+}
+
+.pivot-specs {
+  display: flex;
+  gap: 1.5rem;
+  margin-bottom: 1rem;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #475569;
+}
+
+.pivot-actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.btn {
+  padding: 0.45rem 1rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-start {
+  background-color: var(--primary);
+  color: #ffffff;
+}
+
+.btn-start:hover {
+  background-color: #166534;
+}
+
+.btn-stop {
+  background-color: #ef4444;
+  color: #ffffff;
+}
+
+.btn-stop:hover {
+  background-color: #dc2626;
+}

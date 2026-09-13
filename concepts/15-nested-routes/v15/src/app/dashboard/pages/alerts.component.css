@@ -1,0 +1,85 @@
+.alerts-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.alert-card {
+  background-color: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-left: 4px solid #94a3b8;
+  border-radius: 6px;
+  padding: 1.25rem;
+}
+
+.alert-card.alert-high {
+  border-left-color: #ef4444;
+}
+
+.alert-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.alert-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.alert-id {
+  font-family: monospace;
+  font-weight: 700;
+  color: var(--text-muted);
+}
+
+.crop-badge {
+  background-color: #f1f5f9;
+  padding: 0.15rem 0.45rem;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.location {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.severity-badge {
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+}
+
+.sev-alta {
+  background-color: var(--badge-v15-bg);
+  color: var(--badge-v15);
+}
+
+.sev-media {
+  background-color: #fef3c7;
+  color: #b45309;
+}
+
+.sev-baixa {
+  background-color: #e0f2fe;
+  color: #0369a1;
+}
+
+.alert-title {
+  margin: 0.25rem 0 0.5rem 0;
+  color: var(--text-main);
+  font-size: 1.05rem;
+}
+
+.alert-action {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #334155;
+}

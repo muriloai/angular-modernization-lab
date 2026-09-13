@@ -1,0 +1,44 @@
+<div class="dashboard-shell">
+  <div class="dashboard-header">
+    <div class="header-info">
+      <h2>Painel Integrado da Fazenda Santa Maria</h2>
+      <p class="subtitle">
+        Layout persistente com sub-rotas via <code>&lt;router-outlet&gt;</code>. Os menus e o status permanecem ativos durante a navegação.
+      </p>
+    </div>
+    <div class="sync-badge">
+      <span class="sync-dot"></span>
+      <span>Sincronização: {{ ultimaSincronizacao }}</span>
+    </div>
+  </div>
+
+  <!-- Barra de navegação secundária com rotas aninhadas -->
+  <nav class="sub-nav">
+    <a
+      routerLink="metricas"
+      routerLinkActive="active"
+      class="sub-link"
+    >
+      Métricas de Solo e Clima
+    </a>
+    <a
+      routerLink="alertas"
+      routerLinkActive="active"
+      class="sub-link"
+    >
+      Alertas de Pragas e Irrigação
+    </a>
+    <a
+      routerLink="pivos"
+      routerLinkActive="active"
+      class="sub-link"
+    >
+      Controle de Pivôs Centrais
+    </a>
+  </nav>
+
+  <!-- Ponto de injeção das rotas filhas -->
+  <div class="dashboard-content">
+    <router-outlet></router-outlet>
+  </div>
+</div>

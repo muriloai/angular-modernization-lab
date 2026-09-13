@@ -1,0 +1,16 @@
+<div class="main-container">
+  <header class="header">
+    <div class="header-left">
+      <span class="badge-version">Angular 22</span>
+      <h1>{{ title }}</h1>
+    </div>
+    <div class="farm-status">
+      <span class="crop-indicator"></span>
+      <span>Fazenda Santa Maria: {{ safra() }}</span>
+    </div>
+  </header>
+
+  <main class="content">
+    <router-outlet />
+  </main>
+</div>

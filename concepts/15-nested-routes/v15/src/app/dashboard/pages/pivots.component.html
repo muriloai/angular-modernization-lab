@@ -1,0 +1,32 @@
+<div class="pivots-container">
+  <div *ngFor="let p of pivos" class="pivot-card">
+    <div class="pivot-header">
+      <div>
+        <h4 class="pivot-title">{{ p.nome }}</h4>
+        <span class="pivot-id">{{ p.id }} - {{ p.area }}</span>
+      </div>
+      <span
+        class="badge"
+        [class.badge-active]="p.ligado"
+        [class.badge-inactive]="!p.ligado"
+      >
+        {{ p.ligado ? 'Operando' : 'Desligado' }}
+      </span>
+    </div>
+    <div class="pivot-specs">
+      <span>Vazão Hidráulica: {{ p.vazao }}</span>
+      <span>Pressão de Linha: {{ p.pressao }}</span>
+    </div>
+    <div class="pivot-actions">
+      <button
+        type="button"
+        class="btn"
+        [class.btn-stop]="p.ligado"
+        [class.btn-start]="!p.ligado"
+        (click)="togglePivo(p)"
+      >
+        {{ p.ligado ? 'Interromper Irrigação' : 'Iniciar Ciclo de Irrigação' }}
+      </button>
+    </div>
+  </div>
+</div>

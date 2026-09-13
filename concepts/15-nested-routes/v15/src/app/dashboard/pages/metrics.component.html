@@ -1,0 +1,17 @@
+<div class="metrics-grid">
+  <div *ngFor="let m of metricas" class="metric-card">
+    <div class="metric-header">
+      <span class="sensor-title">{{ m.sensor }}</span>
+      <span
+        class="badge"
+        [class.badge-ideal]="m.status === 'Ideal' || m.status === 'Vigor Alto'"
+        [class.badge-warn]="m.status === 'Atenção'"
+      >
+        {{ m.status }}
+      </span>
+    </div>
+    <div class="metric-value">{{ m.valor }}</div>
+    <div class="metric-location">{{ m.talhao }}</div>
+    <div class="metric-footer">{{ m.variacao }}</div>
+  </div>
+</div>
