@@ -1,0 +1,93 @@
+<main class="container">
+  <header class="header">
+    <div class="badge badge-v22">Angular 22 (Moderno)</div>
+    <h1>Conceito 05: Pipes e Transformações</h1>
+    <p class="subtitle">Pipes standalone, eliminação do pipe async e memoização com computed()</p>
+  </header>
+
+  <!-- Controles de Filtro e Teste de Memoizacao -->
+  <section class="card">
+    <h2>1. Filtro com computed() e Demonstração de Memoização</h2>
+    <p class="hint-text">
+      Ao clicar no botão neutro, o sinal de cliques é atualizado, mas a lista filtrada não recalcula desnecessariamente.
+    </p>
+
+    <div class="controls-grid">
+      <div class="form-group">
+        <label for="filtroInput">Filtrar por tipo ou talhão:</label>
+        <input
+          id="filtroInput"
+          type="text"
+          class="text-input"
+          placeholder="Ex: Solo, Foliar, Sul..."
+          [(ngModel)]="termoFiltro"
+        />
+      </div>
+
+      <div class="action-box">
+        <label>Disparar alteração externa:</label>
+        <button type="button" class="btn btn-secondary" (click)="dispararCiclo()">
+          Disparar Clique Arbitrário (Cliques: {{ contadorCliques() }})
+        </button>
+      </div>
+    </div>
+
+    <div class="counter-banner success-banner">
+      Total de cálculos do <code>computed(sensoresFiltrados)</code>: <strong>{{ totalExecucoesComputed }}</strong> (otimizado com memoização)
+    </div>
+  </section>
+
+  <!-- Lista de Sensores com Leitura Direta de Signal -->
+  <section class="card">
+    <h2>2. Tabela de Telemetria (Consumo direto de Signal)</h2>
+    <p class="hint-text">
+      Os dados são lidos diretamente de <code>sensoresFiltrados()</code> de forma síncrona, dispensando completamente o pipe <code>async</code>.
+    </p>
+
+    <div class="sensor-grid">
+      @for (s of sensoresFiltrados(); track s.id) {
+        <article class="sensor-item status-border-{{ s.status }}">
+          <div class="sensor-top">
+            <span class="sensor-talhao">{{ s.talhao }}</span>
+            <span class="sensor-badge badge-{{ s.status }}">
+              {{ s.status | sensorStatus }}
+            </span>
+          </div>
+
+          <h3 class="sensor-tipo">{{ s.tipo }}</h3>
+
+          <div class="sensor-leitura">
+            <span class="val">{{ s.leitura | number:'1.1-2' }}</span>
+            <span class="unit">{{ s.unidade }}</span>
+          </div>
+
+          <div class="sensor-meta">
+            <div class="meta-row">
+              <span class="meta-label">Última Coleta:</span>
+              <span class="meta-val">{{ s.dataLeitura | date:'dd/MM/yyyy HH:mm' }}</span>
+            </div>
+            <div class="meta-row">
+              <span class="meta-label">Custo Manutenção:</span>
+              <span class="meta-val">{{ s.custoManutencao | currency:'BRL':'symbol':'1.2-2' }}</span>
+            </div>
+          </div>
+        </article>
+      } @empty {
+        <div class="empty-state full-width">
+          <p>Nenhum sensor encontrado para o termo pesquisado.</p>
+        </div>
+      }
+    </div>
+  </section>
+
+  <!-- Caixa Didatica Explicativa -->
+  <section class="card didactic-box">
+    <h3>Lições do Modelo de Pipes no Angular 22:</h3>
+    <ol class="step-list">
+      <li><strong>Fim da dependência do pipe async:</strong> Como os dados reativos residem em Signals síncronos, o pipe <code>async</code> deixa de ser obrigatório na imensa maioria das telas.</li>
+      <li><strong>Substituição de pipes impuros por computed():</strong> Em vez de criar pipes impuros que degradam o desempenho, cálculos e filtros são expressos via <code>computed()</code> com cache inteligente automático.</li>
+      <li><strong>Pipes standalone:</strong> Tanto pipes customizados quanto os nativos (<code>CurrencyPipe</code>, <code>DatePipe</code>, <code>DecimalPipe</code>) são importados diretamente no array <code>imports</code> do componente.</li>
+      <li><strong>Performance previsível:</strong> O template só atualiza quando os nós vinculados a Signals sofrem mudanças reais, sem varredura periódica de toda a árvore.</li>
+    </ol>
+  </section>
+</main>

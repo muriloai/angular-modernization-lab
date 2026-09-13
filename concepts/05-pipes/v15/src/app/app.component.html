@@ -1,0 +1,90 @@
+<main class="container">
+  <header class="header">
+    <div class="badge badge-v15">Angular 15 (Clássico)</div>
+    <h1>Conceito 05: Pipes e Transformações</h1>
+    <p class="subtitle">Pipes puros vs impuros e consumo de streams com o pipe async</p>
+  </header>
+
+  <!-- Controles de Filtro e Disparo de Ciclo Zone.js -->
+  <section class="card">
+    <h2>1. Filtro com Pipe Impuro e Teste de Ciclos</h2>
+    <p class="hint-text">
+      Digite no campo de busca ou clique no botão neutro. Observe como o contador de chamadas do pipe impuro dispara a cada ciclo de detecção do Zone.js.
+    </p>
+
+    <div class="controls-grid">
+      <div class="form-group">
+        <label for="filtroInput">Filtrar por tipo ou talhão:</label>
+        <input
+          id="filtroInput"
+          type="text"
+          class="text-input"
+          placeholder="Ex: Solo, Foliar, Sul..."
+          [(ngModel)]="termoFiltro"
+        />
+      </div>
+
+      <div class="action-box">
+        <label>Disparar ciclo arbitrário:</label>
+        <button type="button" class="btn btn-secondary" (click)="dispararCicloZone()">
+          Disparar Ciclo Zone.js (Cliques: {{ contadorCliques }})
+        </button>
+      </div>
+    </div>
+
+    <div class="counter-banner">
+      Total de execuções do <code>FilterImpurePipe</code>: <strong>{{ totalChamadasImpuro }}</strong>
+    </div>
+  </section>
+
+  <!-- Lista de Sensores com Pipes Built-in, Puro e Async -->
+  <section class="card">
+    <h2>2. Tabela de Telemetria (Consumo com pipe async)</h2>
+    <p class="hint-text">
+      Os dados chegam de um <code>Observable</code> consumido via <code>sensores$ | async</code>.
+    </p>
+
+    <div class="sensor-grid">
+      <article
+        *ngFor="let s of (sensores$ | async) | filterImpure:termoFiltro; trackBy: trackById"
+        class="sensor-item status-border-{{ s.status }}"
+      >
+        <div class="sensor-top">
+          <span class="sensor-talhao">{{ s.talhao }}</span>
+          <span class="sensor-badge badge-{{ s.status }}">
+            {{ s.status | sensorStatus }}
+          </span>
+        </div>
+
+        <h3 class="sensor-tipo">{{ s.tipo }}</h3>
+
+        <div class="sensor-leitura">
+          <span class="val">{{ s.leitura | number:'1.1-2' }}</span>
+          <span class="unit">{{ s.unidade }}</span>
+        </div>
+
+        <div class="sensor-meta">
+          <div class="meta-row">
+            <span class="meta-label">Última Coleta:</span>
+            <span class="meta-val">{{ s.dataLeitura | date:'dd/MM/yyyy HH:mm' }}</span>
+          </div>
+          <div class="meta-row">
+            <span class="meta-label">Custo Manutenção:</span>
+            <span class="meta-val">{{ s.custoManutencao | currency:'BRL':'symbol':'1.2-2' }}</span>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- Caixa Didatica Explicativa -->
+  <section class="card didactic-box">
+    <h3>Lições do Modelo de Pipes no Angular 15:</h3>
+    <ol class="step-list">
+      <li><strong>Pipe async obrigatório para Observables:</strong> Sem o pipe <code>async</code>, seria necessário fazer <code>.subscribe()</code> manual no <code>ngOnInit</code> e <code>.unsubscribe()</code> no <code>ngOnDestroy</code> para evitar vazamentos de memória.</li>
+      <li><strong>O perigo do pipe impuro (pure: false):</strong> Executa em cada ciclo de detecção de mudanças disparado pelo Zone.js no componente, tornando filtragens de lista extremamente lentas em aplicações reais.</li>
+      <li><strong>Eficiência do pipe puro (sensorStatus):</strong> Pipes com <code>pure: true</code> só recalculam quando o valor primitivo ou a referência do objeto de entrada são alterados.</li>
+      <li><strong>Registro centralizado:</strong> Todos os pipes personalizados precisam ser declarados no array <code>declarations</code> do <code>AppModule</code>.</li>
+    </ol>
+  </section>
+</main>
