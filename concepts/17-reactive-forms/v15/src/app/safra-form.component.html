@@ -1,0 +1,176 @@
+<div class="safra-container">
+  <div class="header-box">
+    <h2>Planejamento de Safra e Alocação de Talhões</h2>
+    <p class="subtitle">
+      Formulário reativo clássico com <code>FormGroup</code>, <code>FormArray</code> dinâmico e validação customizada.
+    </p>
+  </div>
+
+  <div *ngIf="submetidoComSucesso" class="alert alert-success">
+    Planejamento da safra salvo com sucesso. Talhões alocados para a operação agrícola.
+  </div>
+
+  <form [formGroup]="safraForm" (ngSubmit)="submeter()" novalidate class="card-form">
+    <!-- Bloco 1: Metadados da Safra -->
+    <div class="section-title">Parâmetros Gerais da Safra</div>
+    <div class="form-row">
+      <div class="form-group">
+        <label for="safraAno">Ano da Safra *</label>
+        <input
+          id="safraAno"
+          formControlName="safraAno"
+          type="text"
+          class="form-control"
+          placeholder="Exemplo: 2025/2026"
+        />
+        <div *ngIf="safraForm.get('safraAno')?.invalid && safraForm.get('safraAno')?.touched" class="error-msg">
+          O ano da safra é obrigatório no formato AAAA/AAAA.
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="cultura">Cultura Principal *</label>
+        <select id="cultura" formControlName="culturaPrincipal" class="form-control">
+          <option value="Soja">Soja (Grãos de Exportação)</option>
+          <option value="Milho">Milho (Safrinha)</option>
+          <option value="Algodão">Algodão em Pluma</option>
+          <option value="Café">Café Especial Arábica</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="responsavel">Agrônomo Responsável *</label>
+      <input
+        id="responsavel"
+        formControlName="responsavelAgronomo"
+        type="text"
+        class="form-control"
+        placeholder="Nome do responsável técnico"
+      />
+      <div *ngIf="safraForm.get('responsavelAgronomo')?.invalid && safraForm.get('responsavelAgronomo')?.touched" class="error-msg">
+        Nome do agrônomo precisa ter ao menos 5 caracteres.
+      </div>
+    </div>
+
+    <!-- Bloco 2: Coleção Dinâmica de Talhões (FormArray) -->
+    <div class="section-header">
+      <div class="section-title">Talhões Alocados (FormArray Dinâmico)</div>
+      <button type="button" class="btn btn-add" (click)="adicionarTalhao()">
+        + Adicionar Talhão
+      </button>
+    </div>
+
+    <!-- Erros do FormArray (validador de área máxima) -->
+    <div *ngIf="talhoes.errors?.['semTalhoes'] && safraForm.touched" class="alert alert-warning">
+      Cadastre ao menos um talhão para viabilizar o plano de safra.
+    </div>
+    <div *ngIf="talhoes.errors?.['areaExcedida'] as err" class="alert alert-danger">
+      Área total alocada ({{ err.soma }} ha) excede o limite disponível da fazenda ({{ err.maxArea }} ha). Reduza {{ err.excesso }} ha.
+    </div>
+
+    <div formArrayName="talhoes" class="talhoes-list">
+      <div
+        *ngFor="let talhaoCtrl of talhoes.controls; let i = index"
+        [formGroupName]="i"
+        class="talhao-row"
+      >
+        <div class="talhao-col flex-2">
+          <label [for]="'nome-' + i">Identificação do Talhão:</label>
+          <input
+            [id]="'nome-' + i"
+            formControlName="nomeTalhao"
+            type="text"
+            class="form-control"
+            placeholder="Exemplo: Talhão Sul 03"
+          />
+          <div *ngIf="talhaoCtrl.get('nomeTalhao')?.invalid && talhaoCtrl.get('nomeTalhao')?.touched" class="error-msg">
+            Nome obrigatório (mín. 3 caracteres).
+          </div>
+        </div>
+
+        <div class="talhao-col flex-1">
+          <label [for]="'area-' + i">Área (ha):</label>
+          <input
+            [id]="'area-' + i"
+            formControlName="areaHectares"
+            type="number"
+            class="form-control"
+            placeholder="ha"
+          />
+          <div *ngIf="talhaoCtrl.get('areaHectares')?.invalid && talhaoCtrl.get('areaHectares')?.touched" class="error-msg">
+            Entre 10 e 1000 ha.
+          </div>
+        </div>
+
+        <div class="talhao-col flex-1">
+          <label [for]="'solo-' + i">Textura do Solo:</label>
+          <select [id]="'solo-' + i" formControlName="tipoSolo" class="form-control">
+            <option value="Argiloso">Argiloso</option>
+            <option value="Arenoso">Arenoso</option>
+            <option value="Misto">Misto</option>
+          </select>
+        </div>
+
+        <div class="talhao-action">
+          <button
+            type="button"
+            class="btn btn-remove"
+            (click)="removerTalhao(i)"
+            title="Remover este talhão"
+          >
+            Remover
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Indicador de Área Acumulada -->
+    <div class="area-summary">
+      <span>Área Total Comprometida:</span>
+      <strong [class.area-over]="areaTotalCalculada > maxAreaFazenda">
+        {{ areaTotalCalculada }} ha / {{ maxAreaFazenda }} ha
+      </strong>
+    </div>
+
+    <!-- Botões de Ação -->
+    <div class="form-actions">
+      <button type="button" class="btn btn-secondary" (click)="limpar()">
+        Limpar Campos
+      </button>
+      <button type="submit" class="btn btn-primary" [disabled]="safraForm.invalid">
+        Salvar Plano de Safra
+      </button>
+    </div>
+  </form>
+
+  <!-- Diagnóstico Reativo do Formulário -->
+  <div class="state-inspector">
+    <h3>Diagnóstico Reativo (FormGroup & FormArray)</h3>
+    <div class="flags-grid">
+      <div class="flag-item">
+        <span class="flag-label">Status:</span>
+        <span class="flag-val" [class.val-true]="safraForm.valid" [class.val-warn]="safraForm.invalid">
+          {{ safraForm.status }}
+        </span>
+      </div>
+      <div class="flag-item">
+        <span class="flag-label">Qtd. Talhões:</span>
+        <span class="flag-val">{{ talhoes.length }}</span>
+      </div>
+      <div class="flag-item">
+        <span class="flag-label">Dirty:</span>
+        <span class="flag-val">{{ safraForm.dirty }}</span>
+      </div>
+      <div class="flag-item">
+        <span class="flag-label">Touched:</span>
+        <span class="flag-val">{{ safraForm.touched }}</span>
+      </div>
+    </div>
+
+    <div *ngIf="ultimoRegistroSalvo" class="summary-box">
+      <h4>Último Plano de Safra Confirmado</h4>
+      <pre>{{ ultimoRegistroSalvo | json }}</pre>
+    </div>
+  </div>
+</div>
