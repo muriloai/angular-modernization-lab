@@ -1,0 +1,39 @@
+<div class="page-container">
+  <div class="page-header">
+    <div>
+      <h2>Catálogo de Propriedades Agrícolas</h2>
+      <p class="subtitle">Visão consolidada das unidades produtivas e talhões monitorados</p>
+    </div>
+    <button type="button" class="btn btn-secondary" (click)="irParaSensores()">
+      Ver Sensores em Tempo Real (Programático)
+    </button>
+  </div>
+
+  <div class="cards-grid">
+    @for (f of fazendas(); track f.id) {
+      <div class="farm-card">
+        <div class="farm-card-header">
+          <span class="farm-title">{{ f.nome }}</span>
+          <span
+            class="status-badge"
+            [class.status-operacional]="f.status === 'operacional'"
+            [class.status-manutencao]="f.status === 'manutencao'"
+          >
+            {{ f.status === 'operacional' ? 'Operacional' : 'Manutenção' }}
+          </span>
+        </div>
+
+        <div class="farm-details">
+          <p><strong>Localização:</strong> {{ f.localizacao }}</p>
+          <p><strong>Área Monitorada:</strong> {{ f.areaHectares }} hectares</p>
+          <p>
+            <strong>Culturas:</strong>
+            @for (c of f.culturas; track c) {
+              <span class="tag-culture">{{ c }}</span>
+            }
+          </p>
+        </div>
+      </div>
+    }
+  </div>
+</div>
