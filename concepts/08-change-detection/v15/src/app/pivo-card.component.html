@@ -1,0 +1,31 @@
+<article class="pivo-box" [class.ativo]="ativo">
+  <div class="box-top">
+    <span class="setor-tag">{{ setor }}</span>
+    <span class="status-badge" [class.badge-on]="ativo" [class.badge-off]="!ativo">
+      {{ ativo ? 'EM OPERAÇÃO' : 'PARADO' }}
+    </span>
+  </div>
+
+  <h3 class="pivo-nome">{{ nome }}</h3>
+
+  <div class="metrics-row">
+    <div class="metric">
+      <span class="m-label">Ângulo de Giro:</span>
+      <span class="m-val">{{ angulo }}°</span>
+    </div>
+    <div class="metric">
+      <span class="m-label">Vazão Atual:</span>
+      <span class="m-val">{{ vazao }} L/h</span>
+    </div>
+  </div>
+
+  <div class="cycle-banner">
+    Varreduras neste filho: <strong>{{ ciclosVerificacao }}</strong>
+  </div>
+
+  <div class="actions">
+    <button type="button" class="btn btn-action" (click)="alternarStatus()">
+      {{ ativo ? 'Pausar Pivô' : 'Acionar Pivô' }}
+    </button>
+  </div>
+</article>

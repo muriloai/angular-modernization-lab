@@ -1,0 +1,61 @@
+<main class="container">
+  <header class="header">
+    <div class="badge badge-v22">Angular 22 (Moderno)</div>
+    <h1>Conceito 08: Detecção de Mudanças</h1>
+    <p class="subtitle">Zoneless nativo, notificações granulares com Signals e fim do Zone.js</p>
+  </header>
+
+  <!-- Controles de Disparo Granular -->
+  <section class="card">
+    <h2>1. Reatividade Granular sem Zone.js</h2>
+    <p class="hint-text">
+      No modo Zoneless, o Angular não monitora eventos do navegador de forma global. Apenas o nó vinculado ao sinal alterado é atualizado no DOM.
+    </p>
+
+    <div class="actions-row">
+      <button type="button" class="btn btn-secondary" (click)="dispararEventoNeutro()">
+        Disparar Alteração Neutra (Cliques: {{ contadorNeutro() }})
+      </button>
+
+      <button type="button" class="btn btn-primary" (click)="avancarAnguloGiro()">
+        Avançar Ângulo de Giro (+30° via Signal)
+      </button>
+    </div>
+
+    <div class="counter-box">
+      Valor do contador local: <strong>{{ contadorNeutro() }}</strong> (atualização direta no nó do DOM)
+    </div>
+  </section>
+
+  <!-- Grid de Componentes Filhos com Zoneless -->
+  <section class="card">
+    <h2>2. Monitoramento de Pivôs Centrais (Componentes Zoneless)</h2>
+    <p class="hint-text">
+      Cada cartão filho recebe inputs em Signals. A detecção de mudanças atua de forma seletiva sem exigir <code>ChangeDetectionStrategy.OnPush</code> nem chamadas a <code>markForCheck()</code>.
+    </p>
+
+    <div class="pivos-grid">
+      @for (p of pivos(); track p.id) {
+        <app-pivo-card
+          [nome]="p.nome"
+          [setor]="p.setor"
+          [angulo]="p.angulo"
+          [vazao]="p.vazao"
+          [ativo]="p.ativo"
+          (statusAlterado)="alternarPivo(p.id)"
+        />
+      }
+    </div>
+  </section>
+
+  <!-- Caixa Didática Explicativa -->
+  <section class="card didactic-box">
+    <h3>Vantagens do Modo Zoneless no Angular 22:</h3>
+    <ol class="step-list">
+      <li><strong>Remoção do zone.js:</strong> Elimina a biblioteca que interceptava chamadas assíncronas globais, diminuindo o tamanho final do bundle da aplicação.</li>
+      <li><strong>Sem varreduras de cima a baixo:</strong> O framework não precisa percorrer a árvore de componentes procurando o que mudou; os Signals notificam diretamente as instruções de renderização.</li>
+      <li><strong>Fim da cerimônia do OnPush:</strong> Não é mais necessário configurar manualmente <code>OnPush</code> ou chamar <code>ChangeDetectorRef.markForCheck()</code> para ter alto desempenho.</li>
+      <li><strong>Performance previsível e rápida:</strong> Menor tempo de inicialização, menos consumo de memória e fim de erros como <code>ExpressionChangedAfterItHasBeenCheckedError</code>.</li>
+    </ol>
+  </section>
+</main>
