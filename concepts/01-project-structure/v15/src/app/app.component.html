@@ -1,0 +1,47 @@
+<main class="container">
+  <header class="header">
+    <div class="badge badge-v15">{{ versaoFramework }}</div>
+    <h1>Conceito 01: Project Structure & Bootstrap</h1>
+    <p class="subtitle">Demonstração da arquitetura clássica orientada a módulos</p>
+  </header>
+
+  <section class="card">
+    <h2>{{ titulo }}</h2>
+    <div class="grid-info">
+      <div class="info-item">
+        <span class="label">Ponto de Entrada:</span>
+        <code>src/main.ts</code>
+      </div>
+      <div class="info-item">
+        <span class="label">Modo de Inicialização:</span>
+        <strong>{{ modoBootstrap }}</strong>
+      </div>
+      <div class="info-item">
+        <span class="label">Motor de Build:</span>
+        <code>{{ motorBuild }}</code>
+      </div>
+      <div class="info-item">
+        <span class="label">Status da Estação:</span>
+        <span class="status-badge">{{ statusEstacao }}</span>
+      </div>
+      <div class="info-item">
+        <span class="label">Sensores Conectados:</span>
+        <strong>{{ sensoresConectados }} unidades</strong>
+      </div>
+      <div class="info-item">
+        <span class="label">Horário de Inicialização:</span>
+        <span>{{ timestampInicio }}</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="card didactic-box">
+    <h3>Como esta tela foi carregada no Angular 15:</h3>
+    <ol class="step-list">
+      <li>O navegador executa <code>src/main.ts</code>.</li>
+      <li><code>platformBrowserDynamic().bootstrapModule(AppModule)</code> compila o <code>AppModule</code> em runtime.</li>
+      <li>O <code>AppModule</code> verifica seu array <code>bootstrap: [AppComponent]</code>.</li>
+      <li>O Angular instancia o <code>AppComponent</code> e o renderiza na tag <code>&lt;app-root&gt;</code> do <code>index.html</code>.</li>
+    </ol>
+  </section>
+</main>

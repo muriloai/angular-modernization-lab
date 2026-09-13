@@ -9,6 +9,8 @@ dist/
 tmp/
 out-tsc/
 bazel-out/
+.turbo/
+.cache/
 
 # Logs
 npm-debug.log*
@@ -28,8 +30,14 @@ pnpm-debug.log*
 .c9/
 *.launch
 *.sublime-workspace
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
 
 # OS Files
 .DS_Store
 Thumbs.db
 Desktop.ini
+
+# Temporários
+.docs/

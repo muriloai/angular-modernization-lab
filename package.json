@@ -1,0 +1,17 @@
+{
+  "name": "angular-modernization-lab",
+  "version": "1.0.0",
+  "description": "Laboratório didático de modernização Angular comparando Angular 15 e Angular 22 por conceitos isolados",
+  "private": true,
+  "keywords": [
+    "angular",
+    "angular-15",
+    "angular-22",
+    "zoneless",
+    "signals",
+    "modernization",
+    "lab"
+  ],
+  "author": "",
+  "license": "MIT"
+}

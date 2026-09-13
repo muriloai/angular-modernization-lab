@@ -1,44 +1,57 @@
-# Angular | Modernization Lab
+# Angular Modernization Lab
 
-Laboratório comparativo demonstrando a evolução do Angular entre a versão 15 e a versão 22. Este repositório apresenta os mesmos cenários e conceitos técnicos implementados de forma espelhada em ambos os projetos.
+Laboratório didático comparando a evolução do Angular entre a versão 15 (clássica) e a versão 22 (moderna).
+
+O projeto adota uma abordagem de conceitos isolados. Cada pasta dentro de `concepts/` representa um tema específico de estudo com dois mini-projetos independentes:
+- `v15/`: Implementação clássica com `NgModule`, Zone.js e Webpack.
+- `v22/`: Implementação moderna com Standalone, Signals, Zoneless e Vite/esbuild.
+
+---
+
+## Estrutura do Repositório
+
+```text
+angular-modernization-lab/
+├── README.md
+├── package.json
+├── shared-assets/
+│   └── mock-data.json
+└── concepts/
+    └── 01-project-structure/
+        ├── README.md
+        ├── v15/
+        └── v22/
+```
+
+O repositório evolui de forma gradual. Novos conceitos são adicionados progressivamente em pastas dedicadas.
 
 ---
 
 ## Requisitos de Ambiente
 
-Devido às diferenças nos motores de compilação e dependências do framework, cada projeto requer uma versão específica do Node.js:
+- **Angular 15 (`v15`)**: Requer Node.js 18.
+- **Angular 22 (`v22`)**: Requer Node.js 20 ou superior.
 
-- **lab-v15 | Angular 15**: Requer **Node.js 18.x** - baseado em NgModule, Zone.js e Webpack.
-- **lab-v22 | Angular 22**: Requer **Node.js 20.x ou superior** - baseado em Standalone, Signals, Zoneless e Vite/esbuild.
-
-Você pode usar um gerenciador de versões como `nvm`, `fnm` ou similar para alternar entre as versões do Node.js _(opcional)_.
+Você pode utilizar gerenciadores de versão como `nvm` ou `fnm` para alternar entre as versões do Node.js.
 
 ---
 
-## Como Executar ?
+## Como Executar
 
-### Angular 15
+Cada conceito possui seu próprio `package.json` e pode ser executado de forma independente:
 
-Certifique-se de estar utilizando o Node.js 18:
-
+### Angular 15 (`v15`)
 ```bash
-cd lab-v15
+cd concepts/01-project-structure/v15
 npm install
 npm start
 ```
+Acesse em: `http://localhost:4200`
 
-Acesso local: `http://localhost:4200`
-
-### Angular 22
-
-Certifique-se de estar utilizando o Node.js 20 ou superior:
-
+### Angular 22 (`v22`)
 ```bash
-cd lab-v22
+cd concepts/01-project-structure/v22
 npm install
 npm start
 ```
-
-Acesso local: `http://localhost:4201`
-
----
+Acesse em: `http://localhost:4201`

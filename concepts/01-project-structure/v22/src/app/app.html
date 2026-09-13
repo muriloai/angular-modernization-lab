@@ -1,0 +1,47 @@
+<main class="container">
+  <header class="header">
+    <div class="badge badge-v22">{{ versaoFramework() }}</div>
+    <h1>Conceito 01: Project Structure & Bootstrap</h1>
+    <p class="subtitle">Demonstração da arquitetura moderna Standalone com esbuild e Vite</p>
+  </header>
+
+  <section class="card">
+    <h2>{{ titulo() }}</h2>
+    <div class="grid-info">
+      <div class="info-item">
+        <span class="label">Ponto de Entrada:</span>
+        <code>src/main.ts</code>
+      </div>
+      <div class="info-item">
+        <span class="label">Modo de Inicialização:</span>
+        <strong>{{ modoBootstrap() }}</strong>
+      </div>
+      <div class="info-item">
+        <span class="label">Motor de Build:</span>
+        <code>{{ motorBuild() }}</code>
+      </div>
+      <div class="info-item">
+        <span class="label">Status da Estação:</span>
+        <span class="status-badge">{{ statusEstacao() }}</span>
+      </div>
+      <div class="info-item">
+        <span class="label">Sensores Conectados:</span>
+        <strong>{{ sensoresConectados() }} unidades</strong>
+      </div>
+      <div class="info-item">
+        <span class="label">Horário de Inicialização:</span>
+        <span>{{ timestampInicio() }}</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="card didactic-box">
+    <h3>Como esta tela foi carregada no Angular 22:</h3>
+    <ol class="step-list">
+      <li>O navegador executa <code>src/main.ts</code> via Vite com ESM nativo.</li>
+      <li><code>bootstrapApplication(App, appConfig)</code> instancia diretamente o componente raiz <code>App</code>.</li>
+      <li>O componente é <strong>Standalone por padrão</strong>, sem necessidade de <code>AppModule</code> ou flag <code>standalone: true</code>.</li>
+      <li>O estado é lido de forma reativa através de <code>Signals</code> (ex: <code>{{ titulo() }}</code>), otimizando a renderização.</li>
+    </ol>
+  </section>
+</main>

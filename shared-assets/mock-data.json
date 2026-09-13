@@ -2,116 +2,263 @@
   "users": [
     {
       "id": "usr-001",
-      "name": "Ana Silva",
-      "email": "ana.silva@empresa.com.br",
-      "role": "Tech Lead",
-      "department": "Engenharia",
+      "name": "Dra. Helena Morais",
+      "email": "helena.morais@agrotech.com.br",
+      "role": "Engenheira Agrônoma Chefe",
+      "department": "Agronomia & Solo",
       "isActive": true,
-      "avatarUrl": "https://api.dicebear.com/7.x/avataaars/svg?seed=Ana"
+      "avatarUrl": "https://api.dicebear.com/7.x/avataaars/svg?seed=Helena"
     },
     {
       "id": "usr-002",
-      "name": "Carlos Eduardo",
-      "email": "carlos.eduardo@empresa.com.br",
-      "role": "Senior Frontend Engineer",
-      "department": "Engenharia",
+      "name": "Lucas Alcantara",
+      "email": "lucas.alcantara@agrotech.com.br",
+      "role": "Operador Sênior de Telemetria",
+      "department": "Automação",
       "isActive": true,
-      "avatarUrl": "https://api.dicebear.com/7.x/avataaars/svg?seed=Carlos"
+      "avatarUrl": "https://api.dicebear.com/7.x/avataaars/svg?seed=Lucas"
     },
     {
       "id": "usr-003",
-      "name": "Beatriz Mendes",
-      "email": "beatriz.mendes@empresa.com.br",
-      "role": "Product Manager",
-      "department": "Produto",
-      "isActive": false,
+      "name": "Beatriz Silveira",
+      "email": "beatriz.silveira@agrotech.com.br",
+      "role": "Piloto de Drones Agrícolas",
+      "department": "Operações Aéreas",
+      "isActive": true,
       "avatarUrl": "https://api.dicebear.com/7.x/avataaars/svg?seed=Beatriz"
     },
     {
       "id": "usr-004",
-      "name": "Daniel Oliveira",
-      "email": "daniel.oliveira@empresa.com.br",
-      "role": "QA Specialist",
-      "department": "Qualidade",
-      "isActive": true,
-      "avatarUrl": "https://api.dicebear.com/7.x/avataaars/svg?seed=Daniel"
+      "name": "Marcos Tanaka",
+      "email": "marcos.tanaka@agrotech.com.br",
+      "role": "Especialista em Irrigação",
+      "department": "Recursos Hídricos",
+      "isActive": false,
+      "avatarUrl": "https://api.dicebear.com/7.x/avataaars/svg?seed=Marcos"
     }
   ],
+  "sensores": [
+    {
+      "id": "sns-101",
+      "talhaoId": "talhao-norte-01",
+      "tipo": "Umidade do Solo",
+      "modelo": "AgroSense Soil-X4",
+      "valor": 42.5,
+      "unidade": "%",
+      "status": "normal",
+      "bateria": 88,
+      "ultimaLeitura": "2026-09-13T12:00:00Z"
+    },
+    {
+      "id": "sns-102",
+      "talhaoId": "talhao-sul-02",
+      "tipo": "pH do Solo",
+      "modelo": "AgroSense pH-Pro",
+      "valor": 5.8,
+      "unidade": "pH",
+      "status": "alerta",
+      "bateria": 45,
+      "ultimaLeitura": "2026-09-13T12:05:00Z"
+    },
+    {
+      "id": "sns-103",
+      "talhaoId": "talhao-leste-03",
+      "tipo": "Temperatura da Folhagem",
+      "modelo": "ThermalLeaf Infra-2",
+      "valor": 29.4,
+      "unidade": "°C",
+      "status": "normal",
+      "bateria": 92,
+      "ultimaLeitura": "2026-09-13T12:08:00Z"
+    },
+    {
+      "id": "sns-104",
+      "talhaoId": "talhao-oeste-04",
+      "tipo": "Condutividade Elétrica",
+      "modelo": "AgroSense EC-3000",
+      "valor": 1.2,
+      "unidade": "dS/m",
+      "status": "critico",
+      "bateria": 12,
+      "ultimaLeitura": "2026-09-13T11:50:00Z"
+    }
+  ],
+  "pivos": [
+    {
+      "id": "pivo-01",
+      "nome": "Pivô Central Alfa",
+      "raioMetros": 420,
+      "areaHectares": 55.4,
+      "vazaoLitrosHora": 185000,
+      "anguloAtual": 142.5,
+      "status": "operando",
+      "pressaoBar": 3.8,
+      "velocidadePercentual": 75
+    },
+    {
+      "id": "pivo-02",
+      "nome": "Pivô Central Beta",
+      "raioMetros": 380,
+      "areaHectares": 45.3,
+      "vazaoLitrosHora": 150000,
+      "anguloAtual": 88.0,
+      "status": "em_espera",
+      "pressaoBar": 0.0,
+      "velocidadePercentual": 0
+    },
+    {
+      "id": "pivo-03",
+      "nome": "Pivô Central Gama",
+      "raioMetros": 500,
+      "areaHectares": 78.5,
+      "vazaoLitrosHora": 220000,
+      "anguloAtual": 310.2,
+      "status": "manutencao",
+      "pressaoBar": 1.2,
+      "velocidadePercentual": 20
+    }
+  ],
+  "safras": [
+    {
+      "id": "safra-2026-soja",
+      "cultura": "Soja Transgênica Intacta",
+      "areaPlantadaHectares": 1250,
+      "dataPlantio": "2026-10-15",
+      "previsaoColheita": "2027-02-28",
+      "produtividadeEsperadaSacashA": 68.5,
+      "statusCiclo": "desenvolvimento_vegetativo"
+    },
+    {
+      "id": "safra-2026-milho",
+      "cultura": "Milho Safrinha Híbrido",
+      "areaPlantadaHectares": 840,
+      "dataPlantio": "2026-03-01",
+      "previsaoColheita": "2026-07-20",
+      "produtividadeEsperadaSacashA": 115.0,
+      "statusCiclo": "maturacao"
+    },
+    {
+      "id": "safra-2026-algodao",
+      "cultura": "Algodão em Pluma",
+      "areaPlantadaHectares": 420,
+      "dataPlantio": "2025-12-10",
+      "previsaoColheita": "2026-06-15",
+      "produtividadeEsperadaSacashA": 310.0,
+      "statusCiclo": "colheita_iniciada"
+    }
+  ],
+  "drones": [
+    {
+      "id": "drn-01",
+      "modelo": "AgroFly NDVI Mapper 4K",
+      "bateria": 95,
+      "altitudeMetros": 120,
+      "statusVoo": "em_missao",
+      "areaMapeadaHojeHectares": 240,
+      "posicaoGps": { "lat": -16.4523, "lng": -54.6312 }
+    },
+    {
+      "id": "drn-02",
+      "modelo": "AgroSpray Pulverizador Heavy",
+      "bateria": 40,
+      "altitudeMetros": 0,
+      "statusVoo": "recarregando",
+      "areaMapeadaHojeHectares": 110,
+      "posicaoGps": { "lat": -16.4530, "lng": -54.6300 }
+    }
+  ],
+  "tarefas": [
+    {
+      "id": "task-001",
+      "titulo": "Calibrar sensores de umidade do Talhão Norte",
+      "responsavel": "Dra. Helena Morais",
+      "prioridade": "alta",
+      "concluida": false,
+      "dataLimite": "2026-09-14"
+    },
+    {
+      "id": "task-002",
+      "titulo": "Executar voo multiespectral com Drone 01 no Pivô Alfa",
+      "responsavel": "Beatriz Silveira",
+      "prioridade": "alta",
+      "concluida": true,
+      "dataLimite": "2026-09-13"
+    },
+    {
+      "id": "task-003",
+      "titulo": "Revisão preventiva de bicos de aspersão do Pivô Gama",
+      "responsavel": "Lucas Alcantara",
+      "prioridade": "media",
+      "concluida": false,
+      "dataLimite": "2026-09-16"
+    }
+  ],
+  "clima": {
+    "cidade": "Rondonópolis - MT",
+    "temperaturaAtual": 31.8,
+    "sensacaoTermica": 34.0,
+    "umidadeRelativaAr": 38,
+    "velocidadeVentoKmh": 14.5,
+    "direcaoVento": "Sudeste",
+    "probabilidadeChuvaHoje": 15,
+    "indiceUV": 9.2,
+    "pressaoAtmHpa": 1012.4
+  },
   "products": [
     {
       "id": "prod-101",
-      "title": "Monitor UltraWide 34\"",
-      "description": "Monitor curvado para produtividade com resolução WQHD e taxa de 144Hz.",
-      "price": 2899.90,
-      "category": "Hardware",
-      "rating": 4.8,
-      "stock": 14,
+      "title": "Monitor de Telemetria de Solo AgroSense 4G",
+      "description": "Estação autônoma solar com 4 sensores de profundidade e conexão satelital.",
+      "price": 3890.00,
+      "category": "Hardware Agrícola",
+      "rating": 4.9,
+      "stock": 25,
       "isAvailable": true
     },
     {
       "id": "prod-102",
-      "title": "Teclado Mecânico Ergonômico",
-      "description": "Switches lineares silenciosos, layout ABNT2 e suporte magnético para punho.",
-      "price": 649.00,
-      "category": "Periféricos",
-      "rating": 4.7,
-      "stock": 35,
+      "title": "Controlador Inteligente de Válvula de Pivô",
+      "description": "Atuador eletro-hidráulico com comunicação LoRaWAN e controle milimétrico.",
+      "price": 1250.00,
+      "category": "Irrigação",
+      "rating": 4.8,
+      "stock": 42,
       "isAvailable": true
     },
     {
       "id": "prod-103",
-      "title": "Cadeira Ergonômica Pro",
-      "description": "Ajuste lombar 3D, malha respirável mesh e certificação NR17.",
-      "price": 1450.00,
-      "category": "Mobiliário",
-      "rating": 4.9,
-      "stock": 8,
+      "title": "Câmera Multiespectral para Drone Agrícola",
+      "description": "5 bandas espectrais calibradas para cálculo imediato de NDVI e NDRE.",
+      "price": 8900.00,
+      "category": "Sensoriamento Remoto",
+      "rating": 4.7,
+      "stock": 6,
       "isAvailable": true
     },
     {
       "id": "prod-104",
-      "title": "Hub USB-C 10 em 1",
-      "description": "Saídas HDMI 4K 60Hz, Ethernet Gigabit, leitor SD/TF e Power Delivery 100W.",
-      "price": 299.99,
-      "category": "Acessórios",
-      "rating": 4.3,
+      "title": "Sensor de Fluxo Hídrico Ultrassônico",
+      "description": "Medição de vazão não invasiva para tubulações de 6 a 12 polegadas.",
+      "price": 2100.00,
+      "category": "Recursos Hídricos",
+      "rating": 4.6,
       "stock": 0,
       "isAvailable": false
     }
   ],
-  "todos": [
-    {
-      "id": "todo-1",
-      "title": "Configurar rotas base da aplicação",
-      "completed": true,
-      "priority": "alta",
-      "createdAt": "2026-09-10T10:00:00Z"
-    },
-    {
-      "id": "todo-2",
-      "title": "Migrar componentes para Signals reativos",
-      "completed": false,
-      "priority": "alta",
-      "createdAt": "2026-09-11T14:30:00Z"
-    },
-    {
-      "id": "todo-3",
-      "title": "Validar comportamento Zoneless e render loops",
-      "completed": false,
-      "priority": "media",
-      "createdAt": "2026-09-12T09:15:00Z"
-    }
-  ],
   "metrics": {
-    "totalDeployments": 142,
-    "averageBundleSizeKb": 84.5,
-    "lighthouseScore": 99,
-    "lastAuditTimestamp": "2026-09-12T11:00:00Z"
+    "totalHectaresMonitorados": 2510,
+    "consumoAguaLitrosMes": 4850000,
+    "economiaHidricaPercentual": 22.4,
+    "sensoresAtivos": 48,
+    "alertasCriticosAtivos": 2,
+    "indiceSaudeVegetacaoNDVI": 0.78,
+    "ultimaSincronizacao": "2026-09-13T12:10:00Z"
   },
   "featureFlags": {
-    "enableNewCheckout": true,
-    "enableSignalsTelemetry": true,
-    "enableExperimentalDashboard": false,
+    "enableZonelessTelemetry": true,
+    "enableSignalsIrrigationControl": true,
+    "enableDroneAutonomousTracking": false,
     "maintenanceMode": false
   }
 }
