@@ -1,0 +1,36 @@
+<div class="list-container">
+  <div class="list-header">
+    <h2>Talhões Agrícolas Monitorados</h2>
+    <p class="subtitle">Selecione um talhão para abrir a ficha com parâmetros de rota e resolver</p>
+  </div>
+
+  <div class="talhoes-grid">
+    <div *ngFor="let t of talhoes" class="talhao-card">
+      <div class="card-head">
+        <span class="talhao-code">{{ t.id }}</span>
+        <span class="crop-tag">{{ t.cultura }}</span>
+      </div>
+
+      <h3 class="talhao-title">{{ t.nome }}</h3>
+      <p class="talhao-meta"><strong>Área:</strong> {{ t.areaHectares }} ha | <strong>Solo:</strong> {{ t.tipoSolo }}</p>
+
+      <div class="links-row">
+        <a
+          [routerLink]="['/talhoes', t.id]"
+          [queryParams]="{ safra: '2026', modo: 'completo' }"
+          class="btn-link btn-primary"
+        >
+          Ficha Completa (Safra 2026)
+        </a>
+
+        <a
+          [routerLink]="['/talhoes', t.id]"
+          [queryParams]="{ safra: '2025', modo: 'resumido' }"
+          class="btn-link btn-secondary"
+        >
+          Resumo (Safra 2025)
+        </a>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,161 @@
+.detail-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.detail-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.query-badges {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.badge-query {
+  font-size: 0.75rem;
+  font-weight: 600;
+  background-color: #f1f5f9;
+  color: #475569;
+  padding: 0.25rem 0.6rem;
+  border-radius: 9999px;
+  border: 1px solid var(--border-color);
+}
+
+.detail-card {
+  background-color: #ffffff;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.detail-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.talhao-id {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--primary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.detail-header h2 {
+  margin: 0.25rem 0 0 0;
+  font-size: 1.35rem;
+  color: var(--text-main);
+}
+
+.status-pill {
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.3rem 0.75rem;
+  border-radius: 9999px;
+}
+
+.status-ativa {
+  background-color: #dcfce7;
+  color: #15803d;
+}
+
+.status-prog {
+  background-color: #fef3c7;
+  color: #d97706;
+}
+
+.status-desl {
+  background-color: #f1f5f9;
+  color: #64748b;
+}
+
+.specs-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.spec-box {
+  background-color: #f8fafc;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 0.85rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.spec-lbl {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+.spec-val {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+.highlight-val {
+  color: var(--primary);
+}
+
+.history-box {
+  background-color: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  border-radius: 6px;
+  padding: 1rem;
+}
+
+.history-box h4 {
+  margin: 0 0 0.5rem 0;
+  font-size: 0.85rem;
+  color: #166534;
+}
+
+.history-box p {
+  margin: 0;
+  font-size: 0.85rem;
+  color: #14532d;
+}
+
+.not-found-msg {
+  text-align: center;
+  padding: 2rem;
+  color: #dc2626;
+  background-color: #fef2f2;
+  border: 1px solid #fca5a5;
+  border-radius: 8px;
+}
+
+.btn {
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 0.85rem;
+  cursor: pointer;
+  border: 1px solid var(--border-color);
+  transition: all 0.2s ease;
+}
+
+.btn-secondary {
+  background-color: #ffffff;
+  color: var(--text-main);
+}
+
+.btn-secondary:hover {
+  background-color: #f8fafc;
+  border-color: #cbd5e1;
+}

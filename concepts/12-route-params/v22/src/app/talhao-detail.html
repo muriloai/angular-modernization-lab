@@ -1,0 +1,63 @@
+<div class="detail-container">
+  <div class="detail-nav">
+    <button type="button" class="btn btn-secondary" (click)="voltar()">
+      Voltar para Lista de Talhões
+    </button>
+    <div class="query-badges">
+      <span class="badge-query">Safra Ativa: {{ safra() }}</span>
+      <span class="badge-query">Modo: {{ modo() }}</span>
+    </div>
+  </div>
+
+  @if (talhao(); as t) {
+    <div class="detail-card">
+      <div class="detail-header">
+        <div>
+          <span class="talhao-id">Código do Talhão: {{ id() }}</span>
+          <h2>{{ t.nome }}</h2>
+        </div>
+        <span
+          class="status-pill"
+          [class.status-ativa]="t.statusIrrigacao === 'ativa'"
+          [class.status-prog]="t.statusIrrigacao === 'programada'"
+          [class.status-desl]="t.statusIrrigacao === 'desligada'"
+        >
+          Irrigação: {{ t.statusIrrigacao | uppercase }}
+        </span>
+      </div>
+
+      <div class="specs-grid">
+        <div class="spec-box">
+          <span class="spec-lbl">Cultura Cultivada:</span>
+          <span class="spec-val">{{ t.cultura }}</span>
+        </div>
+
+        <div class="spec-box">
+          <span class="spec-lbl">Área Agrícola:</span>
+          <span class="spec-val">{{ t.areaHectares }} hectares</span>
+        </div>
+
+        <div class="spec-box">
+          <span class="spec-lbl">Classificação do Solo:</span>
+          <span class="spec-val">{{ t.tipoSolo }}</span>
+        </div>
+
+        <div class="spec-box">
+          <span class="spec-lbl">Umidade Média do Solo:</span>
+          <span class="spec-val highlight-val">{{ t.umidadeMedia }} %</span>
+        </div>
+      </div>
+
+      @if (modo() === 'completo') {
+        <div class="history-box">
+          <h4>Histórico Operacional Detalhado (Modo Completo):</h4>
+          <p>{{ t.historicoIntervencao }}</p>
+        </div>
+      }
+    </div>
+  } @else {
+    <div class="not-found-msg">
+      Talhão com código "{{ id() }}" não foi encontrado na base de dados da Fazenda Santa Maria.
+    </div>
+  }
+</div>
