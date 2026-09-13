@@ -1,0 +1,159 @@
+<main class="container">
+  <header class="header">
+    <div class="badge badge-v22">Angular 22 (Moderno)</div>
+    <h1>Conceito 03: Control Flow</h1>
+    <p class="subtitle">Built-in Control Flow Nativo: @if, @for, @switch e @empty</p>
+  </header>
+
+  <!-- Estrutura Condicional (@if com @else integrado) -->
+  <section class="card">
+    <div class="section-header">
+      <h2>1. Estrutura Condicional (@if / @else)</h2>
+      <button type="button" class="btn btn-secondary" (click)="alternarSistema()">
+        Alternar Sistema: {{ sistemaAtivo() ? 'Desligar' : 'Ligar' }}
+      </button>
+    </div>
+
+    <!-- Sintaxe limpa de controle condicional nativo sem ng-template ou diretivas -->
+    @if (sistemaAtivo()) {
+      <div class="status-banner banner-ativo">
+        <strong>Status: Sistema Ativo e Operacional</strong>
+        <p>A telemetria está coletando e processando as leituras de solo em tempo real.</p>
+      </div>
+    } @else {
+      <div class="status-banner banner-inativo">
+        <strong>Status: Sistema Desconectado</strong>
+        <p>A telemetria está suspensa. Nenhuma leitura de solo está sendo enviada.</p>
+      </div>
+    }
+  </section>
+
+  <!-- Seleção Múltipla (@switch e @case nativos) -->
+  <section class="card">
+    <h2>2. Seleção Múltipla (@switch / @case)</h2>
+    <p class="hint-text">Selecione o modo de operação da irrigação e telemetria:</p>
+
+    <div class="actions-row">
+      <button
+        type="button"
+        class="btn"
+        [class.btn-primary]="modoOperacao() === 'padrao'"
+        [class.btn-secondary]="modoOperacao() !== 'padrao'"
+        (click)="definirModo('padrao')"
+      >
+        Padrão
+      </button>
+      <button
+        type="button"
+        class="btn"
+        [class.btn-primary]="modoOperacao() === 'economico'"
+        [class.btn-secondary]="modoOperacao() !== 'economico'"
+        (click)="definirModo('economico')"
+      >
+        Econômico
+      </button>
+      <button
+        type="button"
+        class="btn"
+        [class.btn-primary]="modoOperacao() === 'turbina'"
+        [class.btn-secondary]="modoOperacao() !== 'turbina'"
+        (click)="definirModo('turbina')"
+      >
+        Turbina
+      </button>
+    </div>
+
+    <!-- Bloco switch nativo com verificacao estrita -->
+    <div class="switch-container">
+      @switch (modoOperacao()) {
+        @case ('padrao') {
+          <div class="mode-card mode-padrao">
+            <h4>Modo Padrão</h4>
+            <p>Coleta de dados a cada 15 minutos com transmissão por rádio LoRaWAN.</p>
+          </div>
+        }
+        @case ('economico') {
+          <div class="mode-card mode-economico">
+            <h4>Modo Econômico</h4>
+            <p>Coleta a cada 60 minutos para maximizar a autonomia da bateria solar.</p>
+          </div>
+        }
+        @case ('turbina') {
+          <div class="mode-card mode-turbina">
+            <h4>Modo Turbina</h4>
+            <p>Telemetria contínua a cada 10 segundos com sincronização via satélite.</p>
+          </div>
+        }
+        @default {
+          <div class="mode-card">
+            <h4>Modo Não Identificado</h4>
+            <p>Configuração padrão de segurança aplicada.</p>
+          </div>
+        }
+      }
+    </div>
+  </section>
+
+  <!-- Repetição de Lista e Fallback (@for com track direto e @empty nativo) -->
+  <section class="card">
+    <div class="section-header">
+      <h2>3. Repetição de Lista (@for) e Bloco Nativo @empty</h2>
+      <div class="actions-row">
+        <button type="button" class="btn btn-outline" (click)="filtrarApenasAlertas()">
+          Apenas Alertas
+        </button>
+        <button type="button" class="btn btn-outline" (click)="restaurarLista()">
+          Restaurar Lista
+        </button>
+        <button type="button" class="btn btn-danger-outline" (click)="limparLista()">
+          Simular Lista Vazia
+        </button>
+      </div>
+    </div>
+
+    <p class="meta">Sensores monitorados: <strong>{{ sensores().length }}</strong></p>
+
+    <!-- O bloco @for possui suporte nativo ao bloco @empty quando a lista for vazia -->
+    <div class="sensor-grid">
+      @for (s of sensores(); track s.id; let idx = $index) {
+        <article
+          class="sensor-item"
+          [class.sensor-alerta]="s.status === 'alerta'"
+          [class.sensor-critico]="s.status === 'critico'"
+        >
+          <div class="sensor-top">
+            <span class="sensor-idx">#{{ idx + 1 }}</span>
+            <span class="sensor-tag status-{{ s.status }}">{{ s.status.toUpperCase() }}</span>
+          </div>
+          <h4 class="sensor-tipo">{{ s.tipo }}</h4>
+          <p class="sensor-talhao">{{ s.talhao }}</p>
+          <div class="sensor-metric">
+            <span class="val">{{ s.valor }}</span>
+            <span class="unit">{{ s.unidade }}</span>
+          </div>
+          <footer class="sensor-footer">
+            <span>Bateria: {{ s.bateria }}%</span>
+            <span class="sensor-id">{{ s.id }}</span>
+          </footer>
+        </article>
+      } @empty {
+        <div class="empty-state full-width">
+          <h4>Nenhum sensor disponível</h4>
+          <p>Nenhum dispositivo encontrado para o filtro atual. Clique em "Restaurar Lista" para recarregar.</p>
+        </div>
+      }
+    </div>
+  </section>
+
+  <!-- Caixa Didática Explicativa -->
+  <section class="card didactic-box">
+    <h3>Características do Control Flow no Angular 22:</h3>
+    <ol class="step-list">
+      <li><strong>Sintaxe declarativa de blocos (@if, @for, @switch):</strong> Elimina o uso de diretivas estruturais e asteriscos.</li>
+      <li><strong>Bloco @else integrado:</strong> Dispensa a criação de tags <code>&lt;ng-template&gt;</code> e identificadores locais de referência.</li>
+      <li><strong>Bloco nativo @empty:</strong> Renderiza automaticamente a interface de coleção vazia sem verificações manuais de tamanho.</li>
+      <li><strong>Rastreamento obrigatório e direto (track s.id):</strong> O compilador exige a expressão de rastreamento para garantir alta performance no DOM, sem exigir funções utilitárias na classe TypeScript.</li>
+      <li><strong>Zero dependência de módulos externos:</strong> O Control Flow é nativo do compilador, dispensando a importação de <code>CommonModule</code>.</li>
+    </ol>
+  </section>
+</main>

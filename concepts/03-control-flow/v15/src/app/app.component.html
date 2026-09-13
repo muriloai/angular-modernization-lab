@@ -1,0 +1,152 @@
+<main class="container">
+  <header class="header">
+    <div class="badge badge-v15">Angular 15 (Clássico)</div>
+    <h1>Conceito 03: Control Flow</h1>
+    <p class="subtitle">Diretivas Estruturais Clássicas: *ngIf, *ngFor e [ngSwitch]</p>
+  </header>
+
+  <!-- Estrutura Condicional (*ngIf com else via ng-template) -->
+  <section class="card">
+    <div class="section-header">
+      <h2>1. Estrutura Condicional (*ngIf / ng-template)</h2>
+      <button type="button" class="btn btn-secondary" (click)="alternarSistema()">
+        Alternar Sistema: {{ sistemaAtivo ? 'Desligar' : 'Ligar' }}
+      </button>
+    </div>
+
+    <!-- O bloco else exige a criacao de uma tag ng-template com identificador de referencia -->
+    <div *ngIf="sistemaAtivo; else painelDesligado" class="status-banner banner-ativo">
+      <strong>Status: Sistema Ativo e Operacional</strong>
+      <p>A telemetria está coletando e processando as leituras de solo em tempo real.</p>
+    </div>
+
+    <ng-template #painelDesligado>
+      <div class="status-banner banner-inativo">
+        <strong>Status: Sistema Desconectado</strong>
+        <p>A telemetria está suspensa. Nenhuma leitura de solo está sendo enviada.</p>
+      </div>
+    </ng-template>
+  </section>
+
+  <!-- Selecao Multipla ([ngSwitch] e diretivas associadas) -->
+  <section class="card">
+    <h2>2. Seleção Múltipla ([ngSwitch])</h2>
+    <p class="hint-text">Selecione o modo de operação da irrigação e telemetria:</p>
+
+    <div class="actions-row">
+      <button
+        type="button"
+        class="btn"
+        [class.btn-primary]="modoOperacao === 'padrao'"
+        [class.btn-secondary]="modoOperacao !== 'padrao'"
+        (click)="definirModo('padrao')"
+      >
+        Padrão
+      </button>
+      <button
+        type="button"
+        class="btn"
+        [class.btn-primary]="modoOperacao === 'economico'"
+        [class.btn-secondary]="modoOperacao !== 'economico'"
+        (click)="definirModo('economico')"
+      >
+        Econômico
+      </button>
+      <button
+        type="button"
+        class="btn"
+        [class.btn-primary]="modoOperacao === 'turbina'"
+        [class.btn-secondary]="modoOperacao !== 'turbina'"
+        (click)="definirModo('turbina')"
+      >
+        Turbina
+      </button>
+    </div>
+
+    <!-- Estrutura de switch usando tres diretivas estruturais distintas -->
+    <div class="switch-container" [ngSwitch]="modoOperacao">
+      <div *ngSwitchCase="'padrao'" class="mode-card mode-padrao">
+        <h4>Modo Padrão</h4>
+        <p>Coleta de dados a cada 15 minutos com transmissão por rádio LoRaWAN.</p>
+      </div>
+
+      <div *ngSwitchCase="'economico'" class="mode-card mode-economico">
+        <h4>Modo Econômico</h4>
+        <p>Coleta a cada 60 minutos para maximizar a autonomia da bateria solar.</p>
+      </div>
+
+      <div *ngSwitchCase="'turbina'" class="mode-card mode-turbina">
+        <h4>Modo Turbina</h4>
+        <p>Telemetria contínua a cada 10 segundos com sincronização via satélite.</p>
+      </div>
+
+      <div *ngSwitchDefault class="mode-card">
+        <h4>Modo Não Identificado</h4>
+        <p>Configuração padrão de segurança aplicada.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Repeticao de Lista e Fallback (*ngFor e ngIf para empty state) -->
+  <section class="card">
+    <div class="section-header">
+      <h2>3. Repetição de Lista (*ngFor) e Tratamento Vazio</h2>
+      <div class="actions-row">
+        <button type="button" class="btn btn-outline" (click)="filtrarApenasAlertas()">
+          Apenas Alertas
+        </button>
+        <button type="button" class="btn btn-outline" (click)="restaurarLista()">
+          Restaurar Lista
+        </button>
+        <button type="button" class="btn btn-danger-outline" (click)="limparLista()">
+          Simular Lista Vazia
+        </button>
+      </div>
+    </div>
+
+    <p class="meta">Sensores monitorados: <strong>{{ sensores.length }}</strong></p>
+
+    <!-- O *ngFor nao tem bloco para lista vazia, exigindo tratamentos manuais adicionais -->
+    <div class="sensor-grid" *ngIf="sensores.length > 0">
+      <article
+        *ngFor="let s of sensores; let idx = index; trackBy: trackById"
+        class="sensor-item"
+        [class.sensor-alerta]="s.status === 'alerta'"
+        [class.sensor-critico]="s.status === 'critico'"
+      >
+        <div class="sensor-top">
+          <span class="sensor-idx">#{{ idx + 1 }}</span>
+          <span class="sensor-tag status-{{ s.status }}">{{ s.status | uppercase }}</span>
+        </div>
+        <h4 class="sensor-tipo">{{ s.tipo }}</h4>
+        <p class="sensor-talhao">{{ s.talhao }}</p>
+        <div class="sensor-metric">
+          <span class="val">{{ s.valor }}</span>
+          <span class="unit">{{ s.unidade }}</span>
+        </div>
+        <footer class="sensor-footer">
+          <span>Bateria: {{ s.bateria }}%</span>
+          <span class="sensor-id">{{ s.id }}</span>
+        </footer>
+      </article>
+    </div>
+
+    <!-- Empty state gerenciado manualmente com ngIf separado -->
+    <div *ngIf="sensores.length === 0" class="empty-state">
+      <h4>Nenhum sensor disponível</h4>
+      <p>Nenhum dispositivo encontrado para o filtro atual. Clique em "Restaurar Lista" para recarregar.</p>
+    </div>
+  </section>
+
+  <!-- Caixa Didatica Explicativa -->
+  <section class="card didactic-box">
+    <h3>Características do Control Flow no Angular 15:</h3>
+    <ol class="step-list">
+      <li><strong>Microsintaxe com asterisco:</strong> Diretivas como <code>*ngIf</code> e <code>*ngFor</code> são desaçucaradas pelo compilador em elementos <code>&lt;ng-template&gt;</code> implícitos.</li>
+      <li><strong>Bloco alternativo com ng-template:</strong> Para exibir um <code>else</code>, é obrigatório criar um template nomeado via variável de referência local.</li>
+      <li><strong>Sem suporte nativo a listas vazias:</strong> O <code>*ngFor</code> não possui mecanismo para quando a coleção estiver vazia, exigindo validações manuais via <code>*ngIf</code>.</li>
+      <li><strong>Método de rastreamento no TypeScript:</strong> Para otimizar a atualização do DOM no <code>*ngFor</code>, é necessário escrever uma função <code>trackById(index, item)</code> na classe do componente.</li>
+      <li><strong>Dependência de CommonModule:</strong> Todas as diretivas estruturais clássicas exigem a inclusão do <code>CommonModule</code> no módulo da aplicação.</li>
+    </ol>
+  </section>
+</main>
