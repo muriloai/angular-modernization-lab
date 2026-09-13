@@ -1,0 +1,80 @@
+<main class="container">
+  <header class="header">
+    <div class="badge badge-v15">Angular 15 (Clássico)</div>
+    <h1>Conceito 06: Injeção de Dependência</h1>
+    <p class="subtitle">Injeção tradicional no construtor, InjectionToken e hierarquia de injetores</p>
+  </header>
+
+  <!-- Configuracao do Injetor Raiz -->
+  <section class="card">
+    <div class="section-top">
+      <h2>1. Injeção de Token no Nível Raiz (Root Injector)</h2>
+      <span class="badge-tag">{{ rootConfig.origemInjetor }}</span>
+    </div>
+    <p class="hint-text">
+      Injetado no componente pai via construtor com <code>&#64;Inject(ESTACAO_CONFIG)</code>.
+    </p>
+
+    <div class="config-grid">
+      <div class="config-item">
+        <span class="cfg-label">ID Padrão:</span>
+        <span class="cfg-val">{{ rootConfig.estacaoId }}</span>
+      </div>
+      <div class="config-item">
+        <span class="cfg-label">Local Padrão:</span>
+        <span class="cfg-val">{{ rootConfig.talhao }}</span>
+      </div>
+      <div class="config-item">
+        <span class="cfg-label">Frequência Padrão:</span>
+        <span class="cfg-val">A cada {{ rootConfig.frequenciaSegundos }} segundos</span>
+      </div>
+      <div class="config-item">
+        <span class="cfg-label">Endpoint Central:</span>
+        <span class="cfg-val code-font">{{ rootConfig.servidorUrl }}</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Hierarquia de Injetores com Componente Filho -->
+  <section class="card">
+    <h2>2. Hierarquia de Injetores (Element Injector)</h2>
+    <p class="hint-text">
+      O componente filho abaixo declara seus próprios <code>providers</code>, substituindo o token para sua árvore interna sem afetar o componente pai:
+    </p>
+
+    <app-station-detail></app-station-detail>
+  </section>
+
+  <!-- Servico Singleton de Telemetria -->
+  <section class="card">
+    <div class="section-top">
+      <h2>3. Serviço Singleton: TelemetryService</h2>
+      <span class="badge-service">{{ telemetryService.obterVersaoServico() }}</span>
+    </div>
+
+    <div class="stations-grid">
+      <div *ngFor="let e of estacoes" class="station-card">
+        <div class="st-header">
+          <span class="st-id">{{ e.id }}</span>
+          <span class="st-status status-{{ e.status }}">{{ e.status | uppercase }}</span>
+        </div>
+        <h4 class="st-nome">{{ e.nome }}</h4>
+        <div class="st-data">
+          <span>Temp: <strong>{{ e.temperatura }}°C</strong></span>
+          <span>Umidade: <strong>{{ e.umidade }}%</strong></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Caixa Didatica Explicativa -->
+  <section class="card didactic-box">
+    <h3>Características da Injeção de Dependência no Angular 15:</h3>
+    <ol class="step-list">
+      <li><strong>Assinatura no construtor:</strong> Todo serviço ou token deve ser declarado como parâmetro formal do construtor da classe.</li>
+      <li><strong>Uso obrigatório de decorators de parâmetro:</strong> Para injetar tokens ou customizar o comportamento de resolução, utilizam-se <code>&#64;Inject(TOKEN)</code>, <code>&#64;Optional()</code> e <code>&#64;Self()</code>.</li>
+      <li><strong>Complexidade com herança:</strong> Ao estender uma classe com herança, a classe filha precisa receber todas as dependências da classe pai e repassá-las manualmente na chamada <code>super()</code>.</li>
+      <li><strong>Hierarquia de resolução em cascata:</strong> O Angular busca dependências primeiro no Element Injector (providers do componente), subindo pelos componentes pais até atingir o Root Injector.</li>
+    </ol>
+  </section>
+</main>

@@ -1,0 +1,27 @@
+<div class="element-box">
+  <div class="box-header">
+    <h4>Componente Filho: StationDetail</h4>
+    <span class="badge-injector">{{ config.origemInjetor }}</span>
+  </div>
+
+  <div class="config-grid">
+    <div class="config-item">
+      <span class="cfg-label">ID da Estação:</span>
+      <span class="cfg-val">{{ config.estacaoId }}</span>
+    </div>
+    <div class="config-item">
+      <span class="cfg-label">Talhão Monitorado:</span>
+      <span class="cfg-val">{{ config.talhao }}</span>
+    </div>
+    <div class="config-item">
+      <span class="cfg-label">Taxa de Coleta:</span>
+      <span class="cfg-val">A cada {{ config.frequenciaSegundos }} segundos</span>
+    </div>
+    <div class="config-item">
+      <span class="cfg-label">Endpoint do Servidor:</span>
+      <span class="cfg-val code-font">{{ config.servidorUrl }}</span>
+    </div>
+  </div>
+
+  <small class="note">Configuração resolvida localmente pelo Injetor do Elemento (Element Injector).</small>
+</div>

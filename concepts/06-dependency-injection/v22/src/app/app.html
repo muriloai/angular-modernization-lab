@@ -1,0 +1,82 @@
+<main class="container">
+  <header class="header">
+    <div class="badge badge-v22">Angular 22 (Moderno)</div>
+    <h1>Conceito 06: Injeção de Dependência</h1>
+    <p class="subtitle">Função inject(), tipagem forte em tokens e hierarquia de injetores</p>
+  </header>
+
+  <!-- Configuração do Injetor Raiz -->
+  <section class="card">
+    <div class="section-top">
+      <h2>1. Injeção de Token no Nível Raiz (Root Injector)</h2>
+      <span class="badge-tag">{{ rootConfig.origemInjetor }}</span>
+    </div>
+    <p class="hint-text">
+      Injetado diretamente no inicializador de propriedade via <code>inject(ESTACAO_CONFIG)</code>, sem construtor.
+    </p>
+
+    <div class="config-grid">
+      <div class="config-item">
+        <span class="cfg-label">ID Padrão:</span>
+        <span class="cfg-val">{{ rootConfig.estacaoId }}</span>
+      </div>
+      <div class="config-item">
+        <span class="cfg-label">Local Padrão:</span>
+        <span class="cfg-val">{{ rootConfig.talhao }}</span>
+      </div>
+      <div class="config-item">
+        <span class="cfg-label">Frequência Padrão:</span>
+        <span class="cfg-val">A cada {{ rootConfig.frequenciaSegundos }} segundos</span>
+      </div>
+      <div class="config-item">
+        <span class="cfg-label">Endpoint Central:</span>
+        <span class="cfg-val code-font">{{ rootConfig.servidorUrl }}</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Hierarquia de Injetores com Componente Filho -->
+  <section class="card">
+    <h2>2. Hierarquia de Injetores (Element Injector)</h2>
+    <p class="hint-text">
+      O componente filho abaixo redefine o token em seu próprio array <code>providers</code>, demonstrando o isolamento do Element Injector:
+    </p>
+
+    <app-station-detail />
+  </section>
+
+  <!-- Serviço Singleton de Telemetria -->
+  <section class="card">
+    <div class="section-top">
+      <h2>3. Serviço Singleton: TelemetryService</h2>
+      <span class="badge-service">{{ telemetryService.obterVersaoServico() }}</span>
+    </div>
+
+    <div class="stations-grid">
+      @for (e of estacoes; track e.id) {
+        <div class="station-card">
+          <div class="st-header">
+            <span class="st-id">{{ e.id }}</span>
+            <span class="st-status status-{{ e.status }}">{{ e.status.toUpperCase() }}</span>
+          </div>
+          <h4 class="st-nome">{{ e.nome }}</h4>
+          <div class="st-data">
+            <span>Temp: <strong>{{ e.temperatura }}°C</strong></span>
+            <span>Umidade: <strong>{{ e.umidade }}%</strong></span>
+          </div>
+        </div>
+      }
+    </div>
+  </section>
+
+  <!-- Caixa Didática Explicativa -->
+  <section class="card didactic-box">
+    <h3>Vantagens da Função inject() no Angular 22:</h3>
+    <ol class="step-list">
+      <li><strong>Fim dos construtores sobrecarregados:</strong> Dependências são declaradas como propriedades de classe, resultando em código mais limpo e legível.</li>
+      <li><strong>Injeção em funções e utilitários:</strong> A função <code>inject()</code> pode ser chamada fora de classes (em funções de fábrica, interceptors funcionais e guards), permitindo criar composições reutilizáveis.</li>
+      <li><strong>Imunidade a problemas de herança:</strong> Ao estender uma classe base, não é necessário receber todos os serviços no construtor da subclasse e repassá-los para o <code>super()</code>.</li>
+      <li><strong>Resolução de tokens tipada e intuitiva:</strong> A sintaxe <code>inject(MEU_TOKEN)</code> substitui de forma elegante o decorator <code>&#64;Inject(MEU_TOKEN)</code>.</li>
+    </ol>
+  </section>
+</main>
