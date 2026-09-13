@@ -1,0 +1,186 @@
+<div class="form-container">
+  <div class="header-box">
+    <h2>Cadastramento e Calibração de Pivô Central</h2>
+    <p class="subtitle">
+      Formulário declarativo clássico com <code>FormsModule</code>, <code>[(ngModel)]</code> e validações em template.
+    </p>
+  </div>
+
+  <div *ngIf="submetidoComSucesso" class="alert alert-success">
+    Pivô central cadastrado com sucesso no sistema de telemetria da Fazenda Santa Maria.
+  </div>
+
+  <form #pivoForm="ngForm" (ngSubmit)="cadastrar(pivoForm)" novalidate class="card-form">
+    <!-- Código do Pivô -->
+    <div class="form-group">
+      <label for="codigo">Código do Pivô *</label>
+      <input
+        id="codigo"
+        name="codigo"
+        type="text"
+        required
+        minlength="4"
+        [(ngModel)]="modelo.codigo"
+        #codigo="ngModel"
+        class="form-control"
+        [class.is-invalid]="codigo.invalid && (codigo.dirty || codigo.touched)"
+        placeholder="Exemplo: PIVO-04"
+      />
+      <div *ngIf="codigo.invalid && (codigo.dirty || codigo.touched)" class="error-msg">
+        <span *ngIf="codigo.errors?.['required']">O código do equipamento é obrigatório.</span>
+        <span *ngIf="codigo.errors?.['minlength']">O código precisa conter ao menos 4 caracteres.</span>
+      </div>
+    </div>
+
+    <!-- Nome do Setor / Talhão -->
+    <div class="form-group">
+      <label for="setor">Setor Agrícola / Talhões *</label>
+      <input
+        id="setor"
+        name="setor"
+        type="text"
+        required
+        minlength="5"
+        [(ngModel)]="modelo.setor"
+        #setor="ngModel"
+        class="form-control"
+        [class.is-invalid]="setor.invalid && (setor.dirty || setor.touched)"
+        placeholder="Exemplo: Gleba Sul: Soja e Milho"
+      />
+      <div *ngIf="setor.invalid && (setor.dirty || setor.touched)" class="error-msg">
+        <span *ngIf="setor.errors?.['required']">A descrição do setor é obrigatória.</span>
+        <span *ngIf="setor.errors?.['minlength']">Mínimo de 5 caracteres para identificação da gleba.</span>
+      </div>
+    </div>
+
+    <!-- Linha dupla: Área e Vazão -->
+    <div class="form-row">
+      <div class="form-group">
+        <label for="area">Área Coberta (Hectares) *</label>
+        <input
+          id="area"
+          name="area"
+          type="number"
+          required
+          min="10"
+          max="500"
+          [(ngModel)]="modelo.areaHectares"
+          #area="ngModel"
+          class="form-control"
+          [class.is-invalid]="area.invalid && (area.dirty || area.touched)"
+          placeholder="10 a 500"
+        />
+        <div *ngIf="area.invalid && (area.dirty || area.touched)" class="error-msg">
+          <span *ngIf="area.errors?.['required']">Informe a área atendida.</span>
+          <span *ngIf="area.errors?.['min']">Área mínima permitida: 10 ha.</span>
+          <span *ngIf="area.errors?.['max']">Área máxima por equipamento: 500 ha.</span>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="vazao">Vazão Hidráulica Estimada (m³/h) *</label>
+        <input
+          id="vazao"
+          name="vazao"
+          type="number"
+          required
+          min="50"
+          max="1000"
+          [(ngModel)]="modelo.vazaoM3h"
+          #vazao="ngModel"
+          class="form-control"
+          [class.is-invalid]="vazao.invalid && (vazao.dirty || vazao.touched)"
+          placeholder="50 a 1000"
+        />
+        <div *ngIf="vazao.invalid && (vazao.dirty || vazao.touched)" class="error-msg">
+          <span *ngIf="vazao.errors?.['required']">Informe a vazão estimada da bomba.</span>
+          <span *ngIf="vazao.errors?.['min']">Vazão mínima: 50 m³/h.</span>
+          <span *ngIf="vazao.errors?.['max']">Vazão máxima suportada: 1000 m³/h.</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- E-mail do Responsável -->
+    <div class="form-group">
+      <label for="email">E-mail do Agrônomo Responsável *</label>
+      <input
+        id="email"
+        name="email"
+        type="email"
+        required
+        email
+        [(ngModel)]="modelo.emailResponsavel"
+        #email="ngModel"
+        class="form-control"
+        [class.is-invalid]="email.invalid && (email.dirty || email.touched)"
+        placeholder="responsavel@agrosantamaria.com.br"
+      />
+      <div *ngIf="email.invalid && (email.dirty || email.touched)" class="error-msg">
+        <span *ngIf="email.errors?.['required']">O e-mail é obrigatório para notificações de telemetria.</span>
+        <span *ngIf="email.errors?.['email']">Insira um endereço de e-mail válido.</span>
+      </div>
+    </div>
+
+    <!-- Checkbox de Operação Noturna -->
+    <div class="form-checkbox">
+      <label>
+        <input
+          type="checkbox"
+          name="operacaoNoturna"
+          [(ngModel)]="modelo.operacaoNoturna"
+        />
+        Habilitar irrigação em regime tarifário noturno (eficiência energética)
+      </label>
+    </div>
+
+    <!-- Botões de Ação -->
+    <div class="form-actions">
+      <button
+        type="button"
+        class="btn btn-secondary"
+        (click)="resetarForm(pivoForm)"
+      >
+        Limpar Formulário
+      </button>
+      <button
+        type="submit"
+        class="btn btn-primary"
+        [disabled]="pivoForm.invalid"
+      >
+        Salvar Configuração do Pivô
+      </button>
+    </div>
+  </form>
+
+  <!-- Painel de Inspeção do Estado do Formulário -->
+  <div class="state-inspector">
+    <h3>Diagnóstico do Formulário (NgForm)</h3>
+    <div class="flags-grid">
+      <div class="flag-item">
+        <span class="flag-label">valid:</span>
+        <span class="flag-val" [class.val-true]="pivoForm.valid">{{ pivoForm.valid }}</span>
+      </div>
+      <div class="flag-item">
+        <span class="flag-label">invalid:</span>
+        <span class="flag-val" [class.val-warn]="pivoForm.invalid">{{ pivoForm.invalid }}</span>
+      </div>
+      <div class="flag-item">
+        <span class="flag-label">dirty:</span>
+        <span class="flag-val">{{ pivoForm.dirty }}</span>
+      </div>
+      <div class="flag-item">
+        <span class="flag-label">touched:</span>
+        <span class="flag-val">{{ pivoForm.touched }}</span>
+      </div>
+      <div class="flag-item">
+        <span class="flag-label">pristine:</span>
+        <span class="flag-val">{{ pivoForm.pristine }}</span>
+      </div>
+    </div>
+
+    <div *ngIf="dadosUltimoEnvio" class="summary-box">
+      <h4>Último Registro Submetido</h4>
+      <pre>{{ dadosUltimoEnvio | json }}</pre>
+    </div>
+  </div>
+</div>
