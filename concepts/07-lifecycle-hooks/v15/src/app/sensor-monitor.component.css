@@ -1,0 +1,88 @@
+.monitor-box {
+  background-color: #f8fafc;
+  border: 1px solid var(--border-color);
+  border-left: 6px solid #cbd5e1;
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin-top: 1rem;
+  transition: border-color 0.2s ease;
+}
+
+.monitor-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.monitor-header h4 {
+  margin: 0.25rem 0 0 0;
+  font-size: 1.15rem;
+  color: var(--text-main);
+}
+
+.badge-status {
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.15rem 0.5rem;
+  background-color: #dcfce7;
+  color: #166534;
+  border-radius: 4px;
+}
+
+.reading-box {
+  text-align: right;
+}
+
+.reading-val {
+  display: block;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+.reading-lbl {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.monitor-info {
+  display: flex;
+  gap: 1.5rem;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  padding-bottom: 1rem;
+  border-bottom: 1px dashed var(--border-color);
+  margin-bottom: 1rem;
+}
+
+.monitor-info strong {
+  color: var(--text-main);
+}
+
+.logs-container h5 {
+  margin: 0 0 0.5rem 0;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.logs-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.logs-list li {
+  font-family: monospace;
+  font-size: 0.8rem;
+  background-color: #ffffff;
+  border: 1px solid var(--border-color);
+  padding: 0.35rem 0.6rem;
+  border-radius: 4px;
+  color: var(--text-main);
+}

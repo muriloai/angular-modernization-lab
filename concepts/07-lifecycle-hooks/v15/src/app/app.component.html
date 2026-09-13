@@ -1,0 +1,87 @@
+<main class="container">
+  <header class="header">
+    <div class="badge badge-v15">Angular 15 (Clássico)</div>
+    <h1>Conceito 07: Ciclos de Vida</h1>
+    <p class="subtitle">Interfaces clássicas: OnInit, OnChanges, AfterViewInit e OnDestroy</p>
+  </header>
+
+  <!-- Controles para Manipular Ciclos de Vida -->
+  <section class="card">
+    <h2>1. Painel de Controle de Ciclo de Vida</h2>
+    <p class="hint-text">
+      Alterne a montagem do componente para disparar <code>ngOnInit</code> e <code>ngOnDestroy</code>. Modifique a frequência para testar <code>ngOnChanges</code>.
+    </p>
+
+    <div class="actions-grid">
+      <div>
+        <label class="control-label">Montagem no DOM:</label>
+        <button
+          type="button"
+          class="btn"
+          [class.btn-danger]="sensorMontado"
+          [class.btn-primary]="!sensorMontado"
+          (click)="alternarMontagem()"
+        >
+          {{ sensorMontado ? 'Desmontar Sensor (Disparar ngOnDestroy)' : 'Montar Sensor (Disparar ngOnInit)' }}
+        </button>
+      </div>
+
+      <div>
+        <label class="control-label">Taxa de Leitura (Disparar ngOnChanges):</label>
+        <div class="freq-buttons">
+          <button
+            type="button"
+            class="btn btn-sm"
+            [class.btn-active]="frequenciaSegundos === 1"
+            (click)="alterarFrequencia(1)"
+          >
+            1 segundo
+          </button>
+          <button
+            type="button"
+            class="btn btn-sm"
+            [class.btn-active]="frequenciaSegundos === 3"
+            (click)="alterarFrequencia(3)"
+          >
+            3 segundos
+          </button>
+          <button
+            type="button"
+            class="btn btn-sm"
+            [class.btn-active]="frequenciaSegundos === 5"
+            (click)="alterarFrequencia(5)"
+          >
+            5 segundos
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Componente Filho com Ciclos de Vida -->
+  <section class="card">
+    <h2>2. Monitor de Telemetria Contínua</h2>
+
+    <app-sensor-monitor
+      *ngIf="sensorMontado"
+      [sensorId]="sensorId"
+      [frequenciaSegundos]="frequenciaSegundos"
+    ></app-sensor-monitor>
+
+    <div *ngIf="!sensorMontado" class="unmounted-box">
+      <h4>Sensor Desmontado</h4>
+      <p>O componente foi removido da árvore do DOM. Abra o console do navegador para comprovar a execução do <code>ngOnDestroy</code> e o cancelamento do timer.</p>
+    </div>
+  </section>
+
+  <!-- Caixa Didatica Explicativa -->
+  <section class="card didactic-box">
+    <h3>Padrões do Ciclo de Vida no Angular 15:</h3>
+    <ol class="step-list">
+      <li><strong>Interfaces do lifecycle:</strong> Toda classe precisa declarar explicitamente <code>implements OnInit, OnChanges, OnDestroy</code>.</li>
+      <li><strong>Complexidade no cancelamento:</strong> É obrigatório criar propriedades auxiliares como <code>private destroy$ = new Subject&lt;void&gt;()</code> para encerrar subscrições do RxJS.</li>
+      <li><strong>Risco de vazamento de memória:</strong> Caso o desenvolvedor esqueça de chamar <code>destroy$.next()</code> no <code>ngOnDestroy</code>, os timers continuarão rodando em segundo plano.</li>
+      <li><strong>Acesso ao DOM com ngAfterViewInit:</strong> É necessário aguardar esse método específico para manipular referências obtidas via <code>&#64;ViewChild</code>.</li>
+    </ol>
+  </section>
+</main>

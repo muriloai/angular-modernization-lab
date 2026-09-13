@@ -1,0 +1,89 @@
+<main class="container">
+  <header class="header">
+    <div class="badge badge-v22">Angular 22 (Moderno)</div>
+    <h1>Conceito 07: Ciclos de Vida</h1>
+    <p class="subtitle">DestroyRef, takeUntilDestroyed(), afterNextRender() e effect()</p>
+  </header>
+
+  <!-- Controles para Manipular Ciclos de Vida -->
+  <section class="card">
+    <h2>1. Painel de Controle de Ciclo de Vida</h2>
+    <p class="hint-text">
+      Alterne a montagem para acionar o <code>DestroyRef</code> ou altere a taxa de amostragem para disparar o <code>effect()</code>.
+    </p>
+
+    <div class="actions-grid">
+      <div>
+        <label class="control-label">Montagem no DOM:</label>
+        <button
+          type="button"
+          class="btn"
+          [class.btn-danger]="sensorMontado()"
+          [class.btn-primary]="!sensorMontado()"
+          (click)="alternarMontagem()"
+        >
+          {{ sensorMontado() ? 'Desmontar Sensor (Disparar DestroyRef)' : 'Montar Sensor (Inicializar)' }}
+        </button>
+      </div>
+
+      <div>
+        <label class="control-label">Taxa de Leitura (Disparar effect):</label>
+        <div class="freq-buttons">
+          <button
+            type="button"
+            class="btn btn-sm"
+            [class.btn-active]="frequenciaSegundos() === 1"
+            (click)="alterarFrequencia(1)"
+          >
+            1 segundo
+          </button>
+          <button
+            type="button"
+            class="btn btn-sm"
+            [class.btn-active]="frequenciaSegundos() === 3"
+            (click)="alterarFrequencia(3)"
+          >
+            3 segundos
+          </button>
+          <button
+            type="button"
+            class="btn btn-sm"
+            [class.btn-active]="frequenciaSegundos() === 5"
+            (click)="alterarFrequencia(5)"
+          >
+            5 segundos
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Componente Filho com Recursos Modernos de Ciclo de Vida -->
+  <section class="card">
+    <h2>2. Monitor de Telemetria Contínua</h2>
+
+    @if (sensorMontado()) {
+      <app-sensor-monitor
+        [sensorId]="sensorId()"
+        [frequenciaSegundos]="frequenciaSegundos()"
+      />
+    } @else {
+      <div class="unmounted-box">
+        <h4>Sensor Desmontado</h4>
+        <p>O componente foi removido da árvore do DOM. Abra o console do navegador para conferir a execução do callback <code>DestroyRef.onDestroy</code> e o cancelamento automático do timer via <code>takeUntilDestroyed()</code>.</p>
+      </div>
+    }
+  </section>
+
+  <!-- Caixa Didática Explicativa -->
+  <section class="card didactic-box">
+    <h3>Vantagens do Gerenciamento de Ciclo no Angular 22:</h3>
+    <ol class="step-list">
+      <li><strong>Sem interfaces de lifecycle:</strong> Não é mais necessário preencher a assinatura da classe com <code>implements OnInit, OnDestroy</code>.</li>
+      <li><strong>Operador takeUntilDestroyed:</strong> Cancela automaticamente subscrições do RxJS ao término do ciclo de vida do componente, sem necessidade de <code>Subject</code> manual.</li>
+      <li><strong>Registro com DestroyRef:</strong> Permite registrar funções de limpeza em qualquer ponto da aplicação (inclusive em funções utilitárias ou composições externas).</li>
+      <li><strong>Renderização segura com afterNextRender:</strong> Substitui com segurança o <code>ngAfterViewInit</code>, evitando erros de SSR e de checagem do DOM.</li>
+      <li><strong>Reatividade declarativa com effect:</strong> Substitui o antigo <code>ngOnChanges</code>, reagindo diretamente a Signals sem objetos de chave-valor.</li>
+    </ol>
+  </section>
+</main>

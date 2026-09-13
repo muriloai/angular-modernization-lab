@@ -1,0 +1,24 @@
+<div #painelStatus class="monitor-box">
+  <div class="monitor-header">
+    <div>
+      <span class="badge-status">Monitoramento Ativo</span>
+      <h4>Sensor: {{ sensorId }}</h4>
+    </div>
+    <div class="reading-box">
+      <span class="reading-val">{{ leituraAtual }}%</span>
+      <span class="reading-lbl">Umidade do Solo</span>
+    </div>
+  </div>
+
+  <div class="monitor-info">
+    <span>Frequência atual: <strong>{{ frequenciaSegundos }} segundos</strong></span>
+    <span>Total de coletas: <strong>{{ totalLeituras }}</strong></span>
+  </div>
+
+  <div class="logs-container">
+    <h5>Histórico de Ciclo de Vida e Coletas:</h5>
+    <ul class="logs-list">
+      <li *ngFor="let log of logs">{{ log }}</li>
+    </ul>
+  </div>
+</div>
