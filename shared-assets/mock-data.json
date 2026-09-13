@@ -1,0 +1,117 @@
+{
+  "users": [
+    {
+      "id": "usr-001",
+      "name": "Ana Silva",
+      "email": "ana.silva@empresa.com.br",
+      "role": "Tech Lead",
+      "department": "Engenharia",
+      "isActive": true,
+      "avatarUrl": "https://api.dicebear.com/7.x/avataaars/svg?seed=Ana"
+    },
+    {
+      "id": "usr-002",
+      "name": "Carlos Eduardo",
+      "email": "carlos.eduardo@empresa.com.br",
+      "role": "Senior Frontend Engineer",
+      "department": "Engenharia",
+      "isActive": true,
+      "avatarUrl": "https://api.dicebear.com/7.x/avataaars/svg?seed=Carlos"
+    },
+    {
+      "id": "usr-003",
+      "name": "Beatriz Mendes",
+      "email": "beatriz.mendes@empresa.com.br",
+      "role": "Product Manager",
+      "department": "Produto",
+      "isActive": false,
+      "avatarUrl": "https://api.dicebear.com/7.x/avataaars/svg?seed=Beatriz"
+    },
+    {
+      "id": "usr-004",
+      "name": "Daniel Oliveira",
+      "email": "daniel.oliveira@empresa.com.br",
+      "role": "QA Specialist",
+      "department": "Qualidade",
+      "isActive": true,
+      "avatarUrl": "https://api.dicebear.com/7.x/avataaars/svg?seed=Daniel"
+    }
+  ],
+  "products": [
+    {
+      "id": "prod-101",
+      "title": "Monitor UltraWide 34\"",
+      "description": "Monitor curvado para produtividade com resolução WQHD e taxa de 144Hz.",
+      "price": 2899.90,
+      "category": "Hardware",
+      "rating": 4.8,
+      "stock": 14,
+      "isAvailable": true
+    },
+    {
+      "id": "prod-102",
+      "title": "Teclado Mecânico Ergonômico",
+      "description": "Switches lineares silenciosos, layout ABNT2 e suporte magnético para punho.",
+      "price": 649.00,
+      "category": "Periféricos",
+      "rating": 4.7,
+      "stock": 35,
+      "isAvailable": true
+    },
+    {
+      "id": "prod-103",
+      "title": "Cadeira Ergonômica Pro",
+      "description": "Ajuste lombar 3D, malha respirável mesh e certificação NR17.",
+      "price": 1450.00,
+      "category": "Mobiliário",
+      "rating": 4.9,
+      "stock": 8,
+      "isAvailable": true
+    },
+    {
+      "id": "prod-104",
+      "title": "Hub USB-C 10 em 1",
+      "description": "Saídas HDMI 4K 60Hz, Ethernet Gigabit, leitor SD/TF e Power Delivery 100W.",
+      "price": 299.99,
+      "category": "Acessórios",
+      "rating": 4.3,
+      "stock": 0,
+      "isAvailable": false
+    }
+  ],
+  "todos": [
+    {
+      "id": "todo-1",
+      "title": "Configurar rotas base da aplicação",
+      "completed": true,
+      "priority": "alta",
+      "createdAt": "2026-09-10T10:00:00Z"
+    },
+    {
+      "id": "todo-2",
+      "title": "Migrar componentes para Signals reativos",
+      "completed": false,
+      "priority": "alta",
+      "createdAt": "2026-09-11T14:30:00Z"
+    },
+    {
+      "id": "todo-3",
+      "title": "Validar comportamento Zoneless e render loops",
+      "completed": false,
+      "priority": "media",
+      "createdAt": "2026-09-12T09:15:00Z"
+    }
+  ],
+  "metrics": {
+    "totalDeployments": 142,
+    "averageBundleSizeKb": 84.5,
+    "lighthouseScore": 99,
+    "lastAuditTimestamp": "2026-09-12T11:00:00Z"
+  },
+  "featureFlags": {
+    "enableNewCheckout": true,
+    "enableSignalsTelemetry": true,
+    "enableExperimentalDashboard": false,
+    "maintenanceMode": false
+  }
+}

@@ -1,0 +1,35 @@
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Angular & Build artifacts
+.angular/
+dist/
+tmp/
+out-tsc/
+bazel-out/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Environment & Local overrides
+.env
+.env.local
+.env.*.local
+
+# IDE & Editors
+.idea/
+.project
+.classpath
+.c9/
+*.launch
+*.sublime-workspace
+
+# OS Files
+.DS_Store
+Thumbs.db
+Desktop.ini
