@@ -1,0 +1,142 @@
+<div class="board-container">
+  <!-- Métricas Derivadas com Observables e Pipe Async -->
+  <div class="metrics-grid">
+    <div class="metric-card">
+      <span class="metric-label">Total de Tarefas:</span>
+      <span class="metric-value">{{ store.totalTarefas$ | async }}</span>
+    </div>
+
+    <div class="metric-card">
+      <span class="metric-label">Pendentes:</span>
+      <span class="metric-value pending-val">{{ store.totalPendentes$ | async }}</span>
+    </div>
+
+    <div class="metric-card">
+      <span class="metric-label">Concluídas:</span>
+      <span class="metric-value completed-val">{{ store.totalConcluidas$ | async }}</span>
+    </div>
+
+    <div class="metric-card">
+      <span class="metric-label">Taxa de Execução:</span>
+      <span class="metric-value">{{ store.percentualConclusao$ | async }}%</span>
+      <div class="progress-bar-bg">
+        <div
+          class="progress-bar-fill"
+          [style.width.%]="store.percentualConclusao$ | async"
+        ></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Formulário de Nova Tarefa Agrícola -->
+  <div class="form-card">
+    <div class="form-row">
+      <input
+        type="text"
+        class="input-text"
+        placeholder="Título da tarefa de campo..."
+        [(ngModel)]="novoTitulo"
+        (keyup.enter)="adicionarTarefa()"
+      />
+
+      <select class="input-select" [(ngModel)]="novoTalhao">
+        <option *ngFor="let t of talhoesDisponiveis" [value]="t">{{ t }}</option>
+      </select>
+
+      <select class="input-select" [(ngModel)]="novaPrioridade">
+        <option value="baixa">Prioridade Baixa</option>
+        <option value="media">Prioridade Média</option>
+        <option value="alta">Prioridade Alta</option>
+      </select>
+
+      <button type="button" class="btn btn-primary" (click)="adicionarTarefa()">
+        Adicionar Tarefa
+      </button>
+    </div>
+  </div>
+
+  <!-- Barra de Filtros Reativos -->
+  <div class="filters-bar">
+    <div class="filter-group">
+      <span class="filter-label">Status:</span>
+      <div class="btn-group">
+        <button
+          type="button"
+          class="btn-filter"
+          [class.active]="(store.filtro$ | async) === 'todas'"
+          (click)="definirFiltroStatus('todas')"
+        >
+          Todas
+        </button>
+        <button
+          type="button"
+          class="btn-filter"
+          [class.active]="(store.filtro$ | async) === 'pendentes'"
+          (click)="definirFiltroStatus('pendentes')"
+        >
+          Pendentes
+        </button>
+        <button
+          type="button"
+          class="btn-filter"
+          [class.active]="(store.filtro$ | async) === 'concluidas'"
+          (click)="definirFiltroStatus('concluidas')"
+        >
+          Concluídas
+        </button>
+      </div>
+    </div>
+
+    <div class="filter-group">
+      <span class="filter-label">Talhão:</span>
+      <select class="input-select" (change)="definirFiltroTalhao($event)">
+        <option value="todos">Todos os Talhões</option>
+        <option value="Talhão Norte 01">Talhão Norte 01 (Soja)</option>
+        <option value="Talhão Sul 02">Talhão Sul 02 (Milho)</option>
+        <option value="Talhão Leste 03">Talhão Leste 03 (Algodão)</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- Lista de Tarefas -->
+  <div class="tasks-list">
+    <div
+      *ngFor="let tarefa of (store.tarefasFiltradas$ | async)"
+      class="task-item"
+      [class.completed]="tarefa.concluida"
+    >
+      <input
+        type="checkbox"
+        class="task-checkbox"
+        [checked]="tarefa.concluida"
+        (change)="alternarConclusao(tarefa.id)"
+      />
+
+      <div class="task-info">
+        <span class="task-title">{{ tarefa.titulo }}</span>
+        <div class="task-tags">
+          <span class="tag-talhao">{{ tarefa.talhao }}</span>
+          <span class="tag-prio" [ngClass]="'prio-' + tarefa.prioridade">
+            {{ tarefa.prioridade | uppercase }}
+          </span>
+        </div>
+      </div>
+
+      <button
+        type="button"
+        class="btn-remove"
+        title="Remover Tarefa"
+        (click)="removerTarefa(tarefa.id)"
+      >
+        Excluir
+      </button>
+    </div>
+
+    <div
+      *ngIf="!(store.tarefasFiltradas$ | async)?.length"
+      class="empty-state"
+    >
+      Nenhuma tarefa encontrada com os filtros selecionados.
+    </div>
+  </div>
+</div>
