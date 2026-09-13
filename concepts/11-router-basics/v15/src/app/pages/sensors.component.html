@@ -1,0 +1,44 @@
+<div class="page-container">
+  <div class="page-header">
+    <div>
+      <h2>Telemetria de Sensores de Campo</h2>
+      <p class="subtitle">Monitoramento em tempo real dos dispositivos IoT distribuídos</p>
+    </div>
+    <button type="button" class="btn btn-secondary" (click)="voltarParaFazendas()">
+      Voltar para Fazendas (Programático)
+    </button>
+  </div>
+
+  <div class="table-container">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Código</th>
+          <th>Tipo do Dispositivo</th>
+          <th>Talhão de Instalação</th>
+          <th>Leitura Atual</th>
+          <th>Bateria</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let s of sensores">
+          <td><code>{{ s.id }}</code></td>
+          <td><strong>{{ s.tipo }}</strong></td>
+          <td>{{ s.talhao }}</td>
+          <td class="reading-val">{{ s.leitura }}</td>
+          <td>{{ s.bateria }}%</td>
+          <td>
+            <span
+              class="status-tag"
+              [class.status-normal]="s.status === 'normal'"
+              [class.status-alerta]="s.status === 'alerta'"
+            >
+              {{ s.status === 'normal' ? 'Normal' : 'Atenção' }}
+            </span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

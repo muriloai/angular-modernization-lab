@@ -1,0 +1,50 @@
+<main class="container">
+  <header class="header">
+    <div class="badge badge-v15">Angular 15 (Clássico)</div>
+    <h1>{{ titulo }}</h1>
+    <p class="subtitle">{{ subtitulo }}</p>
+  </header>
+
+  <!-- Barra de Navegação Operacional -->
+  <nav class="nav-bar">
+    <div class="nav-links">
+      <a
+        routerLink="/fazendas"
+        routerLinkActive="active"
+        class="nav-link"
+      >
+        Fazendas Cadastradas
+      </a>
+      <a
+        routerLink="/sensores"
+        routerLinkActive="active"
+        class="nav-link"
+      >
+        Telemetria de Sensores
+      </a>
+      <a
+        routerLink="/rota-inexistente"
+        routerLinkActive="active"
+        class="nav-link nav-link-test"
+      >
+        Testar Rota 404
+      </a>
+    </div>
+  </nav>
+
+  <!-- Outlet de Renderização das Rotas -->
+  <section class="card outlet-card">
+    <router-outlet></router-outlet>
+  </section>
+
+  <!-- Caixa Didática Explicativa -->
+  <section class="card didactic-box">
+    <h3>Roteamento Clássico no Angular 15:</h3>
+    <ol class="step-list">
+      <li><strong>Módulo Dedicado de Roteamento:</strong> A configuração de rotas depende de uma classe <code>AppRoutingModule</code> decorada com <code>&#64;NgModule</code>.</li>
+      <li><strong>Registro com forRoot:</strong> A chamada <code>RouterModule.forRoot(routes)</code> inicializa os serviços de navegação no injetor raiz e disponibiliza as diretivas.</li>
+      <li><strong>Reexportação de Diretivas:</strong> Componentes declarados no módulo raiz só têm acesso a <code>routerLink</code> e <code>router-outlet</code> porque o <code>AppRoutingModule</code> reexporta o <code>RouterModule</code>.</li>
+      <li><strong>Injeção Presa ao Construtor:</strong> Navegações programáticas exigem a injeção do serviço <code>Router</code> diretamente nos parâmetros do construtor das classes.</li>
+    </ol>
+  </section>
+</main>
