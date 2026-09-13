@@ -1,0 +1,49 @@
+<main class="container">
+  <header class="header">
+    <div class="badge badge-v15">Angular 15 (Clássico)</div>
+    <h1>Conceito 04: Diretivas de Atributo</h1>
+    <p class="subtitle">Diretivas com @HostBinding, @HostListener e aplicação manual no template</p>
+  </header>
+
+  <!-- Demonstracao de Diretiva de Atributo Classica -->
+  <section class="card">
+    <h2>1. Diretiva de Atributo: appSensorAlert</h2>
+    <p class="hint-text">
+      Passe o mouse sobre os cards para ativar o listener do host. A cor da borda esquerda é calculada dinamicamente pelo decorator &#64;HostBinding.
+    </p>
+
+    <div class="sensor-grid">
+      <!-- No Angular 15, a diretiva deve ser aplicada explicitamente na tag HTML pelo desenvolvedor -->
+      <div
+        *ngFor="let s of sensores"
+        appSensorAlert
+        [nivelAlerta]="s.nivel"
+        class="sensor-card"
+      >
+        <div class="sensor-top">
+          <span class="sensor-tipo">{{ s.tipo }}</span>
+          <span class="badge-status badge-{{ s.nivel }}">{{ s.nivel | uppercase }}</span>
+        </div>
+        <h3 class="sensor-nome">{{ s.nome }}</h3>
+        <div class="sensor-val">{{ s.valor }}</div>
+
+        <div class="card-actions">
+          <button type="button" class="btn btn-outline" (click)="alternarNivel(s)">
+            Alterar Nível
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Caixa Didatica Explicativa -->
+  <section class="card didactic-box">
+    <h3>Características das Diretivas no Angular 15:</h3>
+    <ol class="step-list">
+      <li><strong>Registro obrigatório em NgModule:</strong> Toda diretiva deve ser declarada no array <code>declarations</code> de um módulo antes de poder ser utilizada em templates.</li>
+      <li><strong>Decorators de elemento hospedeiro:</strong> O vínculo com o DOM é realizado por meio de <code>&#64;HostBinding()</code> para classes e estilos e <code>&#64;HostListener()</code> para eventos.</li>
+      <li><strong>Aplicação manual pelo consumidor:</strong> Para reutilizar o comportamento visual e de eventos, o desenvolvedor é obrigado a lembrar de declarar a diretiva <code>appSensorAlert</code> na tag em todos os locais.</li>
+      <li><strong>Ausência de Composição Nativa:</strong> Não há mecanismo nativo para embutir diretivas dentro do metadado de um componente, obrigando a repetição manual ou herança de classes.</li>
+    </ol>
+  </section>
+</main>

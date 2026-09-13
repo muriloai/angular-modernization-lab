@@ -1,0 +1,170 @@
+.container {
+  max-width: 840px;
+  margin: 0 auto;
+}
+
+.header {
+  margin-bottom: 2rem;
+}
+
+.badge {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  border-radius: 9999px;
+  margin-bottom: 0.5rem;
+}
+
+.badge-v15 {
+  background-color: var(--badge-v15-bg);
+  color: var(--badge-v15);
+}
+
+.badge-v22 {
+  background-color: var(--badge-v22-bg);
+  color: var(--badge-v22);
+}
+
+h1 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.8rem;
+  color: var(--text-main);
+}
+
+.subtitle {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 1.05rem;
+}
+
+.card {
+  background-color: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.card h2 {
+  margin-top: 0;
+  font-size: 1.25rem;
+  color: var(--text-main);
+}
+
+.hint-text {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  margin-top: -0.5rem;
+  margin-bottom: 1.25rem;
+}
+
+.sensor-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1rem;
+}
+
+.sensor-card {
+  background-color: #f8fafc;
+  border: 1px solid var(--border-color);
+  border-left-width: 6px;
+  border-radius: 8px;
+  padding: 1.25rem;
+  transition: all 0.2s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.sensor-card.alerta-hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  background-color: #ffffff;
+}
+
+.sensor-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.sensor-tipo {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+.badge-status {
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 0.15rem 0.5rem;
+  border-radius: 4px;
+}
+
+.badge-baixo {
+  background-color: #dcfce7;
+  color: #166534;
+}
+
+.badge-medio {
+  background-color: #fef3c7;
+  color: #92400e;
+}
+
+.badge-critico {
+  background-color: #fee2e2;
+  color: #991b1b;
+}
+
+.sensor-nome {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.05rem;
+  color: var(--text-main);
+}
+
+.sensor-val {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--text-main);
+  margin-bottom: 1rem;
+}
+
+.card-actions {
+  margin-top: auto;
+}
+
+.btn {
+  padding: 0.45rem 0.9rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.btn-outline {
+  background-color: transparent;
+  border: 1px solid var(--border-color);
+  color: var(--text-main);
+}
+
+.btn-outline:hover {
+  background-color: #f1f5f9;
+}
+
+.didactic-box {
+  background-color: #f0fdf4;
+  border-color: #bbf7d0;
+}
+
+.step-list {
+  padding-left: 1.25rem;
+  margin: 0;
+  color: var(--text-main);
+}
+
+.step-list li {
+  margin-bottom: 0.5rem;
+}

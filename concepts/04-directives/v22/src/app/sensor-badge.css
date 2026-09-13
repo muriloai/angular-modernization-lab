@@ -1,0 +1,73 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  background-color: #f8fafc;
+  border: 1px solid var(--border-color);
+  border-left-width: 6px;
+  border-radius: 8px;
+  padding: 1.25rem;
+  transition: all 0.2s ease;
+}
+
+:host(.alerta-hover) {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  background-color: #ffffff;
+}
+
+:host(.animacao-pulso) {
+  animation: pulsoSuave 2s infinite;
+}
+
+@keyframes pulsoSuave {
+  0% {
+    box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 8px rgba(220, 38, 38, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(220, 38, 38, 0);
+  }
+}
+
+.sensor-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.sensor-tipo {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+.badge-composto {
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 0.15rem 0.45rem;
+  border-radius: 4px;
+  background-color: #dbeafe;
+  color: #1d4ed8;
+}
+
+.sensor-nome {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.05rem;
+  color: var(--text-main);
+}
+
+.sensor-val {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--text-main);
+  margin-bottom: 0.5rem;
+}
+
+.sensor-hint {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-top: auto;
+}

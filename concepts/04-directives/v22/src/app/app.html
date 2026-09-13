@@ -1,0 +1,47 @@
+<main class="container">
+  <header class="header">
+    <div class="badge badge-v22">Angular 22 (Moderno)</div>
+    <h1>Conceito 04: Diretivas e Directive Composition API</h1>
+    <p class="subtitle">Composição de comportamentos reutilizáveis no host sem repetição de tags</p>
+  </header>
+
+  <!-- Demonstração de Componentes utilizando hostDirectives -->
+  <section class="card">
+    <h2>1. Componentes com Composição de Diretivas (hostDirectives)</h2>
+    <p class="hint-text">
+      Os componentes abaixo incorporam internamente as diretivas de alerta e pulso via <code>hostDirectives</code>.
+      O consumidor precisa apenas utilizar os inputs remapeados (<code>[nivel]</code> e <code>[pulsar]</code>).
+    </p>
+
+    <div class="sensor-grid">
+      @for (s of sensores(); track s.id) {
+        <div class="sensor-card-wrapper">
+          <app-sensor-badge
+            [nome]="s.nome"
+            [tipo]="s.tipo"
+            [valor]="s.valor"
+            [nivel]="s.nivel"
+            [pulsar]="s.pulsar"
+          />
+          <div class="card-actions">
+            <button type="button" class="btn btn-outline" (click)="alternarNivel(s.id)">
+              Alterar Nível: {{ s.nivel.toUpperCase() }}
+            </button>
+          </div>
+        </div>
+      }
+    </div>
+  </section>
+
+  <!-- Caixa Didática Explicativa -->
+  <section class="card didactic-box">
+    <h3>Vantagens da Directive Composition API no Angular 22:</h3>
+    <ol class="step-list">
+      <li><strong>Composição no metadado:</strong> O componente declara <code>hostDirectives</code> e incorpora comportamentos de múltiplas diretivas sem herança de classes.</li>
+      <li><strong>Remapeamento de entradas e saídas:</strong> É possível renomear inputs das diretivas para que façam sentido no contexto do componente (exemplo: <code>nivelAlerta: nivel</code>).</li>
+      <li><strong>Template limpo para o consumidor:</strong> Quem utiliza o componente <code>app-sensor-badge</code> não precisa saber nem importar as diretivas auxiliares internamente aplicadas.</li>
+      <li><strong>Propriedade host declarativa:</strong> Diretivas modernas utilizam o objeto <code>host: &#123;&#125;</code> para vincular classes, estilos e eventos, sem decorators legados.</li>
+      <li><strong>Integração nativa com Signals:</strong> Entradas de diretivas utilizam a função <code>input()</code>, permitindo reatividade granular e alta performance.</li>
+    </ol>
+  </section>
+</main>
