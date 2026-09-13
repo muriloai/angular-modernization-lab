@@ -1,0 +1,28 @@
+<main class="container">
+  <header class="header">
+    <div class="badge badge-v15">Angular 15 (Clássico)</div>
+    <h1>{{ titulo }}</h1>
+    <p class="subtitle">{{ subtitulo }}</p>
+  </header>
+
+  <!-- Calculadora de Irrigação com RxJS -->
+  <section class="card">
+    <h2>Calculadora de Demanda Hídrica e Custo de Irrigação (RxJS)</h2>
+    <p class="hint-text">
+      Composição reativa de múltiplos <code>BehaviorSubject</code> utilizando o operador <code>combineLatest</code> e resolução no template via pipe <code>async</code>.
+    </p>
+
+    <app-irrigation-calculator></app-irrigation-calculator>
+  </section>
+
+  <!-- Caixa Didática Explicativa -->
+  <section class="card didactic-box">
+    <h3>Reatividade no Angular 15 (RxJS):</h3>
+    <ol class="step-list">
+      <li><strong>Complexidade de Composição:</strong> Cálculos derivados que dependem de múltiplas variáveis exigem combinar fluxos com <code>combineLatest</code> e mapear seus valores com operadores de transformação.</li>
+      <li><strong>Sincronização de Estado Resetável:</strong> Para redefinir a lâmina de água ao trocar de cultura mantendo a possibilidade de alteração manual, é necessário disparar emissões manuais em múltiplos <code>BehaviorSubject</code>.</li>
+      <li><strong>Consumo no Template:</strong> Obrigatoriedade do pipe <code>async</code> para assinar e extrair os valores dos fluxos, sob risco de vazamento de memória caso a subscrição manual seja adotada sem o devido <code>unsubscribe</code>.</li>
+      <li><strong>Possibilidade de Inconsistências:</strong> Em grafos de dependência complexos com múltiplos operadores intercalados, emissões intermediárias inconsistentes podem ocorrer durante a propagação de eventos.</li>
+    </ol>
+  </section>
+</main>

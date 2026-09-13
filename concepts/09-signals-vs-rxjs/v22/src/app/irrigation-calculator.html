@@ -1,0 +1,86 @@
+<div class="calculator-container">
+  <div class="inputs-grid">
+    <!-- Seletor de Cultura -->
+    <div class="form-group">
+      <label class="group-label">Cultura Agrícola:</label>
+      <div class="culture-buttons">
+        <button
+          type="button"
+          class="btn-choice"
+          [class.active]="cultura() === 'soja'"
+          (click)="selecionarCultura('soja')"
+        >
+          Soja (8mm)
+        </button>
+        <button
+          type="button"
+          class="btn-choice"
+          [class.active]="cultura() === 'milho'"
+          (click)="selecionarCultura('milho')"
+        >
+          Milho (12mm)
+        </button>
+        <button
+          type="button"
+          class="btn-choice"
+          [class.active]="cultura() === 'algodao'"
+          (click)="selecionarCultura('algodao')"
+        >
+          Algodão (10mm)
+        </button>
+      </div>
+    </div>
+
+    <!-- Área em Hectares -->
+    <div class="form-group">
+      <label class="group-label" for="areaInput">Área Irrigada (ha):</label>
+      <input
+        id="areaInput"
+        type="number"
+        class="input-number"
+        [value]="areaHectares()"
+        (input)="alterarArea(+areaRef.value)"
+        #areaRef
+      />
+    </div>
+
+    <!-- Lâmina de Irrigação (gerenciada por linkedSignal) -->
+    <div class="form-group">
+      <label class="group-label" for="laminaInput">Lâmina de Água (mm):</label>
+      <input
+        id="laminaInput"
+        type="number"
+        class="input-number"
+        [value]="laminaMm()"
+        (input)="alterarLamina(+laminaRef.value)"
+        #laminaRef
+      />
+      <small class="hint">Gerenciado por linkedSignal: redefine na troca de cultura ou aceita ajuste manual</small>
+    </div>
+  </div>
+
+  <!-- Resultados Derivados com computed() -->
+  <div class="results-grid">
+    <div class="result-card">
+      <span class="res-lbl">Volume de Água:</span>
+      <span class="res-val">{{ volumeM3() | number:'1.0-0' }} m³</span>
+      <small class="res-sub">{{ areaHectares() }} ha × {{ laminaMm() }} mm</small>
+    </div>
+
+    <div class="result-card">
+      <span class="res-lbl">Tempo de Operação:</span>
+      <span class="res-val">{{ horasOperacao() }} h</span>
+      <small class="res-sub">Vazão estimada: 180 m³/h</small>
+    </div>
+
+    <div class="result-card" [class.alert-card]="alertaConsumo()">
+      <span class="res-lbl">Custo Estimado de Energia:</span>
+      <span class="res-val">{{ custoTotal() | currency:'BRL':'symbol':'1.2-2' }}</span>
+      @if (alertaConsumo()) {
+        <small class="res-sub">Alerta: Custo acima de R$ 3.000</small>
+      } @else {
+        <small class="res-sub">Tarifa: R$ 0,72 / kWh</small>
+      }
+    </div>
+  </div>
+</div>

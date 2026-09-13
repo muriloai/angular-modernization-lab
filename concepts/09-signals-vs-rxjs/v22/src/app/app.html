@@ -1,0 +1,28 @@
+<main class="container">
+  <header class="header">
+    <div class="badge badge-v22">Angular 22 (Moderno)</div>
+    <h1>{{ titulo }}</h1>
+    <p class="subtitle">{{ subtitulo }}</p>
+  </header>
+
+  <!-- Calculadora de Irrigação com Signals -->
+  <section class="card">
+    <h2>Calculadora de Demanda Hídrica e Custo de Irrigação (Signals)</h2>
+    <p class="hint-text">
+      Composição declarativa com <code>signal()</code>, cálculo derivado síncrono com <code>computed()</code> e reset contextual com <code>linkedSignal()</code>.
+    </p>
+
+    <app-irrigation-calculator />
+  </section>
+
+  <!-- Caixa Didática Explicativa -->
+  <section class="card didactic-box">
+    <h3>Reatividade no Angular 22 (Signals):</h3>
+    <ol class="step-list">
+      <li><strong>Cálculos Derivados Síncronos:</strong> Com <code>computed()</code>, o cálculo do volume, horas de operação e custo total é reavaliado apenas quando as dependências lidas sofrerem alterações.</li>
+      <li><strong>Estado Resetável com linkedSignal:</strong> O <code>linkedSignal()</code> resolve a sincronização entre a cultura e a lâmina padrão recomendada, permitindo ainda que o operador faça ajustes manuais sem efeitos colaterais imperativos.</li>
+      <li><strong>Eliminação do Pipe Async:</strong> Valores de signals são lidos diretamente no template como funções <code>{{ volumeM3() }}</code>, sem necessidade de assinaturas ou desinscrições manuais.</li>
+      <li><strong>Grafo Sem Inconsistências:</strong> A atualização de dependências ocorre em ordem topológica garantindo consistência atômica dos dados calculados.</li>
+    </ol>
+  </section>
+</main>
