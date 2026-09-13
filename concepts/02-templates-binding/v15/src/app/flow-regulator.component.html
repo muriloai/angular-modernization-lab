@@ -1,0 +1,15 @@
+<div class="regulator-box">
+  <span class="regulator-label">Ajuste de Vazão (Componente Filho):</span>
+  <div class="controls-row">
+    <button type="button" class="btn-step" (click)="decrementar()">- 100 L/h</button>
+    <input
+      type="number"
+      class="regulator-input"
+      [value]="vazao"
+      (input)="alterarManualmente($event)"
+      aria-label="Vazão em litros por hora"
+    />
+    <button type="button" class="btn-step" (click)="incrementar()">+ 100 L/h</button>
+  </div>
+  <small class="hint">Modificação refletida imediatamente no componente pai via EventEmitter</small>
+</div>

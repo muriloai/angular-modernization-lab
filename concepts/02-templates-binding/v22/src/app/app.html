@@ -1,0 +1,111 @@
+<main class="container">
+  <header class="header">
+    <div class="badge badge-v22">Angular 22 (Moderno)</div>
+    <h1>Conceito 02: Templates & Data Binding</h1>
+    <p class="subtitle">Interpolação com Signals, Property Binding, Event Binding e model()</p>
+  </header>
+
+  <!-- Informações Principais (Interpolação de Signals e Property Binding) -->
+  <section class="card">
+    <h2>{{ pivoNome() }}</h2>
+    <p class="meta">Cultura monitorada: <strong>{{ cultura() }}</strong></p>
+
+    <div class="metrics-grid">
+      <div class="metric-card" [class.alerta]="statusAlerta()">
+        <span class="label">Vazão Atual:</span>
+        <span class="value">{{ vazaoLitrosHora() }} L/h</span>
+        @if (statusAlerta()) {
+          <small class="alerta-text">Alerta: Vazão elevada!</small>
+        }
+      </div>
+
+      <div class="metric-card">
+        <span class="label">Pressão Estimada:</span>
+        <span class="value">{{ pressaoBar() }} bar</span>
+        <small class="hint-text">Calculado via computed() com memoização</small>
+      </div>
+
+      <div class="metric-card">
+        <span class="label">Operador Responsável:</span>
+        <span class="value">{{ operador() }}</span>
+        <small class="hint-text">Sincronizado via [(ngModel)]</small>
+      </div>
+    </div>
+  </section>
+
+  <!-- Demonstração de Two-Way Binding com Componente Filho e model() -->
+  <section class="card">
+    <h3>Comunicação com Componente Filho</h3>
+    <p>O componente regulador abaixo utiliza vinculação bidirecional moderna via <code>model()</code> conectado diretamente ao Signal do pai através de <code>[(vazao)]="vazaoLitrosHora"</code>:</p>
+
+    <app-flow-regulator [(vazao)]="vazaoLitrosHora" />
+  </section>
+
+  <!-- Controles, Eventos e Template Reference Variables -->
+  <section class="card">
+    <h3>Controles e Event Binding</h3>
+    <div class="actions-row">
+      <button
+        type="button"
+        class="btn btn-secondary"
+        (click)="alternarModo()"
+      >
+        Modo: {{ modoManual() ? 'Manual (Ativo)' : 'Automático (Bloqueado)' }}
+      </button>
+
+      <button
+        type="button"
+        class="btn btn-primary"
+        [disabled]="!modoManual()"
+        (click)="redefinirVazao()"
+      >
+        Redefinir para 1000 L/h
+      </button>
+    </div>
+
+    <div class="form-group">
+      <label for="operadorInput">Alterar Nome do Operador (Two-Way Binding com [(ngModel)]):</label>
+      <input
+        id="operadorInput"
+        type="text"
+        class="text-input"
+        [(ngModel)]="operador"
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="obsRef">Observações de Campo (Template Reference Variable #obsRef):</label>
+      <input
+        #obsRef
+        id="obsRef"
+        type="text"
+        class="text-input"
+        placeholder="Digite algo e clique no botão..."
+      />
+      <button
+        type="button"
+        class="btn btn-outline"
+        (click)="atualizarObservacao(obsRef.value)"
+      >
+        Gravar Observação
+      </button>
+      @if (observacao()) {
+        <p class="obs-result">
+          Observação gravada: <em>{{ observacao() }}</em>
+        </p>
+      }
+    </div>
+  </section>
+
+  <!-- Caixa Didática Explicativa -->
+  <section class="card didactic-box">
+    <h3>Mecanismos de Binding no Angular 22:</h3>
+    <ol class="step-list">
+      <li><strong>Interpolação com Signal <code>&#123;&#123; sinal() &#125;&#125;</code>:</strong> Executa a leitura do sinal e vincula a atualização granular daquele nó do template.</li>
+      <li><strong>Property Binding Reativo <code>[disabled]="!modoManual()"</code>:</strong> Reage automaticamente a qualquer atualização do sinal sem ciclo pesado de verificação.</li>
+      <li><strong>Event Binding <code>(click)="metodo()"</code>:</strong> Dispara mutações em sinais de maneira limpa e direta.</li>
+      <li><strong>Two-Way Binding com <code>model()</code>:</strong> Dispensa a criação de <code>EventEmitter</code> manual e sincroniza o sinal filho com o sinal pai em apenas uma linha.</li>
+      <li><strong>Cálculo Derivado com <code>computed()</code>:</strong> Garante memoização automática, recalculando o valor apenas quando os sinais dependentes forem modificados.</li>
+    </ol>
+  </section>
+</main>
