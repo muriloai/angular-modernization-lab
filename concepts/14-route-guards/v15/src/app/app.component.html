@@ -1,0 +1,36 @@
+<div class="main-container">
+  <header class="header">
+    <div class="header-left">
+      <span class="badge-version">Angular 15</span>
+      <h1>{{ title }}</h1>
+    </div>
+    <div class="auth-status-chip">
+      <span
+        class="status-indicator"
+        [class.active]="authService.isAuthenticated()"
+      ></span>
+      <span>Status: {{ authService.isAuthenticated() ? 'Operador Autenticado' : 'Acesso Não Autorizado' }}</span>
+    </div>
+  </header>
+
+  <nav class="nav-bar">
+    <a
+      routerLink="/login"
+      routerLinkActive="active"
+      class="nav-link"
+    >
+      Central de Acesso / Login
+    </a>
+    <a
+      routerLink="/maquinario"
+      routerLinkActive="active"
+      class="nav-link"
+    >
+      Comando de Maquinário (Protegida)
+    </a>
+  </nav>
+
+  <main class="content">
+    <router-outlet></router-outlet>
+  </main>
+</div>

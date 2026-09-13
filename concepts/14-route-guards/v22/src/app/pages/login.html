@@ -1,0 +1,77 @@
+<section class="card auth-card">
+  <h2>Controle de Acesso Operacional: Fazenda Santa Maria</h2>
+  <p class="subtitle">
+    O acesso aos comandos centrais de maquinário e pivôs exige credenciamento ativo no sistema agropecuário.
+  </p>
+
+  @if (authService.isAuthenticated()) {
+    <div class="status-box authenticated">
+      <div class="status-header">
+        <span class="badge badge-success">Autenticado com Sucesso</span>
+        <span class="user-id">{{ authService.currentUser()?.registro }}</span>
+      </div>
+      <div class="user-details">
+        <p><strong>Operador:</strong> {{ authService.currentUser()?.nome }}</p>
+        <p><strong>Função:</strong> {{ authService.currentUser()?.cargo }}</p>
+      </div>
+      <div class="actions">
+        <a routerLink="/maquinario" class="btn btn-primary">Ir para Comando de Maquinário</a>
+        <button type="button" class="btn btn-secondary" (click)="sair()">Encerrar Sessão</button>
+      </div>
+    </div>
+  } @else {
+    <div class="status-box unauthenticated">
+      <div class="status-header">
+        <span class="badge badge-danger">Acesso Restrito</span>
+      </div>
+      <p>
+        Autentique-se com seu perfil agronômico para habilitar a liberação das rotas protegidas pelo <code>agroAuthGuard</code>.
+      </p>
+
+      <form (ngSubmit)="entrar()" class="form-container">
+        <div class="form-group">
+          <label for="operadorNome">Nome do Operador:</label>
+          <input
+            id="operadorNome"
+            name="operadorNome"
+            type="text"
+            [ngModel]="operadorNome()"
+            (ngModelChange)="operadorNome.set($event)"
+            class="form-control"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="operadorCargo">Cargo / Atribuição:</label>
+          <input
+            id="operadorCargo"
+            name="operadorCargo"
+            type="text"
+            [ngModel]="operadorCargo()"
+            (ngModelChange)="operadorCargo.set($event)"
+            class="form-control"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="operadorRegistro">Registro Profissional:</label>
+          <input
+            id="operadorRegistro"
+            name="operadorRegistro"
+            type="text"
+            [ngModel]="operadorRegistro()"
+            (ngModelChange)="operadorRegistro.set($event)"
+            class="form-control"
+            required
+          />
+        </div>
+
+        <div class="actions">
+          <button type="submit" class="btn btn-primary">Conectar ao Sistema de Campo</button>
+        </div>
+      </form>
+    </div>
+  }
+</section>

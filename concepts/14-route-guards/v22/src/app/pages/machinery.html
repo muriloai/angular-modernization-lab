@@ -1,0 +1,107 @@
+<section class="machinery-container">
+  <div class="header-banner">
+    <div>
+      <h2>Comando Central de Maquinário: Fazenda Santa Maria</h2>
+      <p class="subtitle">
+        Rota protegida por <code>agroAuthGuard (CanActivateFn)</code>.
+      </p>
+    </div>
+    @if (authService.currentUser(); as user) {
+      <div class="user-badge">
+        <span class="user-title">Operador Autenticado:</span>
+        <strong>{{ user.nome }}</strong> ({{ user.registro }})
+      </div>
+    }
+  </div>
+
+  <div class="grid-layout">
+    <!-- Painel de Telemetria de Frota -->
+    <div class="card telemetry-panel">
+      <h3>Frota Ativa em Campo</h3>
+      <div class="machine-list">
+        @for (m of maquinas(); track m.id) {
+          <div class="machine-card">
+            <div class="machine-header">
+              <span class="machine-id">{{ m.id }}</span>
+              <span
+                class="machine-status"
+                [class.status-ok]="m.status === 'Operacional'"
+                [class.status-warn]="m.status === 'Em Calibração'"
+              >
+                {{ m.status }}
+              </span>
+            </div>
+            <div class="machine-body">
+              <p><strong>{{ m.modelo }}</strong></p>
+              <p class="machine-type">{{ m.tipo }}</p>
+              <div class="telemetry-stats">
+                <span>Óleo: {{ m.pressaoOleo }}</span>
+                <span>Motor: {{ m.temperaturaMotor }}</span>
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+
+    <!-- Formulário com Guarda de Desativação (CanDeactivateFn) -->
+    <div class="card form-panel">
+      <h3>Ordem de Serviço / Diário de Manutenção</h3>
+      <p class="info-text">
+        Esta seção testa a guarda funcional <code>unsavedChangesGuard (CanDeactivateFn)</code>. Se você digitar uma observação e tentar navegar para outra tela sem salvar, o navegador solicitará sua confirmação.
+      </p>
+
+      @if (hasUnsavedChanges()) {
+        <div class="alert alert-warning">
+          Alterações pendentes detectadas: A navegação está sob proteção da guarda de desativação.
+        </div>
+      }
+
+      @if (registroSalvoComSucesso()) {
+        <div class="alert alert-success">
+          Ordem de serviço registrada com sucesso no diário operacional da fazenda.
+        </div>
+      }
+
+      <form (ngSubmit)="salvarOrdem()">
+        <div class="form-group">
+          <label for="machineSelect">Equipamento:</label>
+          <select
+            id="machineSelect"
+            [ngModel]="selectedMachineId()"
+            (ngModelChange)="selectedMachineId.set($event)"
+            name="selectedMachine"
+            class="form-control"
+          >
+            @for (m of maquinas(); track m.id) {
+              <option [value]="m.id">{{ m.id }} - {{ m.modelo }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="obs">Relatório de Ajustes e Inspeção:</label>
+          <textarea
+            id="obs"
+            rows="4"
+            [ngModel]="observacoesManutencao()"
+            (ngModelChange)="observacoesManutencao.set($event)"
+            name="observacoes"
+            placeholder="Exemplo: Filtro de ar primário substituído e calibração de bicos de pulverização concluída..."
+            class="form-control"
+          ></textarea>
+        </div>
+
+        <div class="actions">
+          <button
+            type="submit"
+            class="btn btn-primary"
+            [disabled]="!hasUnsavedChanges()"
+          >
+            Salvar Registro de Campo
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
