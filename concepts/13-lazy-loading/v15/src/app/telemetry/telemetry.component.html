@@ -1,0 +1,24 @@
+<div class="page-box">
+  <div class="header-row">
+    <div>
+      <h2>Central de Telemetria e Monitoramento Analítico</h2>
+      <p class="subtitle">Este módulo e todos os seus componentes foram carregados tardiamente (Lazy Module).</p>
+    </div>
+    <span class="badge-lazy">Módulo Carregado sob Demanda (Lazy)</span>
+  </div>
+
+  <div class="telemetry-actions">
+    <button type="button" class="btn btn-secondary" (click)="alternarMapa()">
+      {{ mostrarMapa ? 'Ocultar Mapa de Satélite' : 'Exibir Mapa de Satélite NDVI' }}
+    </button>
+  </div>
+
+  <div *ngIf="mostrarMapa">
+    <app-satellite-map></app-satellite-map>
+  </div>
+
+  <div *ngIf="!mostrarMapa" class="placeholder-card">
+    <p>O mapa de satélite está oculto. Clique no botão acima para renderizá-lo.</p>
+    <small>No Angular 15, o código do componente já está no bundle do módulo lazy, pois não há lazy loading nativo de template.</small>
+  </div>
+</div>

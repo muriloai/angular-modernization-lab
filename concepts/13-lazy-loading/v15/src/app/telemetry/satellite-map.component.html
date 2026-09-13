@@ -1,0 +1,16 @@
+<div class="map-box">
+  <div class="map-header">
+    <h4>Imagem de Satélite Espectral (Índice NDVI)</h4>
+    <small class="res-sub">Resolução Sentinel-2 / Processamento Multiespectral</small>
+  </div>
+
+  <div class="ndvi-grid">
+    <div *ngFor="let item of indicesNDVI" class="ndvi-card" [style.borderLeftColor]="item.cor">
+      <div class="ndvi-top">
+        <strong>{{ item.talhao }}</strong>
+        <span class="ndvi-badge" [style.backgroundColor]="item.cor">NDVI {{ item.ndvi }}</span>
+      </div>
+      <span class="ndvi-desc">{{ item.vigor }}</span>
+    </div>
+  </div>
+</div>

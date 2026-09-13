@@ -1,0 +1,17 @@
+<div class="page-box">
+  <div class="header-row">
+    <h2>Painel Geral de Operações de Campo</h2>
+    <span class="badge-eager">Módulo Inicial (Eager)</span>
+  </div>
+  <p class="subtitle">Este componente é carregado imediatamente junto ao pacote principal da aplicação.</p>
+
+  <div class="operations-grid">
+    @for (op of resumoOperacoes(); track op.talhao) {
+      <div class="op-card">
+        <span class="talhao-tag">{{ op.talhao }}</span>
+        <h4 class="op-status">{{ op.status }}</h4>
+        <small class="op-operator">Responsável: {{ op.operador }}</small>
+      </div>
+    }
+  </div>
+</div>

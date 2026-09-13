@@ -1,0 +1,32 @@
+<div class="page-box">
+  <div class="header-row">
+    <div>
+      <h2>Central de Telemetria e Monitoramento Analítico</h2>
+      <p class="subtitle">Esta rota foi carregada tardiamente via loadComponent() e o mapa abaixo utiliza &#64;defer.</p>
+    </div>
+    <span class="badge-lazy">Rota Carregada via loadComponent()</span>
+  </div>
+
+  <div class="defer-section">
+    @defer (on interaction(triggerBtn)) {
+      <app-satellite-map />
+    } @placeholder {
+      <div class="placeholder-card">
+        <p>O pacote JavaScript do mapa de satélite ainda não foi baixado pelo navegador.</p>
+        <button #triggerBtn type="button" class="btn btn-primary">
+          Baixar e Exibir Mapa de Satélite NDVI (Trigger &#64;defer)
+        </button>
+        <small>O chunk JS correspondente será requisitado exclusivamente após o clique.</small>
+      </div>
+    } @loading (minimum 300ms) {
+      <div class="loading-card">
+        <span class="loading-spinner"></span>
+        <span>Carregando pacote do mapa multiespectral via &#64;loading...</span>
+      </div>
+    } @error {
+      <div class="error-card">
+        <span>Ocorreu uma falha ao transferir o chunk do mapa de satélite.</span>
+      </div>
+    }
+  </div>
+</div>

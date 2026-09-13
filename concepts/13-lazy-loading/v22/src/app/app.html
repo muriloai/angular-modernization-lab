@@ -1,0 +1,43 @@
+<main class="container">
+  <header class="header">
+    <div class="badge badge-v22">Angular 22 (Moderno)</div>
+    <h1>{{ titulo }}</h1>
+    <p class="subtitle">{{ subtitulo }}</p>
+  </header>
+
+  <!-- Barra de Navegação com Rota Standalone Lazy -->
+  <nav class="nav-bar">
+    <div class="nav-links">
+      <a
+        routerLink="/operacoes"
+        routerLinkActive="active"
+        class="nav-link"
+      >
+        Operações de Campo (Eager)
+      </a>
+      <a
+        routerLink="/telemetria"
+        routerLinkActive="active"
+        class="nav-link nav-link-lazy"
+      >
+        Telemetria Analítica (loadComponent)
+      </a>
+    </div>
+  </nav>
+
+  <!-- Outlet de Renderização das Rotas Standalone -->
+  <section class="card outlet-card">
+    <router-outlet />
+  </section>
+
+  <!-- Caixa Didática Explicativa -->
+  <section class="card didactic-box">
+    <h3>Lazy Loading e Deferrable Views no Angular 22:</h3>
+    <ol class="step-list">
+      <li><strong>Divisão Direta via loadComponent:</strong> A rota importa o componente Standalone diretamente através de uma função dinâmica (<code>() =&gt; import(...)</code>), sem necessidade de criar nenhum <code>NgModule</code> intermediário.</li>
+      <li><strong>Lazy Loading em Nível de Template (&#64;defer):</strong> Componentes pesados dentro da página (como mapas multiespectrais ou gráficos volumosos) têm seus chunks baixados apenas quando acionados.</li>
+      <li><strong>Triggers Declarativos:</strong> O gatilho <code>on interaction(triggerBtn)</code> orquestra a requisição do chunk de forma totalmente declarativa no próprio HTML, sem handlers imperativos no TypeScript.</li>
+      <li><strong>Ciclo Visual Completo:</strong> Os blocos <code>&#64;placeholder</code>, <code>&#64;loading</code> e <code>&#64;error</code> oferecem controle total sobre os estados transitórios e tolerância a falhas na transferência dos recursos.</li>
+    </ol>
+  </section>
+</main>
