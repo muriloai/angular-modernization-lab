@@ -1,0 +1,150 @@
+<div class="dynamic-container">
+  <div class="header-box">
+    <h2>Calibração Dinâmica de Sensores de Campo</h2>
+    <p class="subtitle">
+      Motor de formulários gerado dinamicamente a partir de esquemas JSON e Signals.
+    </p>
+  </div>
+
+  <!-- Seleção do Esquema de Sensor -->
+  <div class="schema-selector-card">
+    <label for="sensorTypeSelect">Selecione o Tipo de Sensor para Calibração:</label>
+    <select
+      id="sensorTypeSelect"
+      [value]="selectedTypeId()"
+      (change)="selecionarEsquema($any($event.target).value)"
+      class="form-control"
+    >
+      @for (s of schemas; track s.tipoId) {
+        <option [value]="s.tipoId">
+          {{ s.nomeExibicao }}
+        </option>
+      }
+    </select>
+    <p class="schema-desc">{{ activeSchema().descricao }}</p>
+  </div>
+
+  @if (salvoComSucesso()) {
+    <div class="alert alert-success">
+      Parâmetros de calibração enviados com sucesso para os transmissores de campo.
+    </div>
+  }
+
+  <!-- Formulário Gerado Dinamicamente -->
+  <form [formGroup]="form" (ngSubmit)="salvar()" novalidate class="card-form">
+    <div class="form-title">
+      Parâmetros Específicos: {{ activeSchema().nomeExibicao }}
+    </div>
+
+    @for (f of activeSchema().fields; track f.key) {
+      <div class="form-group">
+        <!-- Rótulo e indicação de obrigatório -->
+        <label [for]="f.key">
+          {{ f.label }}
+          @if (f.required) {
+            <span class="req-star">*</span>
+          }
+        </label>
+
+        <!-- Switch moderno com Built-in Control Flow -->
+        @switch (f.controlType) {
+          @case ('textbox') {
+            <div class="input-with-unit">
+              <input
+                [id]="f.key"
+                [type]="f.type || 'text'"
+                [formControlName]="f.key"
+                class="form-control"
+                [class.is-invalid]="form.get(f.key)?.invalid && form.get(f.key)?.touched"
+              />
+              @if (f.unidade) {
+                <span class="unit-badge">{{ f.unidade }}</span>
+              }
+            </div>
+          }
+
+          @case ('dropdown') {
+            <select
+              [id]="f.key"
+              [formControlName]="f.key"
+              class="form-control"
+              [class.is-invalid]="form.get(f.key)?.invalid && form.get(f.key)?.touched"
+            >
+              @for (opt of f.options; track opt.value) {
+                <option [value]="opt.value">
+                  {{ opt.label }}
+                </option>
+              }
+            </select>
+          }
+
+          @case ('checkbox') {
+            <div class="checkbox-container">
+              <label class="checkbox-label">
+                <input
+                  [id]="f.key"
+                  type="checkbox"
+                  [formControlName]="f.key"
+                />
+                <span>Ativar parâmetro operacional</span>
+              </label>
+            </div>
+          }
+        }
+
+        <!-- Mensagens de Erro Condicionais -->
+        @if (form.get(f.key)?.invalid && form.get(f.key)?.touched) {
+          <div class="error-msg">
+            @if (form.get(f.key)?.errors?.['required']) {
+              <span>Este campo é de preenchimento obrigatório.</span>
+            }
+            @if (form.get(f.key)?.errors?.['min']) {
+              <span>O valor mínimo permitido é {{ f.min }}.</span>
+            }
+            @if (form.get(f.key)?.errors?.['max']) {
+              <span>O valor máximo permitido é {{ f.max }}.</span>
+            }
+          </div>
+        }
+      </div>
+    }
+
+    <div class="form-actions">
+      <button type="submit" class="btn btn-primary" [disabled]="form.invalid">
+        Gravar Calibração do Sensor
+      </button>
+    </div>
+  </form>
+
+  <!-- Diagnóstico e Inspecção de Dados Gerados -->
+  <div class="state-inspector">
+    <h3>Diagnóstico do Motor Dinâmico</h3>
+    <div class="flags-grid">
+      <div class="flag-item">
+        <span class="flag-label">Campos Gerados:</span>
+        <span class="flag-val">{{ activeSchema().fields.length }}</span>
+      </div>
+      <div class="flag-item">
+        <span class="flag-label">Válido:</span>
+        <span class="flag-val" [class.val-true]="form.valid" [class.val-warn]="form.invalid">
+          {{ form.valid }}
+        </span>
+      </div>
+      <div class="flag-item">
+        <span class="flag-label">Dirty:</span>
+        <span class="flag-val">{{ form.dirty }}</span>
+      </div>
+      <div class="flag-item">
+        <span class="flag-label">Touched:</span>
+        <span class="flag-val">{{ form.touched }}</span>
+      </div>
+    </div>
+
+    @if (dadosConfigurados(); as dados) {
+      <div class="summary-box">
+        <h4>Payload Gerado pelo Formulário</h4>
+        <pre>{{ dados | json }}</pre>
+      </div>
+    }
+  </div>
+</div>

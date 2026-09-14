@@ -1,0 +1,127 @@
+<div class="dynamic-container">
+  <div class="header-box">
+    <h2>Calibração Dinâmica de Sensores de Campo</h2>
+    <p class="subtitle">
+      Motor de formulários gerado dinamicamente a partir de esquemas JSON (metadados).
+    </p>
+  </div>
+
+  <!-- Seleção do Esquema de Sensor -->
+  <div class="schema-selector-card">
+    <label for="sensorTypeSelect">Selecione o Tipo de Sensor para Calibração:</label>
+    <select
+      id="sensorTypeSelect"
+      [ngModel]="selectedTypeId"
+      (ngModelChange)="selecionarEsquema($event)"
+      class="form-control"
+    >
+      <option *ngFor="let s of schemas" [value]="s.tipoId">
+        {{ s.nomeExibicao }}
+      </option>
+    </select>
+    <p class="schema-desc">{{ activeSchema.descricao }}</p>
+  </div>
+
+  <div *ngIf="salvoComSucesso" class="alert alert-success">
+    Parâmetros de calibração enviados com sucesso para os transmissores de campo.
+  </div>
+
+  <!-- Formulário Gerado Dinamicamente -->
+  <form [formGroup]="form" (ngSubmit)="salvar()" novalidate class="card-form">
+    <div class="form-title">
+      Parâmetros Específicos: {{ activeSchema.nomeExibicao }}
+    </div>
+
+    <div *ngFor="let f of activeSchema.fields" class="form-group">
+      <!-- Rótulo e indicação de obrigatório -->
+      <label [for]="f.key">
+        {{ f.label }}
+        <span *ngIf="f.required" class="req-star">*</span>
+      </label>
+
+      <!-- Switch clássico com [ngSwitch] -->
+      <div [ngSwitch]="f.controlType">
+        <!-- Caixa de Texto ou Número -->
+        <div *ngSwitchCase="'textbox'" class="input-with-unit">
+          <input
+            [id]="f.key"
+            [type]="f.type || 'text'"
+            [formControlName]="f.key"
+            class="form-control"
+            [class.is-invalid]="form.get(f.key)?.invalid && form.get(f.key)?.touched"
+          />
+          <span *ngIf="f.unidade" class="unit-badge">{{ f.unidade }}</span>
+        </div>
+
+        <!-- Lista Suspensa -->
+        <div *ngSwitchCase="'dropdown'">
+          <select
+            [id]="f.key"
+            [formControlName]="f.key"
+            class="form-control"
+            [class.is-invalid]="form.get(f.key)?.invalid && form.get(f.key)?.touched"
+          >
+            <option *ngFor="let opt of f.options" [value]="opt.value">
+              {{ opt.label }}
+            </option>
+          </select>
+        </div>
+
+        <!-- Checkbox Booleano -->
+        <div *ngSwitchCase="'checkbox'" class="checkbox-container">
+          <label class="checkbox-label">
+            <input
+              [id]="f.key"
+              type="checkbox"
+              [formControlName]="f.key"
+            />
+            <span>Ativar parâmetro operacional</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Mensagens de Erro Condicionais -->
+      <div *ngIf="form.get(f.key)?.invalid && form.get(f.key)?.touched" class="error-msg">
+        <span *ngIf="form.get(f.key)?.errors?.['required']">Este campo é de preenchimento obrigatório.</span>
+        <span *ngIf="form.get(f.key)?.errors?.['min']">O valor mínimo permitido é {{ f.min }}.</span>
+        <span *ngIf="form.get(f.key)?.errors?.['max']">O valor máximo permitido é {{ f.max }}.</span>
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <button type="submit" class="btn btn-primary" [disabled]="form.invalid">
+        Gravar Calibração do Sensor
+      </button>
+    </div>
+  </form>
+
+  <!-- Diagnóstico e Inspecção de Dados Gerados -->
+  <div class="state-inspector">
+    <h3>Diagnóstico do Motor Dinâmico</h3>
+    <div class="flags-grid">
+      <div class="flag-item">
+        <span class="flag-label">Campos Gerados:</span>
+        <span class="flag-val">{{ activeSchema.fields.length }}</span>
+      </div>
+      <div class="flag-item">
+        <span class="flag-label">Válido:</span>
+        <span class="flag-val" [class.val-true]="form.valid" [class.val-warn]="form.invalid">
+          {{ form.valid }}
+        </span>
+      </div>
+      <div class="flag-item">
+        <span class="flag-label">Dirty:</span>
+        <span class="flag-val">{{ form.dirty }}</span>
+      </div>
+      <div class="flag-item">
+        <span class="flag-label">Touched:</span>
+        <span class="flag-val">{{ form.touched }}</span>
+      </div>
+    </div>
+
+    <div *ngIf="dadosConfigurados" class="summary-box">
+      <h4>Payload Gerado pelo Formulário</h4>
+      <pre>{{ dadosConfigurados | json }}</pre>
+    </div>
+  </div>
+</div>
