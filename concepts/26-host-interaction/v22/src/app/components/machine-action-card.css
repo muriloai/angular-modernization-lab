@@ -1,0 +1,98 @@
+:host {
+  display: block;
+  background: #ffffff;
+  border: 2px solid #cbd5e1;
+  border-radius: 8px;
+  cursor: pointer;
+  outline: none;
+  transition: all 0.2s ease-in-out;
+  padding: 16px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+:host(.is-hovered) {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 6px -1px rgba(37, 99, 235, 0.15);
+}
+
+:host(.is-selected) {
+  background-color: #f0fdf4;
+  box-shadow: 0 4px 6px -1px rgba(22, 163, 74, 0.2);
+}
+
+:host(:focus-visible) {
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.35);
+}
+
+.card-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.machine-id {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #64748b;
+}
+
+.status-badge {
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 0.7rem;
+  font-weight: 700;
+}
+
+.badge-operacao {
+  background-color: #dcfce7;
+  color: #15803d;
+}
+
+.badge-standby {
+  background-color: #fef3c7;
+  color: #b45309;
+}
+
+.badge-manutencao {
+  background-color: #fee2e2;
+  color: #b91c1c;
+}
+
+.machine-title {
+  margin: 0;
+  font-size: 1.15rem;
+  color: #0f172a;
+}
+
+.machine-type {
+  font-size: 0.85rem;
+  color: #64748b;
+}
+
+.card-info {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  background-color: rgba(241, 245, 249, 0.6);
+  padding: 10px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+}
+
+.info-row {
+  display: flex;
+  justify-content: space-between;
+}
+
+.card-hint {
+  font-size: 0.75rem;
+  color: #94a3b8;
+  font-style: italic;
+  margin-top: 4px;
+}

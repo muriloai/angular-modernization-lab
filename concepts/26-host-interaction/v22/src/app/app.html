@@ -1,0 +1,31 @@
+<div class="main-container">
+  <header class="header">
+    <div class="header-left">
+      <span class="badge-version">Angular 22</span>
+      <h1>{{ title }}</h1>
+    </div>
+  </header>
+
+  <main class="content">
+    <div class="card intro-card">
+      <h2>Painel de Ação Rápida de Maquinários (Fazenda Santa Maria)</h2>
+      <p class="subtitle">
+        Demonstração moderna com objeto <code>host: &#123;&#125;</code> nos metadados do <code>&#64;Component</code>, eliminando decorators legados e operando com Signals em modo Zoneless.
+      </p>
+
+      <div class="selection-summary">
+        <span>Maquinários Selecionados no Painel:</span>
+        <strong>{{ selecionadas().length }} de {{ maquinas().length }}</strong>
+      </div>
+    </div>
+
+    <div class="machines-grid">
+      @for (m of maquinas(); track m.id) {
+        <app-machine-action-card
+          [machine]="m"
+          (statusAlternado)="alternarSelecao($event)"
+        />
+      }
+    </div>
+  </main>
+</div>

@@ -83,6 +83,7 @@ Desta forma, cada laboratório pode ser compilado, executado e inspecionado indi
 | [23](concepts/23-content-projection/README.md) | Projeção de Conteúdo e Fallback | Multi-slot `<ng-content>`, falta de fallback nativo e inspeção com `@ContentChild` | Multi-slot `<ng-content>`, suporte nativo a Fallback Content e template limpo |
 | [24](concepts/24-view-queries/README.md) | Consultas de Visão (View Queries) | `@ViewChild`, `@ViewChildren(QueryList)` e dependência do `AfterViewInit` | Funções utilitárias `viewChild()`, `viewChildren()` reativas em Signals |
 | [25](concepts/25-dynamic-components/README.md) | Componentes Dinâmicos | `ViewContainerRef.createComponent()`, passagem manual de inputs e detecção | Diretiva declarativa `*ngComponentOutlet` com suporte a `inputs` em Signals |
+| [26](concepts/26-host-interaction/README.md) | Interação com o Hospedeiro | Decorators `@HostBinding` e `@HostListener` dispersos na classe | Propriedade declarativa `host` nos metadados do `@Component` com Signals |
 
 ---
 

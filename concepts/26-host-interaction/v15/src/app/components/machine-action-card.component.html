@@ -1,0 +1,30 @@
+<div class="card-inner">
+  <div class="card-top">
+    <span class="machine-id">{{ machine.id }}</span>
+    <span class="status-badge" [ngClass]="{
+      'badge-operacao': machine.status === 'Em Operação',
+      'badge-standby': machine.status === 'Standby',
+      'badge-manutencao': machine.status === 'Manutenção'
+    }">
+      {{ machine.status }}
+    </span>
+  </div>
+
+  <h4 class="machine-title">{{ machine.nome }}</h4>
+  <span class="machine-type">{{ machine.tipo }}</span>
+
+  <div class="card-info">
+    <div class="info-row">
+      <span>Operador:</span>
+      <strong>{{ machine.operador }}</strong>
+    </div>
+    <div class="info-row">
+      <span>Horas Trabalhadas:</span>
+      <strong>{{ machine.horasTrabalhadas }}h</strong>
+    </div>
+  </div>
+
+  <div class="card-hint">
+    <span>Clique ou pressione Enter para alternar seleção (Host Event)</span>
+  </div>
+</div>
