@@ -91,6 +91,12 @@ Desta forma, cada laboratório pode ser compilado, executado e inspecionado indi
 | :--- | :--- | :--- | :--- |
 | [27](concepts/27-modules-vs-standalone/README.md) | Módulos vs Arquitetura Standalone | `CoreModule`, `SharedModule` e `FeatureModule` com compilação intermediária | Standalone-by-default, importação granular de dependências e `provide*()` |
 
+### Animações e Transições
+
+| Conceito | Nome | Tecnologias no Legado (Angular 15) | Tecnologias no Moderno (Angular 22) |
+| :--- | :--- | :--- | :--- |
+| [28](concepts/28-animations/README.md) | Animações e Transições | `BrowserAnimationsModule` síncrono no bundle inicial e `*ngFor` com `[@trigger]` | `provideAnimationsAsync()` sob demanda, reatividade em Signals e `@for` |
+
 ---
 
 ## Pré-requisitos para Execução

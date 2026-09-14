@@ -1,0 +1,77 @@
+<header class="main-header">
+  <div class="header-badge">Angular 15 - BrowserAnimationsModule Clássico</div>
+  <h1>{{ title }}</h1>
+  <p class="description">
+    Demonstrando animações de entrada e saída com DSL clássica do <code>@angular/animations</code> e importação síncrona no <code>AppModule</code>.
+  </p>
+</header>
+
+<main class="dashboard-layout">
+  <div class="card form-card">
+    <h3>Disparar Novo Alerta Agronômico</h3>
+    <p class="subtitle">Adicione um alerta para ver a animação de entrada fluida</p>
+
+    <div class="form-group">
+      <label for="field">Talhão:</label>
+      <input id="field" type="text" [(ngModel)]="newField" placeholder="Ex: Talhão Central 05">
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label for="type">Tipo:</label>
+        <select id="type" [(ngModel)]="newType">
+          <option value="geada">Alerta de Geada</option>
+          <option value="seca">Estiagem Severa</option>
+          <option value="praga">Monitoramento de Pragas</option>
+          <option value="colheita">Janela de Colheita</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="severity">Gravidade:</label>
+        <select id="severity" [(ngModel)]="newSeverity">
+          <option value="baixa">Baixa</option>
+          <option value="media">Média</option>
+          <option value="alta">Alta</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="message">Mensagem da Ocorrência:</label>
+      <input id="message" type="text" [(ngModel)]="newMessage" placeholder="Descreva a ocorrência técnica">
+    </div>
+
+    <button (click)="addAlert()" [disabled]="!newField || !newMessage" class="btn btn-primary">
+      Publicar Alerta
+    </button>
+  </div>
+
+  <div class="card list-card">
+    <h3>Alertas Ativos em Tempo Real</h3>
+    <p class="subtitle">Clique no botão "Dispensar" para visualizar a animação de saída</p>
+
+    <div class="alerts-container">
+      <div *ngFor="let alert of alerts" 
+           [@cardAnimation] 
+           class="alert-card" 
+           [ngClass]="alert.severity">
+        <div class="alert-header">
+          <span class="alert-type">{{ alert.type | uppercase }}</span>
+          <span class="alert-time">{{ alert.timestamp }}</span>
+        </div>
+        <div class="alert-body">
+          <strong>{{ alert.field }}:</strong> {{ alert.message }}
+        </div>
+        <div class="alert-footer">
+          <span class="severity-tag">{{ alert.severity }} prioridade</span>
+          <button (click)="dismissAlert(alert.id)" class="btn-dismiss">Dispensar</button>
+        </div>
+      </div>
+
+      <div *ngIf="alerts.length === 0" class="empty-state">
+        Nenhum alerta ativo no momento. Todos os talhões operando dentro dos parâmetros normais.
+      </div>
+    </div>
+  </div>
+</main>
