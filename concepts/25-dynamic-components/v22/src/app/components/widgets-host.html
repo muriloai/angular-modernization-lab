@@ -1,0 +1,34 @@
+<div class="widgets-container">
+  <div class="toolbar card">
+    <h3>Seleção de Instrumento Meteorológico</h3>
+    <p class="subtitle">
+      Instanciação declarativa no template com <code>*ngComponentOutlet="widgetSelecionado(); inputs: widgetInputs()"</code> e Signals.
+    </p>
+
+    <div class="tabs-group">
+      @for (op of opcoes; track op.id) {
+        <button
+          type="button"
+          class="tab-btn"
+          [class.active]="widgetAtivoId() === op.id"
+          (click)="selecionarWidget(op.id)"
+        >
+          {{ op.label }}
+        </button>
+      }
+    </div>
+  </div>
+
+  <!-- Ponto de Injeção Declarativo no DOM -->
+  <div class="host-slot card">
+    <div class="slot-header">
+      <span class="slot-title">Ponto de Montagem Dinâmica (NgComponentOutlet Nativo)</span>
+      <span class="badge-status">Montado Declarativamente via Signal</span>
+    </div>
+
+    <!-- Diretiva moderna NgComponentOutlet com suporte declarativo a inputs -->
+    <ng-container
+      *ngComponentOutlet="widgetSelecionado(); inputs: widgetInputs()">
+    </ng-container>
+  </div>
+</div>

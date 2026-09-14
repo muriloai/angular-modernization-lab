@@ -1,0 +1,31 @@
+<div class="widgets-container">
+  <div class="toolbar card">
+    <h3>Seleção de Instrumento Meteorológico</h3>
+    <p class="subtitle">
+      Instanciação imperativa com <code>ViewContainerRef.createComponent()</code> e atribuição manual de propriedades na instância.
+    </p>
+
+    <div class="tabs-group">
+      <button
+        *ngFor="let op of opcoes"
+        type="button"
+        class="tab-btn"
+        [class.active]="widgetAtivoId === op.id"
+        (click)="selecionarWidget(op.id)"
+      >
+        {{ op.label }}
+      </button>
+    </div>
+  </div>
+
+  <!-- Ponto de Injeção Imperativo no DOM -->
+  <div class="host-slot card">
+    <div class="slot-header">
+      <span class="slot-title">Ponto de Montagem Dinâmica (ViewContainerRef)</span>
+      <span class="badge-status">Montado Imperativamente</span>
+    </div>
+
+    <!-- Contêiner referenciado pelo ViewChild -->
+    <ng-container #widgetContainer></ng-container>
+  </div>
+</div>
