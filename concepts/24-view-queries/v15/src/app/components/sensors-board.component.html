@@ -1,0 +1,61 @@
+<div class="board-container">
+  <div class="card toolbar-card">
+    <div class="toolbar-header">
+      <h3>Painel de Controle da Malha IoT</h3>
+      <p class="subtitle">
+        Consultas de visão clássicas com <code>@ViewChild</code> e <code>@ViewChildren(QueryList)</code>.
+      </p>
+    </div>
+
+    <div class="toolbar-inputs">
+      <!-- Elemento do DOM consultado via @ViewChild('filtroInput') -->
+      <div class="input-wrapper">
+        <input
+          #filtroInput
+          type="text"
+          class="input-search"
+          placeholder="Filtrar por nome ou talhão..."
+          [(ngModel)]="termoBusca"
+        />
+        <button type="button" class="btn btn-outline" (click)="focarCampoBusca()">
+          Focar Input (via &#64;ViewChild)
+        </button>
+      </div>
+
+      <div class="actions-group">
+        <button type="button" class="btn btn-primary" (click)="destacarTodos()">
+          Destacar Todos (via QueryList)
+        </button>
+        <button type="button" class="btn btn-secondary" (click)="limparDestaques()">
+          Limpar Destaque
+        </button>
+        <button type="button" class="btn btn-success" (click)="adicionarNovoSensor()">
+          + Adicionar Sensor
+        </button>
+        <button type="button" class="btn btn-danger" (click)="removerUltimo()" [disabled]="sensores.length === 0">
+          Remover Último
+        </button>
+      </div>
+    </div>
+
+    <div class="metrics-bar">
+      <div class="metric-item">
+        <span class="m-label">Instâncias Detectadas no DOM:</span>
+        <strong class="m-val">{{ totalComponentesEncontrados }}</strong>
+      </div>
+      <div class="metric-item">
+        <span class="m-label">Sensores no Modelo:</span>
+        <strong class="m-val">{{ sensores.length }}</strong>
+      </div>
+    </div>
+  </div>
+
+  <!-- Grid de Componentes Filhos capturados pelo @ViewChildren -->
+  <div class="sensors-grid">
+    <app-sensor-tag
+      *ngFor="let s of sensores"
+      [sensor]="s"
+    >
+    </app-sensor-tag>
+  </div>
+</div>

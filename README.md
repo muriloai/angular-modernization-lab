@@ -81,6 +81,7 @@ Desta forma, cada laboratório pode ser compilado, executado e inspecionado indi
 | :--- | :--- | :--- | :--- |
 | [22](concepts/22-component-communication/README.md) | Comunicação entre Componentes | Decorators `@Input()`, `@Output()` com `EventEmitter` e banana-in-a-box | Signal inputs `input()`, `input.required()`, `output()` e Signal `model()` |
 | [23](concepts/23-content-projection/README.md) | Projeção de Conteúdo e Fallback | Multi-slot `<ng-content>`, falta de fallback nativo e inspeção com `@ContentChild` | Multi-slot `<ng-content>`, suporte nativo a Fallback Content e template limpo |
+| [24](concepts/24-view-queries/README.md) | Consultas de Visão (View Queries) | `@ViewChild`, `@ViewChildren(QueryList)` e dependência do `AfterViewInit` | Funções utilitárias `viewChild()`, `viewChildren()` reativas em Signals |
 
 ---
 

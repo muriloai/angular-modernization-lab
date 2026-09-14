@@ -1,0 +1,22 @@
+<div class="sensor-card" [class.sensor-destacado]="destacado()" [class.sensor-inativo]="!sensor().ativo">
+  <div class="card-top">
+    <span class="sensor-id">{{ sensor().id }}</span>
+    <span class="status-pill" [class.pill-ativo]="sensor().ativo" [class.pill-inativo]="!sensor().ativo">
+      {{ sensor().ativo ? 'Operando' : 'Desativado' }}
+    </span>
+  </div>
+
+  <h4 class="sensor-name">{{ sensor().nome }}</h4>
+  <span class="sensor-talhao">{{ sensor().talhao }}</span>
+
+  <div class="card-reading">
+    <span class="tipo-label">{{ sensor().tipo }}:</span>
+    <strong class="valor-leitura">{{ sensor().valor }}</strong>
+  </div>
+
+  <div class="card-footer">
+    <button type="button" class="btn-toggle" (click)="alternarStatus()">
+      {{ sensor().ativo ? 'Pausar' : 'Ativar' }}
+    </button>
+  </div>
+</div>

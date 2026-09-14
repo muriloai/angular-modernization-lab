@@ -1,0 +1,63 @@
+<div class="board-container">
+  <div class="card toolbar-card">
+    <div class="toolbar-header">
+      <h3>Painel de Controle da Malha IoT</h3>
+      <p class="subtitle">
+        Consultas de visão modernas com <code>viewChild.required()</code> e <code>viewChildren()</code> em Signals e modo Zoneless.
+      </p>
+    </div>
+
+    <div class="toolbar-inputs">
+      <!-- Elemento do DOM consultado via viewChild.required('filtroInput') -->
+      <div class="input-wrapper">
+        <input
+          #filtroInput
+          type="text"
+          class="input-search"
+          placeholder="Filtrar por nome ou talhão..."
+          [(ngModel)]="termoBusca"
+        />
+        <button type="button" class="btn btn-outline" (click)="focarCampoBusca()">
+          Focar Input (via viewChild)
+        </button>
+      </div>
+
+      <div class="actions-group">
+        <button type="button" class="btn btn-primary" (click)="destacarTodos()">
+          Destacar Todos (via viewChildren)
+        </button>
+        <button type="button" class="btn btn-secondary" (click)="limparDestaques()">
+          Limpar Destaque
+        </button>
+        <button type="button" class="btn btn-success" (click)="adicionarNovoSensor()">
+          + Adicionar Sensor
+        </button>
+        <button type="button" class="btn btn-danger" (click)="removerUltimo()" [disabled]="sensores().length === 0">
+          Remover Último
+        </button>
+      </div>
+    </div>
+
+    <div class="metrics-bar">
+      <div class="metric-item">
+        <span class="m-label">Instâncias Detectadas via Signal:</span>
+        <strong class="m-val">{{ totalComponentesEncontrados() }}</strong>
+      </div>
+      <div class="metric-item">
+        <span class="m-label">Sensores no Modelo Reativo:</span>
+        <strong class="m-val">{{ sensores().length }}</strong>
+      </div>
+      <div class="metric-item">
+        <span class="m-label">Sensores Operando:</span>
+        <strong class="m-val text-success">{{ totalAtivos() }}</strong>
+      </div>
+    </div>
+  </div>
+
+  <!-- Grid de Componentes Filhos capturados pelo viewChildren -->
+  <div class="sensors-grid">
+    @for (s of sensores(); track s.id) {
+      <app-sensor-tag [sensor]="s" />
+    }
+  </div>
+</div>
