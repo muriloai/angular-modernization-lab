@@ -106,6 +106,7 @@ Desta forma, cada laboratório pode ser compilado, executado e inspecionado indi
 | [31](concepts/31-security/README.md) | Boas Práticas de Segurança e DomSanitizer | Sanitização nativa e `DomSanitizer` injetado no construtor | `inject(DomSanitizer)`, sanitização reativa com `computed()` e Zoneless |
 | [32](concepts/32-performance/README.md) | Padrões de Performance e Virtual Scrolling | `ScrollingModule` em `AppModule` e detecção interceptada por `zone.js` | `ScrollingModule` standalone, 60 FPS estáveis com Zoneless e computed signals |
 | [33](concepts/33-decorators/README.md) | Desconstrução de Decorators para APIs Funcionais | Decorators `@Input`, `@Output`, `@HostBinding`, `@HostListener`, `@ViewChild` | Alternativas funcionais `input()`, `output()`, `host`, `viewChild()` e `inject()` |
+| [34](concepts/34-rxjs-essentials/README.md) | Operadores Essenciais RxJS e Concorrência | Streams clássicas com `switchMap`, `exhaustMap` e pipe `async` | Interoperabilidade RxJS com `toSignal()`, concorrência e templates limpos |
 
 ---
 

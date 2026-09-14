@@ -1,0 +1,55 @@
+<div class="search-panel">
+  <div class="search-bar">
+    <label for="searchInput">Busca com switchMap + toSignal (Sem pipe async):</label>
+    <input id="searchInput" 
+           type="text" 
+           [formControl]="searchControl" 
+           placeholder="Digite o nome, categoria ou depósito...">
+    <span class="tip">O Observable é convertido via toSignal() e consumido como um Signal puro no template.</span>
+  </div>
+
+  @if (lastFeedback()) {
+    <div class="feedback-banner" [class.loading]="isDispatching()">
+      {{ lastFeedback() }}
+    </div>
+  }
+
+  <div class="results-table-wrapper">
+    <table class="results-table">
+      <thead>
+        <tr>
+          <th>Código</th>
+          <th>Insumo</th>
+          <th>Categoria</th>
+          <th>Estoque Atual</th>
+          <th>Localização</th>
+          <th>Ação (exhaustMap)</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (item of supplies(); track item.id) {
+          <tr>
+            <td class="font-mono">{{ item.id }}</td>
+            <td><strong>{{ item.name }}</strong></td>
+            <td>
+              <span class="badge" [class]="item.category.toLowerCase()">{{ item.category }}</span>
+            </td>
+            <td>{{ item.stockQuantity }} {{ item.unit }}</td>
+            <td>{{ item.location }}</td>
+            <td>
+              <button (click)="onDispatch(item.id)" 
+                      [disabled]="isDispatching()" 
+                      class="btn btn-sm">
+                {{ isDispatching() ? 'Enviando...' : 'Liberar Lote' }}
+              </button>
+            </td>
+          </tr>
+        } @empty {
+          <tr>
+            <td colspan="6" class="empty-cell">Nenhum insumo encontrado para o termo pesquisado.</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</div>

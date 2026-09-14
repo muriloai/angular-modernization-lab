@@ -1,0 +1,47 @@
+<div class="search-panel">
+  <div class="search-bar">
+    <label for="searchInput">Busca Inteligente com switchMap + debounceTime(300ms):</label>
+    <input id="searchInput" 
+           type="text" 
+           [formControl]="searchControl" 
+           placeholder="Digite o nome, categoria ou depósito...">
+    <span class="tip">Ao digitar rapidamente, requisições obsoletas são canceladas via switchMap.</span>
+  </div>
+
+  <div *ngIf="lastFeedback" class="feedback-banner" [class.loading]="isDispatching">
+    {{ lastFeedback }}
+  </div>
+
+  <div class="results-table-wrapper">
+    <table class="results-table">
+      <thead>
+        <tr>
+          <th>Código</th>
+          <th>Insumo</th>
+          <th>Categoria</th>
+          <th>Estoque Atual</th>
+          <th>Localização</th>
+          <th>Ação (exhaustMap)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of supplies$ | async">
+          <td class="font-mono">{{ item.id }}</td>
+          <td><strong>{{ item.name }}</strong></td>
+          <td>
+            <span class="badge" [ngClass]="item.category.toLowerCase()">{{ item.category }}</span>
+          </td>
+          <td>{{ item.stockQuantity }} {{ item.unit }}</td>
+          <td>{{ item.location }}</td>
+          <td>
+            <button (click)="onDispatch(item.id)" 
+                    [disabled]="isDispatching" 
+                    class="btn btn-sm">
+              {{ isDispatching ? 'Enviando...' : 'Liberar Lote' }}
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
