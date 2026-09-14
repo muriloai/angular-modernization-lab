@@ -1,0 +1,47 @@
+<header class="main-header">
+  <div class="header-badge">Angular 15 - Lazy Loading Manual de Componentes</div>
+  <h1>{{ title }}</h1>
+  <p class="description">
+    Demonstrando a complexidade do modelo legado: uso imperativo de <code>ViewContainerRef.createComponent()</code>, chamadas manuais a <code>import()</code> e controle explícito de spinners.
+  </p>
+</header>
+
+<main class="dashboard-grid">
+  <div class="card-slot">
+    <div class="slot-header">
+      <h3>Radar Doppler por Satélite</h3>
+      <button (click)="loadRadarManually()" [disabled]="isRadarLoaded || isRadarLoading" class="btn btn-primary">
+        {{ isRadarLoaded ? 'Módulo Carregado' : (isRadarLoading ? 'Baixando Chunk...' : 'Carregar Radar') }}
+      </button>
+    </div>
+
+    <div *ngIf="!isRadarLoaded && !isRadarLoading" class="placeholder-box">
+      Componente pesado suspenso para poupar dados e acelerar carregamento inicial.
+    </div>
+
+    <div *ngIf="isRadarLoading" class="loading-box">
+      Baixando WeatherRadarComponent sob demanda...
+    </div>
+
+    <ng-container #radarAnchor></ng-container>
+  </div>
+
+  <div class="card-slot">
+    <div class="slot-header">
+      <h3>Análise Eletrolítica de Solo</h3>
+      <button (click)="loadSoilManually()" [disabled]="isSoilLoaded || isSoilLoading" class="btn btn-primary">
+        {{ isSoilLoaded ? 'Módulo Carregado' : (isSoilLoading ? 'Baixando Chunk...' : 'Carregar Análise') }}
+      </button>
+    </div>
+
+    <div *ngIf="!isSoilLoaded && !isSoilLoading" class="placeholder-box">
+      Gráficos analíticos suspensos aguardando solicitação do operador.
+    </div>
+
+    <div *ngIf="isSoilLoading" class="loading-box">
+      Baixando SoilAnalysisComponent sob demanda...
+    </div>
+
+    <ng-container #soilAnchor></ng-container>
+  </div>
+</main>

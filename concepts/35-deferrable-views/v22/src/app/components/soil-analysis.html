@@ -1,0 +1,26 @@
+<div class="soil-card">
+  <div class="soil-header">
+    <h3>Análise de Nutrientes do Solo (NPK)</h3>
+    <span class="badge-grade">{{ qualityGrade() }}</span>
+  </div>
+  <p class="desc">Amostragem profunda automatizada - Talhão de Soja 02</p>
+  <div class="soil-grid">
+    <div class="card-metric">
+      <span class="elem">Nitrogênio (N)</span>
+      <span class="num">{{ nitrogen() }} mg/dm³</span>
+    </div>
+    <div class="card-metric">
+      <span class="elem">Fósforo (P)</span>
+      <span class="num">{{ phosphorus() }} mg/dm³</span>
+    </div>
+    <div class="card-metric">
+      <span class="elem">Potássio (K)</span>
+      <span class="num">{{ potassium() }} mg/dm³</span>
+    </div>
+    <div class="card-metric">
+      <span class="elem">Acidez (pH)</span>
+      <span class="num">{{ ph() }}</span>
+    </div>
+  </div>
+  <button class="btn-soil" (click)="recalibrateSensors()">Recalibrar Sonda</button>
+</div>

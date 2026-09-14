@@ -1,0 +1,22 @@
+<div class="radar-card">
+  <div class="radar-header">
+    <h3>Radar Meteorológico em Tempo Real</h3>
+    <span class="badge-live">Ao Vivo</span>
+  </div>
+  <p class="meta">Última varredura: {{ radarTime() }}</p>
+  <div class="radar-metrics">
+    <div class="metric">
+      <span class="label">Precipitação Estimada:</span>
+      <span class="val">{{ precipitation() }}</span>
+    </div>
+    <div class="metric">
+      <span class="label">Vento:</span>
+      <span class="val">{{ windSpeed() }}</span>
+    </div>
+    <div class="metric">
+      <span class="label">Alerta de Campo:</span>
+      <span class="val alert">{{ status() }}</span>
+    </div>
+  </div>
+  <button class="btn-refresh" (click)="updateRadar()">Atualizar Varredura</button>
+</div>

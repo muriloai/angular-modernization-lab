@@ -1,0 +1,94 @@
+.radar-card {
+  background: #0f172a;
+  color: #f8fafc;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.radar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+h4 {
+  margin: 0;
+  font-size: 1rem;
+  color: #38bdf8;
+}
+
+.live-pill {
+  font-size: 0.7rem;
+  font-weight: 700;
+  background-color: #ef4444;
+  color: #ffffff;
+  padding: 2px 8px;
+  border-radius: 9999px;
+  letter-spacing: 0.05em;
+}
+
+.radar-display {
+  height: 180px;
+  background: radial-gradient(circle, #0284c7 0%, #0369a1 40%, #082f49 100%);
+  border-radius: 6px;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
+  padding: 12px;
+}
+
+.radar-circle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: 1px dashed rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+}
+
+.circle-1 { width: 90px; height: 90px; }
+.circle-2 { width: 150px; height: 150px; }
+
+.radar-blip {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  background-color: #facc15;
+  border-radius: 50%;
+  box-shadow: 0 0 8px #facc15;
+}
+
+.blip-1 { top: 40%; left: 60%; }
+.blip-2 { top: 65%; left: 35%; }
+
+.radar-legend {
+  font-size: 0.75rem;
+  color: #e0f2fe;
+  background: rgba(15, 23, 42, 0.7);
+  padding: 4px 8px;
+  border-radius: 4px;
+}
+
+.radar-metrics {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 12px;
+}
+
+.metric {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-size: 0.8rem;
+  color: #94a3b8;
+}
+
+.metric strong {
+  color: #f8fafc;
+  font-size: 0.95rem;
+}

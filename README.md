@@ -107,6 +107,7 @@ Desta forma, cada laboratório pode ser compilado, executado e inspecionado indi
 | [32](concepts/32-performance/README.md) | Padrões de Performance e Virtual Scrolling | `ScrollingModule` em `AppModule` e detecção interceptada por `zone.js` | `ScrollingModule` standalone, 60 FPS estáveis com Zoneless e computed signals |
 | [33](concepts/33-decorators/README.md) | Desconstrução de Decorators para APIs Funcionais | Decorators `@Input`, `@Output`, `@HostBinding`, `@HostListener`, `@ViewChild` | Alternativas funcionais `input()`, `output()`, `host`, `viewChild()` e `inject()` |
 | [34](concepts/34-rxjs-essentials/README.md) | Operadores Essenciais RxJS e Concorrência | Streams clássicas com `switchMap`, `exhaustMap` e pipe `async` | Interoperabilidade RxJS com `toSignal()`, concorrência e templates limpos |
+| [35](concepts/35-deferrable-views/README.md) | Vistas Adiantadas com Deferrable Views | Carregamento dinâmico manual com `ViewContainerRef` e `createComponent` | Diretivas declarativas `@defer` com gatilhos (`interaction`, `viewport`) e prefetch |
 
 ---
 

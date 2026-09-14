@@ -1,0 +1,60 @@
+<div class="container">
+  <header class="header">
+    <h1>{{ title() }}</h1>
+    <p>Demonstração de Deferrable Views nativas no Angular 22 com gatilhos declarativos e prefetch.</p>
+  </header>
+
+  <section class="info-banner">
+    <strong>Abordagem Angular 22:</strong> A sintaxe <code>&#64;defer</code> delega ao compilador a divisão de chunks e gerenciamento de ciclo de vida, estados de carregamento (<code>&#64;loading</code>), reservas de espaço (<code>&#64;placeholder</code>) e tratamento de falhas (<code>&#64;error</code>).
+  </section>
+
+  <!-- Seção 1: Defer por Interação com prefetch em idle -->
+  <div class="section-block">
+    <h2>1. Radar Meteorológico (Gatilho: &#64;defer on interaction)</h2>
+    <p>O radar meteorológico é um componente pesado. O chunk só é instanciado quando o usuário interage com o botão do placeholder, mas o download ocorre antecipadamente em idle.</p>
+
+    @defer (on interaction; prefetch on idle) {
+      <app-weather-radar />
+    } @placeholder (minimum 200ms) {
+      <div class="placeholder-box">
+        <p>Radar meteorológico pausado para economia de recursos.</p>
+        <button class="btn-trigger">Clique aqui para carregar Radar Meteorológico</button>
+      </div>
+    } @loading (minimum 500ms) {
+      <div class="loading-box">
+        <p>Baixando e inicializando chunk do radar meteorológico...</p>
+      </div>
+    } @error {
+      <div class="error-box">
+        <p>Falha ao carregar radar meteorológico da estação remota.</p>
+      </div>
+    }
+  </div>
+
+  <div class="spacer">
+    <p>Espaço vertical para simular rolagem de página (scroll).</p>
+    <small>Role para baixo para acionar o carregamento do módulo de solo via viewport.</small>
+  </div>
+
+  <!-- Seção 2: Defer por Viewport com prefetch em idle -->
+  <div class="section-block">
+    <h2>2. Análise de Nutrientes do Solo (Gatilho: &#64;defer on viewport)</h2>
+    <p>Este componente é carregado de forma automática e transparente assim que entra no campo de visão (IntersectionObserver nativo do framework).</p>
+
+    @defer (on viewport; prefetch on idle) {
+      <app-soil-analysis />
+    } @placeholder {
+      <div class="placeholder-box">
+        <p>Aguardando elemento entrar no campo visual para carregamento sob demanda...</p>
+      </div>
+    } @loading (minimum 400ms) {
+      <div class="loading-box">
+        <p>Carregando telemetria de sensores de solo...</p>
+      </div>
+    } @error {
+      <div class="error-box">
+        <p>Não foi possível obter os dados da sonda de solo.</p>
+      </div>
+    }
+  </div>
+</div>

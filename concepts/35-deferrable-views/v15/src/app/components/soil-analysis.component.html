@@ -1,0 +1,32 @@
+<div class="soil-card">
+  <div class="soil-header">
+    <h4>{{ zoneName }}</h4>
+    <span class="badge-fert">Fertilidade Alta</span>
+  </div>
+
+  <div class="bars-container">
+    <div class="bar-group">
+      <div class="bar-label">
+        <span>pH do Solo</span>
+        <strong>{{ phLevel }} (Ideal)</strong>
+      </div>
+      <div class="progress-track"><div class="progress-bar ph-bar" style="width: 72%;"></div></div>
+    </div>
+
+    <div class="bar-group">
+      <div class="bar-label">
+        <span>Matéria Orgânica</span>
+        <strong>{{ organicMatterPercent }}%</strong>
+      </div>
+      <div class="progress-track"><div class="progress-bar mo-bar" style="width: 65%;"></div></div>
+    </div>
+
+    <div class="bar-group">
+      <div class="bar-label">
+        <span>Potássio (K)</span>
+        <strong>{{ potassiumMgDm3 }} mg/dm³</strong>
+      </div>
+      <div class="progress-track"><div class="progress-bar k-bar" style="width: 80%;"></div></div>
+    </div>
+  </div>
+</div>

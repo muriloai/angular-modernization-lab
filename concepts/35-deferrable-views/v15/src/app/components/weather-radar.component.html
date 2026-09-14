@@ -1,0 +1,34 @@
+<div class="radar-card">
+  <div class="radar-header">
+    <h4>{{ station }}</h4>
+    <span class="live-pill">AO VIVO</span>
+  </div>
+
+  <div class="radar-display">
+    <div class="radar-scan-line"></div>
+    <div class="radar-circle circle-1"></div>
+    <div class="radar-circle circle-2"></div>
+    <div class="radar-blip blip-1"></div>
+    <div class="radar-blip blip-2"></div>
+    <span class="radar-legend">Varredura Doppler: Precipitação iminente detectada</span>
+  </div>
+
+  <div class="radar-metrics">
+    <div class="metric">
+      <span>Chuva Prevista:</span>
+      <strong>{{ precipitationProb }}%</strong>
+    </div>
+    <div class="metric">
+      <span>Vento:</span>
+      <strong>{{ windSpeedKmh }} km/h</strong>
+    </div>
+    <div class="metric">
+      <span>Temperatura:</span>
+      <strong>{{ temperatureC }} °C</strong>
+    </div>
+    <div class="metric">
+      <span>Nuvens:</span>
+      <strong>{{ cloudCover }}</strong>
+    </div>
+  </div>
+</div>
