@@ -104,6 +104,7 @@ Desta forma, cada laboratório pode ser compilado, executado e inspecionado indi
 | [29](concepts/29-renderer2/README.md) | Manipulação Segura do DOM com Renderer2 | `Renderer2` e `ElementRef` injetados no construtor com `@ViewChild` | `inject(Renderer2)`, queries reativas com `viewChild()` e `effect()` |
 | [30](concepts/30-i18n/README.md) | Internacionalização e Pipes de Localização | `registerLocaleData` e `LOCALE_ID` em módulo com `CommonModule` | `registerLocaleData`, pipes standalone granulares e reatividade com Signals |
 | [31](concepts/31-security/README.md) | Boas Práticas de Segurança e DomSanitizer | Sanitização nativa e `DomSanitizer` injetado no construtor | `inject(DomSanitizer)`, sanitização reativa com `computed()` e Zoneless |
+| [32](concepts/32-performance/README.md) | Padrões de Performance e Virtual Scrolling | `ScrollingModule` em `AppModule` e detecção interceptada por `zone.js` | `ScrollingModule` standalone, 60 FPS estáveis com Zoneless e computed signals |
 
 ---
 

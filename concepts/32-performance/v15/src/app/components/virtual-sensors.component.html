@@ -1,0 +1,50 @@
+<div class="virtual-container">
+  <div class="filter-bar">
+    <div class="search-box">
+      <input type="text" 
+             [(ngModel)]="filterQuery" 
+             (ngModelChange)="applyFilter()" 
+             placeholder="Buscar sensor por nome ou talhão...">
+    </div>
+
+    <div class="select-box">
+      <select [(ngModel)]="selectedMetric" (ngModelChange)="applyFilter()">
+        <option value="TODAS">Todas as Métricas</option>
+        <option value="Umidade">Umidade</option>
+        <option value="Temperatura">Temperatura</option>
+        <option value="PH">pH do Solo</option>
+        <option value="Radiacao">Radiação Solar</option>
+      </select>
+    </div>
+
+    <div class="metric-summary">
+      <span>Total de Sensores: <strong>{{ allSensors.length }}</strong></span>
+      <span>Filtrados: <strong>{{ filteredSensors.length }}</strong></span>
+      <span class="dom-badge">Nós no DOM: ~15 (Virtual Scroll)</span>
+    </div>
+  </div>
+
+  <div class="table-header-row">
+    <span class="col-id">ID</span>
+    <span class="col-name">Identificação</span>
+    <span class="col-field">Talhão</span>
+    <span class="col-metric">Métrica</span>
+    <span class="col-value">Leitura Atual</span>
+    <span class="col-battery">Bateria</span>
+    <span class="col-status">Status</span>
+  </div>
+
+  <cdk-virtual-scroll-viewport itemSize="48" class="sensor-viewport">
+    <div *cdkVirtualFor="let sensor of filteredSensors; trackBy: sensor?.id" class="sensor-row">
+      <span class="col-id font-mono">{{ sensor.id }}</span>
+      <span class="col-name font-bold">{{ sensor.name }}</span>
+      <span class="col-field">{{ sensor.field }}</span>
+      <span class="col-metric metric-pill">{{ sensor.metricType }}</span>
+      <span class="col-value font-mono">{{ sensor.value }} {{ sensor.unit }}</span>
+      <span class="col-battery">{{ sensor.batteryPercent }}%</span>
+      <span class="col-status">
+        <span class="status-indicator" [ngClass]="sensor.status">{{ sensor.status }}</span>
+      </span>
+    </div>
+  </cdk-virtual-scroll-viewport>
+</div>
