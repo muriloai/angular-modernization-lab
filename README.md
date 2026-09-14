@@ -85,6 +85,12 @@ Desta forma, cada laboratório pode ser compilado, executado e inspecionado indi
 | [25](concepts/25-dynamic-components/README.md) | Componentes Dinâmicos | `ViewContainerRef.createComponent()`, passagem manual de inputs e detecção | Diretiva declarativa `*ngComponentOutlet` com suporte a `inputs` em Signals |
 | [26](concepts/26-host-interaction/README.md) | Interação com o Hospedeiro | Decorators `@HostBinding` e `@HostListener` dispersos na classe | Propriedade declarativa `host` nos metadados do `@Component` com Signals |
 
+### Módulos vs Standalone Architecture
+
+| Conceito | Nome | Tecnologias no Legado (Angular 15) | Tecnologias no Moderno (Angular 22) |
+| :--- | :--- | :--- | :--- |
+| [27](concepts/27-modules-vs-standalone/README.md) | Módulos vs Arquitetura Standalone | `CoreModule`, `SharedModule` e `FeatureModule` com compilação intermediária | Standalone-by-default, importação granular de dependências e `provide*()` |
+
 ---
 
 ## Pré-requisitos para Execução

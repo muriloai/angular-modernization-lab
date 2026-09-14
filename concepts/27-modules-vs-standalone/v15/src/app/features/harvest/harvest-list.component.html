@@ -1,0 +1,75 @@
+<div class="harvest-container">
+  <div class="card form-card">
+    <h3>Novo Lote de Colheita</h3>
+    <p class="subtitle">Cadastre uma nova ordem de colheita no sistema</p>
+
+    <form (ngSubmit)="onSubmit()" class="harvest-form">
+      <div class="form-group">
+        <label for="field">Talhao / Area:</label>
+        <input id="field" type="text" [(ngModel)]="newField" name="field" required placeholder="Ex: Talhao Norte 08">
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="crop">Cultura:</label>
+          <select id="crop" [(ngModel)]="newCrop" name="crop">
+            <option value="Soja">Soja</option>
+            <option value="Milho">Milho</option>
+            <option value="Trigo">Trigo</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="tonnes">Estimativa (Ton):</label>
+          <input id="tonnes" type="number" [(ngModel)]="newTonnes" name="tonnes" min="1">
+        </div>
+
+        <div class="form-group">
+          <label for="date">Data Prevista:</label>
+          <input id="date" type="date" [(ngModel)]="newDate" name="date">
+        </div>
+      </div>
+
+      <button type="submit" [disabled]="!newField" class="btn btn-primary">Registrar Lote</button>
+    </form>
+  </div>
+
+  <div class="card list-card">
+    <h3>Lotes Programados (Gestao por FeatureModule)</h3>
+    <p class="subtitle">Demonstrando consumo indireto atraves de SharedModule e CoreModule</p>
+
+    <table class="harvest-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Talhao</th>
+          <th>Cultura</th>
+          <th>Toneladas</th>
+          <th>Data</th>
+          <th>Status (Shared Component)</th>
+          <th>Acoes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of batches$ | async">
+          <td class="code-cell">{{ item.id }}</td>
+          <td><strong>{{ item.field }}</strong></td>
+          <td>{{ item.crop }}</td>
+          <td>{{ item.tonnes }} t</td>
+          <td>{{ item.date }}</td>
+          <td>
+            <app-status-badge [status]="item.status"></app-status-badge>
+          </td>
+          <td>
+            <button *ngIf="item.status !== 'concluido'" 
+                    (click)="advanceStatus(item)"
+                    class="btn btn-sm">
+              Avancar Etapa
+            </button>
+            <span *ngIf="item.status === 'concluido'" class="done-tag">Finalizado</span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -1,0 +1,82 @@
+<div class="harvest-container">
+  <div class="card form-card">
+    <h3>Novo Lote de Colheita (Standalone)</h3>
+    <p class="subtitle">Componente sem modulos intermediarios, importando dependencias diretamente</p>
+
+    <form (ngSubmit)="onSubmit()" class="harvest-form">
+      <div class="form-group">
+        <label for="field">Talhao / Area:</label>
+        <input id="field" type="text" [ngModel]="newField()" (ngModelChange)="newField.set($event)" name="field" required placeholder="Ex: Talhao Norte 08">
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="crop">Cultura:</label>
+          <select id="crop" [ngModel]="newCrop()" (ngModelChange)="newCrop.set($event)" name="crop">
+            <option value="Soja">Soja</option>
+            <option value="Milho">Milho</option>
+            <option value="Trigo">Trigo</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="tonnes">Estimativa (Ton):</label>
+          <input id="tonnes" type="number" [ngModel]="newTonnes()" (ngModelChange)="newTonnes.set($event)" name="tonnes" min="1">
+        </div>
+
+        <div class="form-group">
+          <label for="date">Data Prevista:</label>
+          <input id="date" type="date" [ngModel]="newDate()" (ngModelChange)="newDate.set($event)" name="date">
+        </div>
+      </div>
+
+      <button type="submit" [disabled]="!newField()" class="btn btn-primary">Registrar Lote</button>
+    </form>
+  </div>
+
+  <div class="card list-card">
+    <h3>Lotes Programados (Arquitetura Standalone)</h3>
+    <p class="subtitle">Renderizacao direta com @for reativo a Signals e StatusBadge standalone</p>
+
+    <table class="harvest-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Talhao</th>
+          <th>Cultura</th>
+          <th>Toneladas</th>
+          <th>Data</th>
+          <th>Status (Standalone Component)</th>
+          <th>Acoes</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (item of batches(); track item.id) {
+          <tr>
+            <td class="code-cell">{{ item.id }}</td>
+            <td><strong>{{ item.field }}</strong></td>
+            <td>{{ item.crop }}</td>
+            <td>{{ item.tonnes }} t</td>
+            <td>{{ item.date }}</td>
+            <td>
+              <app-status-badge [status]="item.status" />
+            </td>
+            <td>
+              @if (item.status !== 'concluido') {
+                <button (click)="advanceStatus(item)" class="btn btn-sm">
+                  Avancar Etapa
+                </button>
+              } @else {
+                <span class="done-tag">Finalizado</span>
+              }
+            </td>
+          </tr>
+        } @empty {
+          <tr>
+            <td colspan="7" class="empty-cell">Nenhum lote de colheita registrado.</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</div>
