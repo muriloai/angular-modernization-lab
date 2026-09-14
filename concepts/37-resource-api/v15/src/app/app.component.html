@@ -1,0 +1,65 @@
+<div class="container">
+  <header class="header">
+    <h1>{{ title }}</h1>
+    <p>Data Fetching clássico no Angular 15 utilizando <code>BehaviorSubject</code>, <code>switchMap</code> e controle manual de loading/error.</p>
+  </header>
+
+  <div class="controls-panel">
+    <div class="control-group">
+      <label>Selecione a Cultura:</label>
+      <div class="btn-group">
+        <button [class.active]="selectedCrop === 'soja'" (click)="onCropChange('soja')">Soja</button>
+        <button [class.active]="selectedCrop === 'milho'" (click)="onCropChange('milho')">Milho</button>
+        <button [class.active]="selectedCrop === 'algodao'" (click)="onCropChange('algodao')">Algodão</button>
+      </div>
+    </div>
+
+    <div class="control-actions">
+      <button class="btn btn-secondary" (click)="reload()">Recarregar Dados</button>
+      <label class="checkbox-label">
+        <input type="checkbox" [checked]="simulateError" (change)="toggleSimulateError()">
+        Simular Falha na API
+      </label>
+    </div>
+  </div>
+
+  <div *ngIf="isLoading" class="state-banner loading">
+    <span>Carregando dados dos silos e laudos de armazenagem...</span>
+  </div>
+
+  <div *ngIf="errorMessage && !isLoading" class="state-banner error">
+    <strong>Falha ao carregar:</strong> {{ errorMessage }}
+  </div>
+
+  <div *ngIf="!isLoading && !errorMessage" class="batches-container">
+    <div *ngIf="batches.length === 0" class="empty-state">
+      Nenhum lote registrado para esta cultura.
+    </div>
+
+    <div *ngFor="let batch of batches" class="batch-card">
+      <div class="batch-header">
+        <h3>{{ batch.id }} - {{ batch.crop }}</h3>
+        <span class="badge">{{ batch.qualityClass }}</span>
+      </div>
+      <p class="silo-name">{{ batch.silo }}</p>
+      <div class="batch-specs">
+        <div class="spec-item">
+          <span>Tonelagem</span>
+          <strong>{{ batch.tonnage }} t</strong>
+        </div>
+        <div class="spec-item">
+          <span>Umidade</span>
+          <strong>{{ batch.moisturePercentage }}%</strong>
+        </div>
+        <div class="spec-item">
+          <span>Temperatura</span>
+          <strong>{{ batch.temperatureCelsius }}°C</strong>
+        </div>
+        <div class="spec-item">
+          <span>Colheita</span>
+          <strong>{{ batch.harvestDate }}</strong>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

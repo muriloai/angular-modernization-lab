@@ -1,0 +1,77 @@
+<div class="container">
+  <header class="header">
+    <h1>{{ title() }}</h1>
+    <p>Data Fetching declarativo no Angular 22 através da primitiva nativa <code>resource()</code> integrada a Signals.</p>
+  </header>
+
+  <div class="controls-panel">
+    <div class="control-group">
+      <label>Selecione a Cultura:</label>
+      <div class="btn-group">
+        <button [class.active]="selectedCrop() === 'soja'" (click)="onCropChange('soja')">Soja</button>
+        <button [class.active]="selectedCrop() === 'milho'" (click)="onCropChange('milho')">Milho</button>
+        <button [class.active]="selectedCrop() === 'algodao'" (click)="onCropChange('algodao')">Algodão</button>
+      </div>
+    </div>
+
+    <div class="control-actions">
+      <button class="btn btn-secondary" (click)="reload()">Recarregar (resource.reload())</button>
+      <label class="checkbox-label">
+        <input type="checkbox" [checked]="simulateError()" (change)="toggleSimulateError()">
+        Simular Falha na API
+      </label>
+    </div>
+  </div>
+
+  @if (batchesResource.isLoading()) {
+    <div class="state-banner loading">
+      <span>Carregando dados com resource() nativo em Zoneless... (Status: {{ batchesResource.status() }})</span>
+    </div>
+  }
+
+  @if (batchesResource.error() && !batchesResource.isLoading()) {
+    <div class="state-banner error">
+      <strong>Falha capturada pelo resource():</strong> {{ batchesResource.error() }}
+    </div>
+  }
+
+  @if (!batchesResource.isLoading() && !batchesResource.error()) {
+    <div class="batches-container">
+      @let data = batchesResource.value();
+
+      @if (!data || data.length === 0) {
+        <div class="empty-state">
+          Nenhum lote registrado para esta cultura.
+        </div>
+      } @else {
+        @for (batch of data; track batch.id) {
+          <div class="batch-card">
+            <div class="batch-header">
+              <h3>{{ batch.id }} - {{ batch.crop }}</h3>
+              <span class="badge">{{ batch.qualityClass }}</span>
+            </div>
+            <p class="silo-name">{{ batch.silo }}</p>
+            <div class="batch-specs">
+              <div class="spec-item">
+                <span>Tonelagem</span>
+                <strong>{{ batch.tonnage }} t</strong>
+              </div>
+              <div class="spec-item">
+                <span>Umidade</span>
+                <strong>{{ batch.moisturePercentage }}%</strong>
+              </div>
+              <div class="spec-item">
+                <span>Temperatura</span>
+                <strong>{{ batch.temperatureCelsius }}°C</strong>
+              </div>
+              <div class="spec-item">
+                <span>Colheita</span>
+                <strong>{{ batch.harvestDate }}</strong>
+              </div>
+            </div>
+          </div>
+        }
+      }
+    </div>
+  }
+</div>

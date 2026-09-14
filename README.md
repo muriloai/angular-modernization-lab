@@ -109,6 +109,7 @@ Desta forma, cada laboratório pode ser compilado, executado e inspecionado indi
 | [34](concepts/34-rxjs-essentials/README.md) | Operadores Essenciais RxJS e Concorrência | Streams clássicas com `switchMap`, `exhaustMap` e pipe `async` | Interoperabilidade RxJS com `toSignal()`, concorrência e templates limpos |
 | [35](concepts/35-deferrable-views/README.md) | Vistas Adiantadas com Deferrable Views | Carregamento dinâmico manual com `ViewContainerRef` e `createComponent` | Diretivas declarativas `@defer` com gatilhos (`interaction`, `viewport`) e prefetch |
 | [36](concepts/36-zoneless-deep-dive/README.md) | Zoneless Deep Dive e Renderização Direta | Monkey-patching com `zone.js` e necessidade de `runOutsideAngular()` | Detecção puramente Zoneless com `provideZonelessChangeDetection()` e Signals |
+| [37](concepts/37-resource-api/README.md) | Resource API e Data Fetching com Signals | Gerenciamento manual com `BehaviorSubject`, `switchMap` e flags booleanas | Primitiva declarativa `resource()` nativa com signals, status e `reload()` |
 
 ---
 
