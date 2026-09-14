@@ -1,0 +1,79 @@
+<div class="container">
+  <header class="header">
+    <h1>{{ title() }}</h1>
+    <p>Parametrização desacoplada com <code>InjectionToken</code> e Feature Flags reativas orientadas a Signals no Angular 22.</p>
+  </header>
+
+  <div class="env-banner" [class.prod]="env.production">
+    <div class="env-info">
+      <span class="label">Ambiente Injetado via Token:</span>
+      <strong>{{ env.environmentName }}</strong>
+    </div>
+    <span class="badge">{{ env.production ? 'PRODUÇÃO ZONELESS' : 'DESENVOLVIMENTO' }}</span>
+  </div>
+
+  <section class="config-section">
+    <h2>Parâmetros Injetados em Runtime</h2>
+    <div class="config-grid">
+      <div class="config-item">
+        <label>API Gateway:</label>
+        <code>{{ env.apiGatewayUrl }}</code>
+      </div>
+      <div class="config-item">
+        <label>Broker MQTT IoT:</label>
+        <code>{{ env.iotMqttBroker }}</code>
+      </div>
+    </div>
+  </section>
+
+  <section class="flags-section">
+    <div class="flags-header-row">
+      <div>
+        <h2>Feature Flags Dinâmicas (Signals em Tempo Real)</h2>
+        <p class="desc">No Angular 22, alterne as flags diretamente em tempo de execução sem recompilar o projeto nem reiniciar o serviço.</p>
+      </div>
+      <button class="btn btn-outline" (click)="reset()">Restaurar Padrão</button>
+    </div>
+
+    <div class="flags-list">
+      <div class="flag-card" [class.enabled]="flags().yieldPredictionAI">
+        <div class="flag-header">
+          <strong>IA de Previsão de Produtividade</strong>
+          <button class="btn-toggle" (click)="toggle('yieldPredictionAI')">
+            {{ flags().yieldPredictionAI ? 'Desativar Flag' : 'Ativar Flag' }}
+          </button>
+        </div>
+        <p>Cálculo em tempo real de sacas/hectare por talhão de safra.</p>
+        <span class="status-indicator" [class.active]="flags().yieldPredictionAI">
+          Status: {{ flags().yieldPredictionAI ? 'Ativo na Lavoura' : 'Inativo' }}
+        </span>
+      </div>
+
+      <div class="flag-card" [class.enabled]="flags().nightAutonomousPilot">
+        <div class="flag-header">
+          <strong>Piloto Autônomo Noturno</strong>
+          <button class="btn-toggle" (click)="toggle('nightAutonomousPilot')">
+            {{ flags().nightAutonomousPilot ? 'Desativar Flag' : 'Ativar Flag' }}
+          </button>
+        </div>
+        <p>Operação de maquinário sem operadores após às 19:00.</p>
+        <span class="status-indicator" [class.active]="flags().nightAutonomousPilot">
+          Status: {{ flags().nightAutonomousPilot ? 'Ativo na Lavoura' : 'Inativo' }}
+        </span>
+      </div>
+
+      <div class="flag-card" [class.enabled]="flags().b3CommoditiesHedging">
+        <div class="flag-header">
+          <strong>Integração Mercado Futuro B3</strong>
+          <button class="btn-toggle" (click)="toggle('b3CommoditiesHedging')">
+            {{ flags().b3CommoditiesHedging ? 'Desativar Flag' : 'Ativar Flag' }}
+          </button>
+        </div>
+        <p>Cotação de commodities e hedge automático de grãos colhidos.</p>
+        <span class="status-indicator" [class.active]="flags().b3CommoditiesHedging">
+          Status: {{ flags().b3CommoditiesHedging ? 'Ativo na Lavoura' : 'Inativo' }}
+        </span>
+      </div>
+    </div>
+  </section>
+</div>

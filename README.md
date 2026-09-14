@@ -117,6 +117,7 @@ Desta forma, cada laboratório pode ser compilado, executado e inspecionado indi
 | :--- | :--- | :--- | :--- |
 | [38](concepts/38-smart-dumb/README.md) | Arquitetura Smart vs Dumb Components | `@Input()` e `@Output() EventEmitter` com `ChangeDetectionStrategy.OnPush` | Primitivas `input.required()`, `output()` e orquestração por Signals |
 | [39](concepts/39-error-boundaries/README.md) | Error Boundaries e Resiliência de Interface | `ErrorHandler` global clássico e risco de falhas em cascata | Componentes de Error Boundary com contenção local e Signals |
+| [40](concepts/40-environment-config/README.md) | Parametrização de Ambientes e Runtime Feature Flags | Substituição estática com `fileReplacements` no `angular.json` | `InjectionToken` tipado e Feature Flags reativas com Signals |
 
 ---
 

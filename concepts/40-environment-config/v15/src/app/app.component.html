@@ -1,0 +1,59 @@
+<div class="container">
+  <header class="header">
+    <h1>{{ title }}</h1>
+    <p>Abordagem clássica no Angular 15 baseada em substituição estática de arquivos de compilação (<code>fileReplacements</code>).</p>
+  </header>
+
+  <div class="env-banner" [class.prod]="env.production">
+    <div class="env-info">
+      <span class="label">Ambiente Ativo:</span>
+      <strong>{{ env.environmentName }}</strong>
+    </div>
+    <span class="badge">{{ env.production ? 'MODO PRODUÇÃO' : 'MODO DEV / LOCAL' }}</span>
+  </div>
+
+  <section class="config-section">
+    <h2>Parâmetros de Conexão</h2>
+    <div class="config-grid">
+      <div class="config-item">
+        <label>API Gateway:</label>
+        <code>{{ env.apiGatewayUrl }}</code>
+      </div>
+      <div class="config-item">
+        <label>Broker MQTT IoT:</label>
+        <code>{{ env.iotMqttBroker }}</code>
+      </div>
+    </div>
+  </section>
+
+  <section class="flags-section">
+    <h2>Feature Flags Agrícolas (Congeladas em Build)</h2>
+    <p class="desc">No Angular 15, as flags são propriedades estáticas. A alternância requer nova compilação com <code>--configuration=production</code>.</p>
+
+    <div class="flags-list">
+      <div class="flag-card" [class.enabled]="env.featureFlags.yieldPredictionAI">
+        <div class="flag-header">
+          <strong>IA de Previsão de Produtividade</strong>
+          <span class="flag-status">{{ env.featureFlags.yieldPredictionAI ? 'Habilitado' : 'Desabilitado' }}</span>
+        </div>
+        <p>Cálculo em tempo real de sacas/hectare por talhão de safra.</p>
+      </div>
+
+      <div class="flag-card" [class.enabled]="env.featureFlags.nightAutonomousPilot">
+        <div class="flag-header">
+          <strong>Piloto Autônomo Noturno</strong>
+          <span class="flag-status">{{ env.featureFlags.nightAutonomousPilot ? 'Habilitado' : 'Desabilitado' }}</span>
+        </div>
+        <p>Operação de maquinário sem operadores após às 19:00.</p>
+      </div>
+
+      <div class="flag-card" [class.enabled]="env.featureFlags.b3CommoditiesHedging">
+        <div class="flag-header">
+          <strong>Integração Mercado Futuro B3</strong>
+          <span class="flag-status">{{ env.featureFlags.b3CommoditiesHedging ? 'Habilitado' : 'Desabilitado' }}</span>
+        </div>
+        <p>Cotação de commodities e hedge automático de grãos colhidos.</p>
+      </div>
+    </div>
+  </section>
+</div>
