@@ -1,0 +1,28 @@
+<div class="silo-card">
+  <div class="silo-header">
+    <h4>{{ silo.name }} ({{ silo.grain }})</h4>
+    <span #statusTag class="status-tag">Carregando...</span>
+  </div>
+
+  <div class="silo-body">
+    <div class="gauge-container">
+      <div class="gauge-cylinder">
+        <div #gaugeFill class="gauge-fill"></div>
+      </div>
+      <span class="gauge-legend">
+        {{ silo.currentTonnes }}t / {{ silo.capacityTonnes }}t
+      </span>
+    </div>
+
+    <div class="silo-info">
+      <div class="info-row">
+        <span>Temp. Interna:</span>
+        <strong #tempValue>--</strong>
+      </div>
+      <div class="info-row">
+        <span>Ocupacao:</span>
+        <strong>{{ (silo.currentTonnes / silo.capacityTonnes) * 100 | number:'1.0-0' }}%</strong>
+      </div>
+    </div>
+  </div>
+</div>

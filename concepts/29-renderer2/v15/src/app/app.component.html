@@ -1,0 +1,21 @@
+<header class="main-header">
+  <div class="header-badge">Angular 15 - Manipulação Segura com Renderer2</div>
+  <h1>{{ title }}</h1>
+  <p class="description">
+    Demonstrando a manipulação programática e segura do DOM utilizando <code>Renderer2</code> e <code>ElementRef</code> no ciclo clássico de componentes.
+  </p>
+</header>
+
+<main>
+  <div class="silos-grid">
+    <div *ngFor="let silo of silos" class="silo-wrapper">
+      <app-silo-visualizer [silo]="silo"></app-silo-visualizer>
+
+      <div class="actions-panel">
+        <button (click)="adjustSilo(silo.id, 100)" class="btn btn-sm">+100t</button>
+        <button (click)="adjustSilo(silo.id, -100)" class="btn btn-sm">-100t</button>
+        <button (click)="toggleTemp(silo.id)" class="btn btn-sm btn-warn">Simular Temperatura</button>
+      </div>
+    </div>
+  </div>
+</main>

@@ -97,6 +97,12 @@ Desta forma, cada laboratório pode ser compilado, executado e inspecionado indi
 | :--- | :--- | :--- | :--- |
 | [28](concepts/28-animations/README.md) | Animações e Transições | `BrowserAnimationsModule` síncrono no bundle inicial e `*ngFor` com `[@trigger]` | `provideAnimationsAsync()` sob demanda, reatividade em Signals e `@for` |
 
+### Tópicos Avançados e Performance
+
+| Conceito | Nome | Tecnologias no Legado (Angular 15) | Tecnologias no Moderno (Angular 22) |
+| :--- | :--- | :--- | :--- |
+| [29](concepts/29-renderer2/README.md) | Manipulação Segura do DOM com Renderer2 | `Renderer2` e `ElementRef` injetados no construtor com `@ViewChild` | `inject(Renderer2)`, queries reativas com `viewChild()` e `effect()` |
+
 ---
 
 ## Pré-requisitos para Execução

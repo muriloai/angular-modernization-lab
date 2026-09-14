@@ -1,0 +1,23 @@
+<header class="main-header">
+  <div class="header-badge">Angular 22 - inject(Renderer2) com Signals e Zoneless</div>
+  <h1>{{ title() }}</h1>
+  <p class="description">
+    Demonstrando a manipulação segura do DOM utilizando <code>Renderer2</code> injetado de forma funcional, sincronizado via <code>effect()</code> e queries reativas <code>viewChild()</code>.
+  </p>
+</header>
+
+<main>
+  <div class="silos-grid">
+    @for (silo of silos(); track silo.id) {
+      <div class="silo-wrapper">
+        <app-silo-visualizer [silo]="silo" />
+
+        <div class="actions-panel">
+          <button (click)="adjustSilo(silo.id, 100)" class="btn btn-sm">+100t</button>
+          <button (click)="adjustSilo(silo.id, -100)" class="btn btn-sm">-100t</button>
+          <button (click)="toggleTemp(silo.id)" class="btn btn-sm btn-warn">Simular Temperatura</button>
+        </div>
+      </div>
+    }
+  </div>
+</main>
