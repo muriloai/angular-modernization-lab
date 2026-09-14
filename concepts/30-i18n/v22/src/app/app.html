@@ -1,0 +1,23 @@
+<header class="main-header">
+  <div class="header-badge">Angular 22 - i18n Declarativo, Pipes Standalone e Zoneless</div>
+  <h1>{{ title() }}</h1>
+  <p class="description">
+    Demonstrando internacionalização e localização com pipes granulares standalone (<code>CurrencyPipe</code>, <code>DatePipe</code>, <code>DecimalPipe</code>), reatividade via Signals e fluxo moderno <code>@for</code>.
+  </p>
+
+  <div class="controls">
+    <button (click)="toggleCurrency()" class="btn btn-primary">
+      Alternar Moeda: {{ showUsd() ? 'USD (Dólares)' : 'BRL (Reais)' }}
+    </button>
+  </div>
+</header>
+
+<main>
+  <div class="contracts-grid">
+    @for (contract of contracts(); track contract.id) {
+      <app-contract-card 
+        [contract]="contract"
+        [showUsd]="showUsd()" />
+    }
+  </div>
+</main>

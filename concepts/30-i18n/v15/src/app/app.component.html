@@ -1,0 +1,23 @@
+<header class="main-header">
+  <div class="header-badge">Angular 15 - registerLocaleData e LOCALE_ID Clássico</div>
+  <h1>{{ title }}</h1>
+  <p class="description">
+    Demonstrando a configuração de internacionalização (i18n) e pipes de localização (<code>currency</code>, <code>date</code>, <code>number</code>) com registro em módulo.
+  </p>
+
+  <div class="controls">
+    <button (click)="toggleCurrency()" class="btn btn-primary">
+      Alternar Moeda: {{ showUsd ? 'USD (Dólares)' : 'BRL (Reais)' }}
+    </button>
+  </div>
+</header>
+
+<main>
+  <div class="contracts-grid">
+    <app-contract-card 
+      *ngFor="let contract of contracts"
+      [contract]="contract"
+      [showUsd]="showUsd">
+    </app-contract-card>
+  </div>
+</main>

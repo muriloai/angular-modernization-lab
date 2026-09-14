@@ -102,6 +102,7 @@ Desta forma, cada laboratório pode ser compilado, executado e inspecionado indi
 | Conceito | Nome | Tecnologias no Legado (Angular 15) | Tecnologias no Moderno (Angular 22) |
 | :--- | :--- | :--- | :--- |
 | [29](concepts/29-renderer2/README.md) | Manipulação Segura do DOM com Renderer2 | `Renderer2` e `ElementRef` injetados no construtor com `@ViewChild` | `inject(Renderer2)`, queries reativas com `viewChild()` e `effect()` |
+| [30](concepts/30-i18n/README.md) | Internacionalização e Pipes de Localização | `registerLocaleData` e `LOCALE_ID` em módulo com `CommonModule` | `registerLocaleData`, pipes standalone granulares e reatividade com Signals |
 
 ---
 

@@ -1,0 +1,40 @@
+<div class="contract-card">
+  <div class="card-header">
+    <div>
+      <span class="code-badge">{{ contract().id }}</span>
+      <h4>{{ contract().client }}</h4>
+      <span class="country-tag">{{ contract().country }}</span>
+    </div>
+    <span class="crop-badge">{{ contract().crop }}</span>
+  </div>
+
+  <div class="card-grid">
+    <div class="grid-item">
+      <span class="label">Volume Contratado:</span>
+      <strong>{{ contract().volumeBags | number:'1.0-0' }} sacas (60kg)</strong>
+    </div>
+
+    <div class="grid-item">
+      <span class="label">Data de Embarque:</span>
+      <strong>{{ contract().shipmentDate | date:'longDate' }}</strong>
+    </div>
+
+    <div class="grid-item">
+      <span class="label">Preço Unitário:</span>
+      @if (!showUsd()) {
+        <strong>{{ contract().pricePerBagBrl | currency:'BRL':'symbol':'1.2-2' }}</strong>
+      } @else {
+        <strong>{{ pricePerBagUsd() | currency:'USD':'symbol':'1.2-2' }}</strong>
+      }
+    </div>
+
+    <div class="grid-item highlight">
+      <span class="label">Valor Total do Lote:</span>
+      @if (!showUsd()) {
+        <strong class="total-value">{{ totalBrl() | currency:'BRL':'symbol':'1.2-2' }}</strong>
+      } @else {
+        <strong class="total-value">{{ totalUsd() | currency:'USD':'symbol':'1.2-2' }}</strong>
+      }
+    </div>
+  </div>
+</div>
