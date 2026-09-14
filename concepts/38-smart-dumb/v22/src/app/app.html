@@ -1,0 +1,36 @@
+<div class="container">
+  <header class="header">
+    <h1>{{ title() }}</h1>
+    <p>Separação arquitetural moderna entre Smart Container e Dumb Presentational com <code>input()</code> e <code>output()</code>.</p>
+  </header>
+
+  <div class="metrics-bar">
+    <div class="stat-pill">
+      <span>Total de Máquinas:</span>
+      <strong>{{ fleet().length }}</strong>
+    </div>
+    <div class="stat-pill">
+      <span>Em Operação:</span>
+      <strong class="text-success">{{ activeCount() }}</strong>
+    </div>
+    <div class="stat-pill">
+      <span>Modo Autônomo Ativo:</span>
+      <strong class="text-primary">{{ autonomousCount() }}</strong>
+    </div>
+  </div>
+
+  <div class="info-box">
+    <strong>Smart Component (App):</strong> Injeta o <code>FleetManager</code> via <code>inject()</code> e expõe Signals reativos com derivações computadas.
+    <br>
+    <strong>Dumb Component (MachineryCard):</strong> Consome parâmetros estritamente tipados via <code>input.required()</code> e emite eventos via <code>output()</code> funcional.
+  </div>
+
+  <main class="cards-grid">
+    @for (item of fleet(); track item.id) {
+      <app-machinery-card
+        [machinery]="item"
+        (action)="onMachineryAction($event)"
+      />
+    }
+  </main>
+</div>

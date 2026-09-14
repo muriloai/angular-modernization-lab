@@ -1,0 +1,45 @@
+<div class="card" [class.maintenance]="machinery.status === 'Em Manutenção'">
+  <div class="card-top">
+    <span class="type-tag">{{ machinery.type }}</span>
+    <span class="code">{{ machinery.code }}</span>
+  </div>
+
+  <h3 class="name">{{ machinery.name }}</h3>
+
+  <div class="specs">
+    <div class="spec">
+      <span>Nível de Combustível:</span>
+      <strong>{{ machinery.fuelLevel }}%</strong>
+    </div>
+    <div class="spec">
+      <span>Horas de Operação:</span>
+      <strong>{{ machinery.engineHours }} h</strong>
+    </div>
+    <div class="spec">
+      <span>Pressão do Óleo:</span>
+      <strong>{{ machinery.oilPressureBar }} bar</strong>
+    </div>
+    <div class="spec">
+      <span>Piloto Automático:</span>
+      <strong [class.enabled]="machinery.isAutonomous">{{ machinery.isAutonomous ? 'Ativo' : 'Manual' }}</strong>
+    </div>
+  </div>
+
+  <div class="status-row">
+    <span class="status-badge" [class.active]="machinery.status === 'Em Operação'">
+      {{ machinery.status }}
+    </span>
+  </div>
+
+  <div class="actions">
+    <button class="btn btn-sm" (click)="onToggleAutonomous()">
+      {{ machinery.isAutonomous ? 'Desativar Autonomia' : 'Ativar Autonomia' }}
+    </button>
+    <button *ngIf="machinery.status !== 'Em Manutenção'" class="btn btn-sm btn-warn" (click)="onRequestMaintenance()">
+      Solicitar Manutenção
+    </button>
+    <button *ngIf="machinery.status === 'Em Manutenção'" class="btn btn-sm btn-success" (click)="onDispatch()">
+      Despachar para Campo
+    </button>
+  </div>
+</div>

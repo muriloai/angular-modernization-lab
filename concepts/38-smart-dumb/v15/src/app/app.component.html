@@ -1,0 +1,20 @@
+<div class="container">
+  <header class="header">
+    <h1>{{ title }}</h1>
+    <p>Separação de arquitetura Smart/Dumb no Angular 15 utilizando decorators <code>@Input()</code> e <code>@Output() EventEmitter</code>.</p>
+  </header>
+
+  <div class="info-box">
+    <strong>Papel do Smart Component (AppComponent):</strong> Injeta o <code>MachineryService</code>, subscreve ao <code>fleet$</code> via pipe <code>async</code> e processa as ações emitidas pelos componentes filhos.
+    <br>
+    <strong>Papel do Dumb Component (MachineryCardComponent):</strong> Apresenta dados recebidos via <code>@Input()</code> e repassa cliques de usuário como eventos via <code>@Output()</code>.
+  </div>
+
+  <main class="cards-grid">
+    <app-machinery-card
+      *ngFor="let item of fleet$ | async"
+      [machinery]="item"
+      (action)="onMachineryAction($event)"
+    />
+  </main>
+</div>

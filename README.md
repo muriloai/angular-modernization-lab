@@ -111,6 +111,12 @@ Desta forma, cada laboratório pode ser compilado, executado e inspecionado indi
 | [36](concepts/36-zoneless-deep-dive/README.md) | Zoneless Deep Dive e Renderização Direta | Monkey-patching com `zone.js` e necessidade de `runOutsideAngular()` | Detecção puramente Zoneless com `provideZonelessChangeDetection()` e Signals |
 | [37](concepts/37-resource-api/README.md) | Resource API e Data Fetching com Signals | Gerenciamento manual com `BehaviorSubject`, `switchMap` e flags booleanas | Primitiva declarativa `resource()` nativa com signals, status e `reload()` |
 
+### Padrões Corporativos e Engenharia
+
+| Conceito | Nome | Tecnologias no Legado (Angular 15) | Tecnologias no Moderno (Angular 22) |
+| :--- | :--- | :--- | :--- |
+| [38](concepts/38-smart-dumb/README.md) | Arquitetura Smart vs Dumb Components | `@Input()` e `@Output() EventEmitter` com `ChangeDetectionStrategy.OnPush` | Primitivas `input.required()`, `output()` e orquestração por Signals |
+
 ---
 
 ## Pré-requisitos para Execução
