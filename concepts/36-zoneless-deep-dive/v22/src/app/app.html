@@ -1,0 +1,53 @@
+<div class="container">
+  <header class="header">
+    <h1>{{ title() }}</h1>
+    <p>Execução em tempo real com <code>provideZonelessChangeDetection()</code> e renderização orientada a Signals.</p>
+  </header>
+
+  <div class="info-card">
+    <p><strong>Vantagem do Zoneless no Angular 22:</strong> Nenhum monkey-patching em <code>setInterval</code>. As atualizações em alta frequência notificam exclusivamente os nós do DOM vinculados aos Signals alterados, agendando microtarefas de sincronização cirúrgica sem verificações em cascata.</p>
+  </div>
+
+  <div class="benchmark-controls">
+    <button class="btn btn-primary" (click)="isRunning() ? stopTelemetry() : startTelemetry()">
+      {{ isRunning() ? 'Pausar Telemetria' : 'Iniciar Telemetria (50 Hz)' }}
+    </button>
+    <button class="btn btn-outline" (click)="resetCounters()">Zerar Contadores</button>
+  </div>
+
+  <div class="metrics-grid">
+    <div class="metric-card highlight">
+      <span class="metric-label">Ticks de Telemetria Processados</span>
+      <span class="metric-value">{{ telemetryTicks() }}</span>
+      <small>50 atualizações por segundo sem poluição de zona</small>
+    </div>
+
+    <div class="metric-card consumption">
+      <span class="metric-label">Consumo Hídrico Estimado (computed)</span>
+      <span class="metric-value">{{ waterConsumptionTotal() }} L</span>
+      <small>Derivação reativa instantânea</small>
+    </div>
+  </div>
+
+  <div class="pivot-dashboard">
+    <h2>Status do {{ pivot().name }} ({{ pivot().id }})</h2>
+    <div class="dashboard-grid">
+      <div class="stat-box">
+        <label>Ângulo Atual</label>
+        <strong>{{ pivot().angle }}°</strong>
+      </div>
+      <div class="stat-box">
+        <label>Pressão nos Bicos</label>
+        <strong>{{ pivot().pressure }} bar</strong>
+      </div>
+      <div class="stat-box">
+        <label>Vazão Hídrica</label>
+        <strong>{{ pivot().flowRate }} L/s</strong>
+      </div>
+      <div class="stat-box">
+        <label>Estado Operacional</label>
+        <span class="status-badge">{{ pivot().status }}</span>
+      </div>
+    </div>
+  </div>
+</div>

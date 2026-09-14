@@ -108,6 +108,7 @@ Desta forma, cada laboratório pode ser compilado, executado e inspecionado indi
 | [33](concepts/33-decorators/README.md) | Desconstrução de Decorators para APIs Funcionais | Decorators `@Input`, `@Output`, `@HostBinding`, `@HostListener`, `@ViewChild` | Alternativas funcionais `input()`, `output()`, `host`, `viewChild()` e `inject()` |
 | [34](concepts/34-rxjs-essentials/README.md) | Operadores Essenciais RxJS e Concorrência | Streams clássicas com `switchMap`, `exhaustMap` e pipe `async` | Interoperabilidade RxJS com `toSignal()`, concorrência e templates limpos |
 | [35](concepts/35-deferrable-views/README.md) | Vistas Adiantadas com Deferrable Views | Carregamento dinâmico manual com `ViewContainerRef` e `createComponent` | Diretivas declarativas `@defer` com gatilhos (`interaction`, `viewport`) e prefetch |
+| [36](concepts/36-zoneless-deep-dive/README.md) | Zoneless Deep Dive e Renderização Direta | Monkey-patching com `zone.js` e necessidade de `runOutsideAngular()` | Detecção puramente Zoneless com `provideZonelessChangeDetection()` e Signals |
 
 ---
 

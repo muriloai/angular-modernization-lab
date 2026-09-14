@@ -1,0 +1,55 @@
+<div class="container">
+  <header class="header">
+    <h1>{{ title }}</h1>
+    <p>Demonstração dos efeitos colaterais de interceptação global pelo <code>zone.js</code> no Angular 15.</p>
+  </header>
+
+  <div class="info-card">
+    <p><strong>Zone Pollution no Angular 15:</strong> Quando <code>zone.js</code> está ativo, cada execução de <code>setInterval</code> (a cada 20ms) intercepta o evento assíncrono e dispara um ciclo global de detecção de mudanças (<code>ngDoCheck</code>), elevando o uso de processamento.</p>
+  </div>
+
+  <div class="benchmark-controls">
+    <button class="btn btn-primary" (click)="isRunning ? stopTelemetry() : startTelemetry()">
+      {{ isRunning ? 'Pausar Telemetria' : 'Iniciar Telemetria (50 Hz)' }}
+    </button>
+    <button class="btn btn-secondary" (click)="toggleOutsideZone()">
+      Alternar Modo: {{ useOutsideZone ? 'Executando Fora da Zona (ngZone.runOutsideAngular)' : 'Executando Dentro da Zona Padrão' }}
+    </button>
+    <button class="btn btn-outline" (click)="resetCounters()">Zerar Contadores</button>
+  </div>
+
+  <div class="metrics-grid">
+    <div class="metric-card highlight">
+      <span class="metric-label">Ticks de Telemetria Processados</span>
+      <span class="metric-value">{{ telemetryTicks }}</span>
+    </div>
+
+    <div class="metric-card warning">
+      <span class="metric-label">Ciclos de Verificação ngDoCheck</span>
+      <span class="metric-value">{{ zoneCheckCycles }}</span>
+      <small>Disparados por monkey-patching global</small>
+    </div>
+  </div>
+
+  <div class="pivot-dashboard">
+    <h2>Status do {{ pivot.name }} ({{ pivot.id }})</h2>
+    <div class="dashboard-grid">
+      <div class="stat-box">
+        <label>Ângulo Atual</label>
+        <strong>{{ pivot.angle }}°</strong>
+      </div>
+      <div class="stat-box">
+        <label>Pressão nos Bicos</label>
+        <strong>{{ pivot.pressure }} bar</strong>
+      </div>
+      <div class="stat-box">
+        <label>Vazão Hídrica</label>
+        <strong>{{ pivot.flowRate }} L/s</strong>
+      </div>
+      <div class="stat-box">
+        <label>Estado Operacional</label>
+        <span class="status-badge">{{ pivot.status }}</span>
+      </div>
+    </div>
+  </div>
+</div>
