@@ -1,0 +1,19 @@
+<div class="boundary-container" [class.boundary-failed]="hasError()">
+  @if (!hasError()) {
+    <ng-content />
+  } @else {
+    <div class="fallback-card">
+      <div class="fallback-header">
+        <h4>Falha Contida no Módulo: {{ moduleName() }}</h4>
+        <span class="badge-contained">Erro Isolado</span>
+      </div>
+      <p class="fallback-desc">
+        Uma exceção foi capturada com sucesso por este Error Boundary. Os demais módulos e widgets continuam operando normalmente sem corrupção do painel.
+      </p>
+      <div class="error-details">
+        <code>{{ errorMessage() || 'Erro interno desconhecido na sonda.' }}</code>
+      </div>
+      <button class="btn-retry" (click)="retry()">Tentar Reconectar Módulo</button>
+    </div>
+  }
+</div>

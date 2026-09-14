@@ -116,6 +116,7 @@ Desta forma, cada laboratório pode ser compilado, executado e inspecionado indi
 | Conceito | Nome | Tecnologias no Legado (Angular 15) | Tecnologias no Moderno (Angular 22) |
 | :--- | :--- | :--- | :--- |
 | [38](concepts/38-smart-dumb/README.md) | Arquitetura Smart vs Dumb Components | `@Input()` e `@Output() EventEmitter` com `ChangeDetectionStrategy.OnPush` | Primitivas `input.required()`, `output()` e orquestração por Signals |
+| [39](concepts/39-error-boundaries/README.md) | Error Boundaries e Resiliência de Interface | `ErrorHandler` global clássico e risco de falhas em cascata | Componentes de Error Boundary com contenção local e Signals |
 
 ---
 

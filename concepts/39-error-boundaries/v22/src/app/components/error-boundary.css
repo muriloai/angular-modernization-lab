@@ -1,0 +1,76 @@
+.boundary-container {
+  height: 100%;
+}
+
+.boundary-failed {
+  border-radius: 8px;
+}
+
+.fallback-card {
+  background: #fff1f2;
+  border: 1px solid #fecdd3;
+  border-radius: 8px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+}
+
+.fallback-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.fallback-header h4 {
+  margin: 0;
+  color: #9f1239;
+  font-size: 15px;
+}
+
+.badge-contained {
+  background: #e11d48;
+  color: white;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 12px;
+  text-transform: uppercase;
+}
+
+.fallback-desc {
+  font-size: 13px;
+  color: #4c0519;
+  margin: 0 0 12px 0;
+  line-height: 1.4;
+}
+
+.error-details {
+  background: #ffe4e6;
+  border: 1px dashed #f43f5e;
+  border-radius: 4px;
+  padding: 8px;
+  margin-bottom: 12px;
+}
+
+.error-details code {
+  color: #881337;
+  font-size: 12px;
+  word-break: break-all;
+}
+
+.btn-retry {
+  background: #e11d48;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 13px;
+  align-self: flex-start;
+}
+
+.btn-retry:hover {
+  background: #be123c;
+}

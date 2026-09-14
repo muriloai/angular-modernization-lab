@@ -1,0 +1,21 @@
+<div class="container">
+  <header class="header">
+    <h1>{{ title }}</h1>
+    <p>Demonstração da ausência de Error Boundary no Angular 15, dependendo unicamente de um <code>ErrorHandler</code> global.</p>
+  </header>
+
+  <div class="alert-box" *ngIf="globalHandler.errorCount > 0">
+    <strong>Aviso do ErrorHandler Global:</strong> {{ globalHandler.errorCount }} exceção(ões) não tratada(s) capturada(s).
+    <p class="error-msg">{{ globalHandler.lastErrorMessage }}</p>
+  </div>
+
+  <div class="info-card">
+    <p>No modelo clássico do Angular 15, falhas ocorridas dentro de um componente filho não possuem contenção visual automática local. O erro é delegado ao manipulador global, podendo corromper o ciclo de vida caso não haja um tratamento imperativo.</p>
+  </div>
+
+  <div class="widgets-grid">
+    <app-weather-widget />
+    <app-drone-widget />
+    <app-multispectral-widget />
+  </div>
+</div>

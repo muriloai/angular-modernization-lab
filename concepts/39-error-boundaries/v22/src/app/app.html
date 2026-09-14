@@ -1,0 +1,24 @@
+<div class="container">
+  <header class="header">
+    <h1>{{ title() }}</h1>
+    <p>Resiliência de interface e contenção modular de falhas utilizando o padrão <code>ErrorBoundary</code> em ambiente Zoneless.</p>
+  </header>
+
+  <div class="info-card">
+    <p><strong>Contenção Modular no Angular 22:</strong> Cada widget do centro de controle opera encapsulado em seu próprio Error Boundary. Ao simular uma pane no sensor da câmera multiespectral, apenas seu respectivo cartão exibe a interface de contingência, preservando intactos os dados da estação meteorológica e da frota de drones.</p>
+  </div>
+
+  <div class="widgets-grid">
+    <app-error-boundary moduleName="Estação Agrometeorológica">
+      <app-weather-widget />
+    </app-error-boundary>
+
+    <app-error-boundary moduleName="Telemetria de Drones">
+      <app-drone-widget />
+    </app-error-boundary>
+
+    <app-error-boundary #multiBoundary moduleName="Câmera Multiespectral (NDVI)">
+      <app-multispectral-widget (errorTriggered)="onMultispectralError($event)" />
+    </app-error-boundary>
+  </div>
+</div>
