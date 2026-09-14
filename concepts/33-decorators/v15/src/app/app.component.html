@@ -1,0 +1,18 @@
+<header class="main-header">
+  <div class="header-badge">Angular 15 - Decorators Clássicos de Propriedade e Método</div>
+  <h1>{{ title }}</h1>
+  <p class="description">
+    Demonstrando a classe de componente tradicional construída com múltiplos decorators: <code>@Input</code>, <code>@Output</code>, <code>@HostBinding</code>, <code>@HostListener</code>, <code>@ViewChild</code> e <code>@Inject</code>.
+  </p>
+</header>
+
+<main>
+  <div class="pivots-grid">
+    <app-pivot-panel 
+      *ngFor="let pivot of pivots"
+      [pivot]="pivot"
+      (pressureChanged)="onPressureChange($event)"
+      (statusToggled)="onTogglePower($event)">
+    </app-pivot-panel>
+  </div>
+</main>

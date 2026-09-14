@@ -1,0 +1,45 @@
+<div class="panel-inner">
+  <div class="panel-header">
+    <div>
+      <span class="code-badge">{{ pivot().id }}</span>
+      <h4>{{ pivot().name }}</h4>
+      <span class="field-name">{{ pivot().field }}</span>
+    </div>
+    <span class="power-status" [class.active]="pivot().isActive">
+      {{ pivot().isActive ? 'EM OPERAÇÃO' : 'DESLIGADO' }}
+    </span>
+  </div>
+
+  <div class="metrics-grid">
+    <div class="metric-item">
+      <span class="label">Pressão:</span>
+      <div class="pressure-box" #pressureIndicator>
+        <strong>{{ pivot().pressureBar | number:'1.1-1' }} bar</strong>
+      </div>
+    </div>
+
+    <div class="metric-item">
+      <span class="label">Vazão de Água:</span>
+      <strong>{{ pivot().flowRateM3h }} m³/h</strong>
+    </div>
+
+    <div class="metric-item">
+      <span class="label">Ângulo do Braço:</span>
+      <strong>{{ pivot().angleDegrees }}°</strong>
+    </div>
+  </div>
+
+  <div class="controls-row">
+    <button (click)="adjustPressure(0.2)" [disabled]="!pivot().isActive" class="btn btn-sm">+0.2 bar</button>
+    <button (click)="adjustPressure(-0.2)" [disabled]="!pivot().isActive" class="btn btn-sm">-0.2 bar</button>
+    <button (click)="togglePower()" class="btn btn-sm" [class.btn-power-off]="pivot().isActive" [class.btn-power-on]="!pivot().isActive">
+      {{ pivot().isActive ? 'Parar Pivô' : 'Acionar Pivô' }}
+    </button>
+  </div>
+
+  @if (isHovered()) {
+    <div class="hover-tip">
+      Sensor inspecionado pelo cursor (objeto host declarativo ativo)
+    </div>
+  }
+</div>
