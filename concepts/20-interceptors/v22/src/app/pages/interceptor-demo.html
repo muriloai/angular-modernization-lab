@@ -1,0 +1,104 @@
+<div class="demo-container">
+  <div class="header-box">
+    <h2>Pipeline de Interceptadores HTTP (Auth e Logging)</h2>
+    <p class="subtitle">
+      Configuração moderna com funções <code>HttpInterceptorFn</code> e <code>withInterceptors</code>.
+    </p>
+  </div>
+
+  <!-- Painel de Disparo de Requisições -->
+  <div class="card action-card">
+    <h3>Disparar Chamadas Telemétricas</h3>
+    <p class="card-desc">
+      Clique nos botões abaixo para disparar chamadas HTTP. Observe como o <code>authInterceptor</code> funcional adiciona o token Bearer e o <code>loggingInterceptor</code> calcula a latência de rede.
+    </p>
+
+    <div class="button-group">
+      <button
+        type="button"
+        class="btn btn-primary"
+        (click)="dispararGetSensores()"
+        [disabled]="requisicaoEmAndamento()"
+      >
+        Disparar GET: /telemetria/sensores
+      </button>
+
+      <button
+        type="button"
+        class="btn btn-secondary"
+        (click)="dispararPostComandoPivo()"
+        [disabled]="requisicaoEmAndamento()"
+      >
+        Disparar POST: /operacoes/pivo/acionar
+      </button>
+
+      <button
+        type="button"
+        class="btn btn-outline"
+        (click)="limparHistorico()"
+      >
+        Limpar Registro de Logs
+      </button>
+    </div>
+
+    @if (requisicaoEmAndamento()) {
+      <div class="loading-state">
+        <div class="spinner"></div>
+        <span>Interceptando e transmitindo pacote de rede...</span>
+      </div>
+    }
+  </div>
+
+  <!-- Resultado da Última Chamada -->
+  @if (respostaRecebida()) {
+    <div class="card response-card">
+      <h4>Dados Recebidos da Resposta</h4>
+      <pre>{{ respostaRecebida() | json }}</pre>
+    </div>
+  }
+
+  <!-- Histórico Registrado pelo loggingInterceptor -->
+  <div class="card logs-card">
+    <div class="logs-header">
+      <h3>Diagnóstico de Rede (Registrado pelo loggingInterceptor)</h3>
+      <span class="log-count">{{ loggingService.logs().length }} eventos interceptados</span>
+    </div>
+
+    @for (log of loggingService.logs(); track log.timestamp + log.url) {
+      <div class="log-item">
+        <div class="log-top">
+          <div class="log-method-url">
+            <span
+              class="method-badge"
+              [class.method-get]="log.metodo === 'GET'"
+              [class.method-post]="log.metodo === 'POST'"
+            >
+              {{ log.metodo }}
+            </span>
+            <span class="log-url">{{ log.url }}</span>
+          </div>
+          <div class="log-metrics">
+            <span class="status-code">HTTP {{ log.status }}</span>
+            <span class="time-elapsed">{{ log.duracaoMs }} ms</span>
+            <span class="timestamp">{{ log.timestamp }}</span>
+          </div>
+        </div>
+
+        <div class="log-headers">
+          <div class="header-line">
+            <strong>Authorization:</strong>
+            <code>{{ log.headersEnviados['Authorization'] }}</code>
+          </div>
+          <div class="header-line">
+            <strong>X-Farm-Terminal:</strong>
+            <code>{{ log.headersEnviados['X-Farm-Terminal'] }}</code>
+          </div>
+        </div>
+      </div>
+    } @empty {
+      <div class="empty-logs">
+        Nenhuma requisição disparada ainda. Clique nos botões acima para verificar a interceptação.
+      </div>
+    }
+  </div>
+</div>
