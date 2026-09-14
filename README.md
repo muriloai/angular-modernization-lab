@@ -75,6 +75,12 @@ Desta forma, cada laboratório pode ser compilado, executado e inspecionado indi
 | [20](concepts/20-interceptors/README.md) | Interceptadores de Requisições (Interceptors) | Class-based `implements HttpInterceptor`, registro com `HTTP_INTERCEPTORS` | Functional Interceptors `HttpInterceptorFn` encadeados com `withInterceptors([])` |
 | [21](concepts/21-error-handling/README.md) | Tratamento de Erros e Resiliência | Operadores RxJS `catchError`, `retry` e `ErrorHandler` global baseado em classe | Error Handling moderno com `resource().error()`, fallback UI e Signals em Zoneless |
 
+### Arquitetura de Componentes Avançada
+
+| Conceito | Nome | Tecnologias no Legado (Angular 15) | Tecnologias no Moderno (Angular 22) |
+| :--- | :--- | :--- | :--- |
+| [22](concepts/22-component-communication/README.md) | Comunicação entre Componentes | Decorators `@Input()`, `@Output()` com `EventEmitter` e banana-in-a-box | Signal inputs `input()`, `input.required()`, `output()` e Signal `model()` |
+
 ---
 
 ## Pré-requisitos para Execução

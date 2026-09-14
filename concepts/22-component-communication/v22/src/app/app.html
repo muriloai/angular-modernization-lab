@@ -1,0 +1,75 @@
+<div class="main-container">
+  <header class="header">
+    <div class="header-left">
+      <span class="badge-version">Angular 22</span>
+      <h1>{{ title }}</h1>
+    </div>
+  </header>
+
+  <main class="content">
+    <!-- Painel de Controle Superior da Central (Componente Pai) -->
+    <div class="card control-bar">
+      <div class="control-info">
+        <h2>Central de Controle da Frota de Drones</h2>
+        <p class="subtitle">
+          Arquitetura reativa com <code>input.required()</code>, <code>output()</code> e Two-Way Binding nativo com Signal <code>model()</code>.
+        </p>
+      </div>
+
+      <div class="control-actions">
+        <div class="global-alt-box">
+          <span class="label">Altitude Geral Sincronizada:</span>
+          <strong class="val">{{ altitudePadrao() }} metros</strong>
+          <span class="hint">(Sincronizada bidirecionalmente com os cartões filhos via Signal Model)</span>
+        </div>
+
+        <button type="button" class="btn btn-secondary" (click)="alternarModoOperacao()">
+          Modo Frota: {{ modoGlobal() === 'automatico' ? 'Automático' : 'Manual' }}
+        </button>
+      </div>
+    </div>
+
+    <!-- Alerta de Bloqueio Operacional -->
+    @if (alertaEmergencia()) {
+      <div class="alert alert-danger">
+        <strong>Atenção de Segurança:</strong> {{ alertaEmergencia() }}
+      </div>
+    }
+
+    <!-- Lista de Drones (Componentes Filhos) -->
+    <div class="drones-grid">
+      @for (d of frotaDrones(); track d.id) {
+        <app-drone-card
+          [drone]="d"
+          [modoOperacao]="modoGlobal()"
+          [(altitudeVoo)]="altitudePadrao"
+          (missaoIniciada)="processarDecolagem($event)"
+          (retornoBase)="processarRetorno($event)"
+          (alertaEmergencia)="tratarAlerta($event)"
+        >
+        </app-drone-card>
+      }
+    </div>
+
+    <!-- Auditoria de Eventos Disparados pelos Filhos -->
+    <div class="card logs-card">
+      <div class="logs-header">
+        <h3>Histórico de Eventos Recebidos dos Drones (Outputs Funcionais)</h3>
+        <span class="log-count">{{ logsOperacionais().length }} registros</span>
+      </div>
+
+      @if (logsOperacionais().length === 0) {
+        <div class="empty-logs">
+          Nenhum comando operacional disparado até o momento.
+        </div>
+      }
+
+      @for (l of logsOperacionais(); track l.horario + l.mensagem) {
+        <div class="log-item" [ngClass]="'log-' + l.tipo">
+          <span class="log-time">{{ l.horario }}</span>
+          <span class="log-msg">{{ l.mensagem }}</span>
+        </div>
+      }
+    </div>
+  </main>
+</div>

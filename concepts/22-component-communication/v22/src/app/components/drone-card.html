@@ -1,0 +1,61 @@
+<div class="drone-card" [class.drone-critical]="nivelCriticoBateria()">
+  <div class="drone-header">
+    <div class="drone-meta">
+      <span class="drone-id">{{ drone().id }}</span>
+      <span class="badge-status" [ngClass]="{
+        'status-espera': drone().status === 'Em Espera',
+        'status-voando': drone().status === 'Em Pulverização' || drone().status === 'Mapeando',
+        'status-retorno': drone().status === 'Retornando à Base'
+      }">
+        {{ drone().status }}
+      </span>
+    </div>
+    <span class="badge-mode">{{ modoOperacao() === 'automatico' ? 'Piloto Automático' : 'Controle Manual' }}</span>
+  </div>
+
+  <h3 class="drone-title">{{ drone().modelo }}</h3>
+  <p class="drone-task">{{ drone().finalidade }} no {{ drone().talhaoDesignado }}</p>
+
+  <div class="drone-specs">
+    <div class="spec-item">
+      <span class="spec-label">Bateria:</span>
+      <span class="spec-val" [class.text-danger]="nivelCriticoBateria()">
+        {{ drone().bateriaPercentual }}% ({{ autonomiaMinutos() }} min restantes)
+      </span>
+    </div>
+
+    <div class="spec-item">
+      <span class="spec-label">Tanque de Calda:</span>
+      <span class="spec-val">{{ drone().capacidadeTanqueLitros }} Litros</span>
+    </div>
+
+    <div class="spec-item altitude-box">
+      <span class="spec-label">Altitude de Voo Operacional (Signal Model):</span>
+      <div class="altitude-control">
+        <button type="button" class="btn-alt" (click)="ajustarAltitude(-2)">-2m</button>
+        <span class="altitude-val">{{ altitudeVoo() }} metros</span>
+        <button type="button" class="btn-alt" (click)="ajustarAltitude(2)">+2m</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="drone-actions">
+    <button
+      type="button"
+      class="btn btn-primary"
+      (click)="iniciarVoo()"
+      [disabled]="drone().status === 'Em Pulverização' || drone().status === 'Mapeando'"
+    >
+      Autorizar Decolagem
+    </button>
+
+    <button
+      type="button"
+      class="btn btn-warning"
+      (click)="solicitarRetorno()"
+      [disabled]="drone().status === 'Em Espera' || drone().status === 'Retornando à Base'"
+    >
+      Retornar à Base
+    </button>
+  </div>
+</div>

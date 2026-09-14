@@ -1,0 +1,68 @@
+<div class="main-container">
+  <header class="header">
+    <div class="header-left">
+      <span class="badge-version">Angular 15</span>
+      <h1>{{ title }}</h1>
+    </div>
+  </header>
+
+  <main class="content">
+    <!-- Painel de Controle Superior da Central (Componente Pai) -->
+    <div class="card control-bar">
+      <div class="control-info">
+        <h2>Central de Controle da Frota de Drones</h2>
+        <p class="subtitle">
+          Demonstração de <code>@Input()</code>, <code>@Output()</code> com <code>EventEmitter</code> e Two-Way Data Binding com convenção manual <code>[(altitudeVoo)]</code>.
+        </p>
+      </div>
+
+      <div class="control-actions">
+        <div class="global-alt-box">
+          <span class="label">Altitude Geral Sincronizada:</span>
+          <strong class="val">{{ altitudePadrao }} metros</strong>
+          <span class="hint">(Sincronizada bidirecionalmente com os cartões filhos)</span>
+        </div>
+
+        <button type="button" class="btn btn-secondary" (click)="alternarModoOperacao()">
+          Modo Frota: {{ modoGlobal === 'automatico' ? 'Automático' : 'Manual' }}
+        </button>
+      </div>
+    </div>
+
+    <!-- Alerta de Bloqueio Operacional -->
+    <div *ngIf="alertaEmergencia" class="alert alert-danger">
+      <strong>Atenção de Segurança:</strong> {{ alertaEmergencia }}
+    </div>
+
+    <!-- Lista de Drones (Componentes Filhos) -->
+    <div class="drones-grid">
+      <app-drone-card
+        *ngFor="let d of frotaDrones"
+        [drone]="d"
+        [modoOperacao]="modoGlobal"
+        [(altitudeVoo)]="altitudePadrao"
+        (missaoIniciada)="processarDecolagem($event)"
+        (retornoBase)="processarRetorno($event)"
+        (alertaEmergencia)="tratarAlerta($event)"
+      >
+      </app-drone-card>
+    </div>
+
+    <!-- Auditoria de Eventos Disparados pelos Filhos -->
+    <div class="card logs-card">
+      <div class="logs-header">
+        <h3>Histórico de Eventos Recebidos dos Drones (Outputs)</h3>
+        <span class="log-count">{{ logsOperacionais.length }} registros</span>
+      </div>
+
+      <div *ngIf="logsOperacionais.length === 0" class="empty-logs">
+        Nenhum comando operacional disparado até o momento.
+      </div>
+
+      <div *ngFor="let l of logsOperacionais" class="log-item" [ngClass]="'log-' + l.tipo">
+        <span class="log-time">{{ l.horario }}</span>
+        <span class="log-msg">{{ l.mensagem }}</span>
+      </div>
+    </div>
+  </main>
+</div>
