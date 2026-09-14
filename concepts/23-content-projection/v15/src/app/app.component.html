@@ -1,0 +1,92 @@
+<div class="main-container">
+  <header class="header">
+    <div class="header-left">
+      <span class="badge-version">Angular 15</span>
+      <h1>{{ title }}</h1>
+    </div>
+  </header>
+
+  <main class="content">
+    <div class="card intro-card">
+      <h2>Painel de Indicadores Agropecuários (Fazenda Santa Maria)</h2>
+      <p class="subtitle">
+        Demonstração de Projeção Multi-slot com <code>&lt;ng-content select="..."&gt;</code> e a limitação clássica para fallback (contornada via <code>@ContentChild</code> e <code>*ngIf</code>).
+      </p>
+    </div>
+
+    <div class="cards-grid">
+      <!-- Cenário 1: Todos os slots fornecidos pelo consumidor -->
+      <app-agro-card>
+        <div #customHeader card-header class="custom-header harvest-header">
+          <span class="badge-tag">Talhão 08 - Soja</span>
+          <h3>Boletim de Colheita Diária</h3>
+        </div>
+
+        <div card-body class="custom-body">
+          <div class="metric-row">
+            <span>Sacas Estimadas:</span>
+            <strong>62.000 sc</strong>
+          </div>
+          <div class="metric-row">
+            <span>Sacas Realizadas:</span>
+            <strong class="text-success">{{ sacasColhidas }} sc</strong>
+          </div>
+          <div class="metric-row">
+            <span>Umidade Média dos Grãos:</span>
+            <strong>13.4%</strong>
+          </div>
+          <p class="status-text">Status: <strong>{{ safraStatus }}</strong></p>
+        </div>
+
+        <div #customFooter card-footer class="custom-footer">
+          <button type="button" class="btn btn-primary" (click)="exportarRelatorio()">
+            Exportar Boletim PDF
+          </button>
+          <span *ngIf="ultimaExportacao" class="export-time">Gerado às: {{ ultimaExportacao }}</span>
+        </div>
+      </app-agro-card>
+
+      <!-- Cenário 2: Omissão do slot de rodapé (aciona o fallback de rodapé) -->
+      <app-agro-card>
+        <div #customHeader card-header class="custom-header pivot-header">
+          <span class="badge-tag tag-pivot">Pivô Central 07</span>
+          <h3>Irrigação de Precisão</h3>
+        </div>
+
+        <div card-body class="custom-body">
+          <div class="metric-row">
+            <span>Pressão da Linha:</span>
+            <strong>3.8 bar</strong>
+          </div>
+          <div class="metric-row">
+            <span>Lâmina Aplicada:</span>
+            <strong>8.5 mm/h</strong>
+          </div>
+          <div class="metric-row">
+            <span>Tempo Restante no Ciclo:</span>
+            <strong>03h 45m</strong>
+          </div>
+          <p class="hint-text">
+            Este cartão omitiu intencionalmente a tag <code>[card-footer]</code> para testar a renderização do rodapé padrão.
+          </p>
+        </div>
+      </app-agro-card>
+
+      <!-- Cenário 3: Omissão de cabeçalho e rodapé (aciona ambos os fallbacks) -->
+      <app-agro-card>
+        <div card-body class="custom-body">
+          <h4 class="alert-title">Alerta Agroclimático: Frente Fria</h4>
+          <p>
+            Queda térmica prevista para as 04:00 da madrugada com probabilidade de geada leve nas baixadas do Talhão 02.
+          </p>
+          <div class="alert-box">
+            <span>Recomendação: Suspender irrigação noturna para evitar encharcamento da raiz.</span>
+          </div>
+          <p class="hint-text">
+            Este cartão forneceu exclusivamente o <code>[card-body]</code>. Cabeçalho e rodapé foram preenchidos pelo mecanismo de fallback clássico.
+          </p>
+        </div>
+      </app-agro-card>
+    </div>
+  </main>
+</div>

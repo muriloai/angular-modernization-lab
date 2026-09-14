@@ -1,0 +1,30 @@
+<div class="agro-card">
+  <!-- Slot de Cabeçalho com Verificação Clássica de Fallback -->
+  <div class="card-header" *ngIf="hasCustomHeader; else defaultHeaderTemplate">
+    <ng-content select="[card-header]"></ng-content>
+  </div>
+
+  <ng-template #defaultHeaderTemplate>
+    <div class="card-header default-header">
+      <div class="default-badge">Indicador Geral</div>
+      <h3 class="card-title">Módulo Agropecuário</h3>
+    </div>
+  </ng-template>
+
+  <!-- Slot de Corpo Principal -->
+  <div class="card-body">
+    <ng-content select="[card-body]"></ng-content>
+  </div>
+
+  <!-- Slot de Rodapé com Verificação Clássica de Fallback -->
+  <div class="card-footer" *ngIf="hasCustomFooter; else defaultFooterTemplate">
+    <ng-content select="[card-footer]"></ng-content>
+  </div>
+
+  <ng-template #defaultFooterTemplate>
+    <div class="card-footer default-footer">
+      <span class="status-indicator">Monitoramento Automático Ativo</span>
+      <span class="note">Nenhuma ação manual requerida no momento.</span>
+    </div>
+  </ng-template>
+</div>

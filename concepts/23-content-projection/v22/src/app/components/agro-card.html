@@ -1,0 +1,24 @@
+<div class="agro-card">
+  <!-- Slot de Cabeçalho com Fallback Nativo no Angular 22 -->
+  <div class="card-header">
+    <ng-content select="[card-header]">
+      <div class="default-badge">Indicador Geral</div>
+      <h3 class="card-title">Módulo Agropecuário</h3>
+    </ng-content>
+  </div>
+
+  <!-- Slot de Corpo Principal com Fallback Nativo -->
+  <div class="card-body">
+    <ng-content select="[card-body]">
+      <p class="empty-body">Nenhum dado telemétrico transmitido nesta janela de tempo.</p>
+    </ng-content>
+  </div>
+
+  <!-- Slot de Rodapé com Fallback Nativo -->
+  <div class="card-footer">
+    <ng-content select="[card-footer]">
+      <span class="status-indicator">Monitoramento Automático Ativo</span>
+      <span class="note">Nenhuma ação manual requerida no momento.</span>
+    </ng-content>
+  </div>
+</div>
