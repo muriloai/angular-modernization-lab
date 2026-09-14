@@ -1,0 +1,171 @@
+<div class="sensors-container">
+  <div class="header-box">
+    <h2>Central de Telemetria e Monitoramento de Sensores</h2>
+    <p class="subtitle">
+      Comunicação moderna com <code>Resource API</code> (<code>resource()</code>), Signals nativos e Built-in Control Flow.
+    </p>
+  </div>
+
+  <!-- Barra de Ações Rápidas e Simulação -->
+  <div class="toolbar">
+    <button
+      type="button"
+      class="btn btn-secondary"
+      (click)="sensorsResource.reload()"
+      [disabled]="sensorsResource.isLoading() || isMutating()"
+    >
+      Atualizar Dados (.reload())
+    </button>
+    <button
+      type="button"
+      class="btn"
+      [class.btn-danger]="apiService.isFalhaAtiva()"
+      [class.btn-outline]="!apiService.isFalhaAtiva()"
+      (click)="alternarFalha()"
+    >
+      {{ apiService.isFalhaAtiva() ? 'Desativar Simulação de Falha' : 'Simular Erro de Rede HTTP' }}
+    </button>
+  </div>
+
+  <!-- Mensagens de Alerta -->
+  @if (mensagemSucesso()) {
+    <div class="alert alert-success">
+      {{ mensagemSucesso() }}
+    </div>
+  }
+
+  @if (sensorsResource.error(); as err) {
+    <div class="alert alert-danger">
+      Falha telemétrica detectada pelo Resource: {{ err }}
+    </div>
+  }
+
+  <!-- Estado de Carregamento Nativo da Resource API -->
+  @if (sensorsResource.isLoading()) {
+    <div class="loading-panel">
+      <div class="spinner"></div>
+      <span>Sincronizando transmissores telemétricos via Resource API...</span>
+    </div>
+  } @else if (!sensorsResource.error()) {
+    <!-- Grid de Sensores extraído de sensorsResource.value() -->
+    <div class="sensors-grid">
+      @for (s of sensorsResource.value(); track s.id) {
+        <div class="sensor-card">
+          <div class="sensor-card-header">
+            <div>
+              <span class="sensor-id">{{ s.id }}</span>
+              <span
+                class="status-badge"
+                [class.badge-ok]="s.status === 'Operacional'"
+                [class.badge-calib]="s.status === 'Calibração'"
+              >
+                {{ s.status }}
+              </span>
+            </div>
+            <span class="battery-chip">Bateria: {{ s.bateria }}%</span>
+          </div>
+
+          <h4 class="sensor-name">{{ s.nome }}</h4>
+          <p class="sensor-type">{{ s.tipo }}</p>
+          <p class="sensor-talhao">{{ s.talhao }}</p>
+
+          <div class="sensor-reading">
+            <span class="reading-label">Última Leitura:</span>
+            <span class="reading-value">{{ s.valorLeitura }}</span>
+          </div>
+
+          <div class="sensor-actions">
+            <button
+              type="button"
+              class="btn-sm btn-action"
+              (click)="alternarStatus(s)"
+            >
+              Alternar Calibração
+            </button>
+            <button
+              type="button"
+              class="btn-sm btn-delete"
+              (click)="excluirSensor(s.id)"
+            >
+              Descomissionar
+            </button>
+          </div>
+        </div>
+      } @empty {
+        <p>Nenhum sensor conectado à rede.</p>
+      }
+    </div>
+  }
+
+  <!-- Formulário de Cadastro Rápido -->
+  <div class="card add-form-card">
+    <h3>Instalação de Novo Sensor de Campo</h3>
+    <form (ngSubmit)="cadastrarSensor()" class="add-form">
+      <div class="form-row">
+        <div class="form-group">
+          <label for="nome">Nome do Sensor:</label>
+          <input
+            id="nome"
+            name="nome"
+            type="text"
+            [ngModel]="novoNome()"
+            (ngModelChange)="novoNome.set($event)"
+            class="form-control"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="tipo">Tipo / Medição:</label>
+          <input
+            id="tipo"
+            name="tipo"
+            type="text"
+            [ngModel]="novoTipo()"
+            (ngModelChange)="novoTipo.set($event)"
+            class="form-control"
+            required
+          />
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="talhao">Localização / Talhão:</label>
+          <input
+            id="talhao"
+            name="talhao"
+            type="text"
+            [ngModel]="novoTalhao()"
+            (ngModelChange)="novoTalhao.set($event)"
+            class="form-control"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="leitura">Leitura Inicial:</label>
+          <input
+            id="leitura"
+            name="leitura"
+            type="text"
+            [ngModel]="novoValor()"
+            (ngModelChange)="novoValor.set($event)"
+            class="form-control"
+            required
+          />
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <button
+          type="submit"
+          class="btn btn-primary"
+          [disabled]="sensorsResource.isLoading() || isMutating()"
+        >
+          Registrar Sensor na Rede
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
