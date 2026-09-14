@@ -1,0 +1,82 @@
+.viewer-card {
+  background: #ffffff;
+  border-radius: 8px;
+  padding: 16px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.viewer-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  border-bottom: 1px solid #f1f5f9;
+  padding-bottom: 12px;
+}
+
+h4 {
+  font-size: 1.1rem;
+  color: #0f172a;
+  margin: 0 0 4px 0;
+}
+
+.inspector-tag {
+  font-size: 0.75rem;
+  color: #64748b;
+}
+
+.status-pill {
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 4px 8px;
+  border-radius: 9999px;
+  background-color: #fef3c7;
+  color: #b45309;
+}
+
+.status-pill.approved {
+  background-color: #dcfce7;
+  color: #15803d;
+}
+
+.render-section {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.section-title {
+  display: flex;
+  flex-direction: column;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #15803d;
+}
+
+.section-title small {
+  font-weight: 400;
+  color: #64748b;
+}
+
+.warning-title {
+  color: #b45309;
+}
+
+.rendered-box {
+  padding: 12px;
+  border-radius: 6px;
+  border: 1px solid #e2e8f0;
+  min-height: 48px;
+  font-size: 0.875rem;
+}
+
+.safe-box {
+  background-color: #f8fafc;
+}
+
+.warning-box {
+  background-color: #fffbeb;
+  border-color: #fde68a;
+}

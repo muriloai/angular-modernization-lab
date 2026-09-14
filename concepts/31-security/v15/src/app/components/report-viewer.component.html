@@ -1,0 +1,27 @@
+<div class="viewer-card">
+  <div class="viewer-header">
+    <div>
+      <h4>{{ report.field }}</h4>
+      <span class="inspector-tag">Inspetor: {{ report.inspector }} | {{ report.date }}</span>
+    </div>
+    <span class="status-pill" [class.approved]="report.hasAuditApproval">
+      {{ report.hasAuditApproval ? 'Auditado' : 'Pendente de Auditoria' }}
+    </span>
+  </div>
+
+  <div class="render-section">
+    <div class="section-title">
+      <span>Conteúdo Sanitizado Automaticamente (Padrão Angular):</span>
+      <small>Remove automaticamente scripts e manipuladores inline maliciosos</small>
+    </div>
+    <div class="rendered-box safe-box" [innerHTML]="report.htmlNotes"></div>
+  </div>
+
+  <div class="render-section" *ngIf="allowBypass">
+    <div class="section-title warning-title">
+      <span>Conteúdo com bypassSecurityTrustHtml (Modo Auditado):</span>
+      <small>Renderiza o conteúdo exato, liberando estilos e iframes confiáveis</small>
+    </div>
+    <div class="rendered-box warning-box" [innerHTML]="trustedContent"></div>
+  </div>
+</div>

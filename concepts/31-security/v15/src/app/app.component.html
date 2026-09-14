@@ -1,0 +1,22 @@
+<header class="main-header">
+  <div class="header-badge">Angular 15 - DomSanitizer e Proteção Nativa contra XSS</div>
+  <h1>{{ title }}</h1>
+  <p class="description">
+    Demonstrando a neutralização automática de scripts via <code>[innerHTML]</code> e o uso controlado de <code>DomSanitizer.bypassSecurityTrustHtml</code>.
+  </p>
+
+  <div class="controls">
+    <button (click)="toggleBypass()" class="btn" [class.btn-warn]="allowAuditBypass" [class.btn-primary]="!allowAuditBypass">
+      Modo Auditoria Bypass: {{ allowAuditBypass ? 'ATIVADO (Risco Monitorado)' : 'DESATIVADO (Seguro)' }}
+    </button>
+  </div>
+</header>
+
+<main class="reports-container">
+  <div *ngFor="let report of reports" class="report-wrapper">
+    <app-report-viewer 
+      [report]="report" 
+      [allowBypass]="allowAuditBypass && report.hasAuditApproval">
+    </app-report-viewer>
+  </div>
+</main>
