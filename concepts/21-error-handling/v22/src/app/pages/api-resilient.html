@@ -1,0 +1,136 @@
+<div class="resilient-container">
+  <div class="header-box">
+    <h2>Monitoramento Resiliente dos Silos de Armazenamento</h2>
+    <p class="subtitle">
+      Arquitetura reativa com <code>resource()</code>, Signals, Zoneless Change Detection e capturador central <code>AgroErrorHandler</code>.
+    </p>
+  </div>
+
+  <!-- Barra de Ações para Simulação de Cenários -->
+  <div class="toolbar card">
+    <h3>Simulação de Conexão de Campo (Silos)</h3>
+    <div class="btn-group">
+      <button
+        type="button"
+        class="btn btn-success"
+        (click)="executarCarregamentoPadrao()"
+        [disabled]="silosResource.isLoading()"
+      >
+        Conexão Normal (Sem Falhas)
+      </button>
+
+      <button
+        type="button"
+        class="btn btn-warning"
+        (click)="simularFalhaTransitoria()"
+        [disabled]="silosResource.isLoading()"
+      >
+        Falha Transitória (2 falhas + sucesso no retry 3)
+      </button>
+
+      <button
+        type="button"
+        class="btn btn-danger"
+        (click)="simularFalhaPersistente()"
+        [disabled]="silosResource.isLoading()"
+      >
+        Falha Crítica (Esgota retries e entra em contingência)
+      </button>
+
+      <button
+        type="button"
+        class="btn btn-outline"
+        (click)="forcarErroNaoTratado()"
+      >
+        Disparar Erro Global (ErrorHandler)
+      </button>
+    </div>
+  </div>
+
+  <!-- Estado de Carregamento e Contador de Retries -->
+  @if (silosResource.isLoading()) {
+    <div class="loading-panel">
+      <div class="spinner"></div>
+      <div>
+        <span class="loading-text">Consultando telemetria dos silos de grãos...</span>
+        @if (silosService.contadorTentativas() > 1) {
+          <span class="retry-badge">
+            Tentativa de reconexão: {{ silosService.contadorTentativas() }} de 3
+          </span>
+        }
+      </div>
+    </div>
+  }
+
+  <!-- Banner de Contingência -->
+  @if (isModoContingencia()) {
+    <div class="alert alert-warning">
+      <strong>Atenção Operacional:</strong> Conexão de campo instável. Apresentando dados em cache local seguro via Resource API.
+    </div>
+  }
+
+  <!-- Grid de Silos de Grãos -->
+  @if (!silosResource.isLoading()) {
+    <div class="silos-grid">
+      @for (s of silosResource.value(); track s.id) {
+        <div class="silo-card" [class.silo-offline]="isModoContingencia()">
+          <div class="silo-header">
+            <span class="silo-id">{{ s.id }}</span>
+            <span class="grain-badge">{{ s.graoArmazenado }}</span>
+          </div>
+
+          <h4 class="silo-title">{{ s.identificacao }}</h4>
+
+          <div class="silo-stats">
+            <div class="stat-row">
+              <span>Ocupação de Grãos:</span>
+              <strong>{{ s.ocupacaoAtual }} / {{ s.capacidadeToneladas }} ton</strong>
+            </div>
+            <div class="stat-row">
+              <span>Temperatura Média da Massa:</span>
+              <strong>{{ s.temperaturaMedia }}</strong>
+            </div>
+            <div class="stat-row">
+              <span>Umidade dos Grãos:</span>
+              <strong>{{ s.umidadeGraos }}</strong>
+            </div>
+            <div class="stat-row">
+              <span>Aeração Forçada:</span>
+              <span class="aeracao-status" [class.aeracao-on]="s.aeracaoAtiva">
+                {{ s.aeracaoAtiva ? 'Ligada' : 'Desligada' }}
+              </span>
+            </div>
+          </div>
+
+          <div class="silo-footer">
+            <span>Última Sincronização: {{ tempoUltimaSincronizacao() }}</span>
+          </div>
+        </div>
+      }
+    </div>
+  }
+
+  <!-- Painel do Capturador Central de Erros (AgroErrorHandler) -->
+  <div class="card error-logs-card">
+    <div class="logs-header">
+      <h3>Auditoria do Capturador Global (AgroErrorHandler com Signals)</h3>
+      <span class="log-count">{{ errorHandler.logs().length }} falhas catalogadas</span>
+    </div>
+
+    @if (errorHandler.logs().length === 0) {
+      <div class="empty-logs">
+        Nenhuma falha crítica registrada até o momento no sistema de grãos.
+      </div>
+    }
+
+    @for (log of errorHandler.logs(); track log.timestamp) {
+      <div class="error-log-item">
+        <div class="log-top">
+          <span class="log-origin">{{ log.origem }}</span>
+          <span class="log-time">{{ log.timestamp }}</span>
+        </div>
+        <div class="log-msg">{{ log.mensagem }}</div>
+      </div>
+    }
+  </div>
+</div>
