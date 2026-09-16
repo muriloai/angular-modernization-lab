@@ -6,6 +6,16 @@ O objetivo deste repositório é demonstrar como funcionalidades equivalentes er
 
 ---
 
+## Documentação e Guias Rápidos
+
+Para acelerar o estudo e a consulta diária de migração, consulte os guias consolidados na pasta [`docs/`](docs/):
+
+- [Resumo Consolidado de Mudanças (Changes Summary)](docs/CHANGES-SUMMARY.md): síntese dos saltos tecnológicos e arquiteturais entre o Angular 15 e o Angular 22 organizados por dimensão técnica.
+- [Guia Rápido de Referência (Cheat Sheet)](docs/CHEAT-SHEET.md): dicionário de tradução rápida ("De -> Para") de tarefas cotidianas e sintaxes comparadas.
+- [Índice Geral de Conceitos (Concepts Index)](docs/CONCEPTS-INDEX.md): catálogo completo dos 40 conceitos com mapeamento de portas locais e links diretos para cada guia.
+
+---
+
 ## Arquitetura do Repositório: Conceitos Isolados
 
 Cada conceito técnico possui sua própria pasta independente dentro do diretório `concepts/`, contendo dois mini-projetos funcionais:
@@ -165,4 +175,4 @@ npm start
 
 Acesse a aplicação no navegador em: `http://localhost:4200`
 
-Para detalhes específicos de cada laboratório, consulte o arquivo `README.md` localizado na pasta de cada conceito.
+Para detalhes específicos de cada laboratório, consulte o arquivo `README.md` localizado na pasta de cada conceito ou consulte o [Índice Geral de Conceitos](docs/CONCEPTS-INDEX.md).
